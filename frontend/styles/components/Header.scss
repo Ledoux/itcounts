@@ -1,0 +1,32 @@
+.header {
+  background-color: $middle-grey;
+  color: black;
+  align-items: center;
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (min-width: $sm) {
+    height: $header-height;
+  }
+
+  .logo {
+    height: $header-height - 1rem;
+    width: 10rem;
+    margin-left: 0.75rem;
+  }
+
+  &__top-nav {
+    height: 100%;
+
+    &__link {
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 2.5rem;
+      color: black;
+      height: 5rem;
+    }
+  }
+}
