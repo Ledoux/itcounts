@@ -62,7 +62,7 @@
     "bundle": "echo **BUNDLE** && NODE_ENV=production && node_modules/webpack/bin/webpack.js -p --progress --bail --config ./bundler/prod.config.js",
     "deploy-stg": "echo **DEPLOY STAGING** && npm run build-stg && cd backend/servers/express-webrouter && sh scripts/staging_heroku_deploy.sh",
     "deploy-prod": "echo **DEPLOY PRODUCTION** && npm run build-prod && cd backend/servers/express-webrouter && sh scripts/production_heroku_deploy.sh",
-    "dev-backend": "echo **DEV BACKEND** && export TYPE=localhost && cd backend/servers/express-webrouter && sh scripts/heroku_start.sh",
+    "dev-backend": "echo **DEV BACKEND** && export TYPE=localhost && cd backend/servers/express-webrouter && npm run dev",
     "dev-frontend": "echo **DEV FRONTEND** && export TYPE=localhost && NODE_ENV=webpack node ./bundler/hotAssetsServer.js",
     "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\"",
     "lint": "echo **LINT** && npm run lint--js && npm run lint--css",

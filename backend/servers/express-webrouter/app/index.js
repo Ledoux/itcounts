@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
 
+const models = require('./lib/models')
+
 const app = express()
 app.set('view engine', 'html')
 app.engine('html', ejs.renderFile)
