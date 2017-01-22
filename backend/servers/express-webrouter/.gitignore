@@ -1,4 +1,4 @@
 node_modules
 npm-debug.log
-*secret.json
+secret.js
 yarn-error.log

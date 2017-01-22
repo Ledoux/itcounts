@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
@@ -8,6 +9,8 @@ const app = express()
 app.set('view engine', 'html')
 app.engine('html', ejs.renderFile)
 app.use(express.static(path.join(__dirname, '')))
+app.use(bodyParser.json())
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
 
 const {
  PORT,
@@ -23,5 +26,7 @@ app.get('/', function (req, res) {
     SITE_NAME
   })
 })
+
+require('./lib/routes').default(app) // pass our application into our routes
 
 module.exports.app = app
