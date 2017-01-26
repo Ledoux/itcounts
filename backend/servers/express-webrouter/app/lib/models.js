@@ -21,8 +21,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var secret = JSON.parse(_fs2.default.readFileSync(_path2.default.join(__dirname, '../../config/secret.json')));
 
-var mongoUrl = "mongodb://ec2-52-211-76-129.eu-west-1.compute.amazonaws.com:27017/wax_dfg";
-
 _mongoose2.default.Promise = global.Promise;
 var mongooseConnection = exports.mongooseConnection = _mongoose2.default.createConnection(secret.MONGO_URL);
 

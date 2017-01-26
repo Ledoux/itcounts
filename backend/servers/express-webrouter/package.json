@@ -9,14 +9,14 @@
 	"devDependencies": {
 		"babel-cli": "^6.16.0",
     "babel-polyfill": "^6.16.0",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-preset-stage-3": "^6.17.0",
+    "babel-preset-latest": "6.22.0",
 		"nodemon": "^1.11.0"
 	},
 	"main": "app/index.js",
 	"name": "itcounts-express-webrouter",
 	"scripts": {
-		"compile": "babel --presets es2015,stage-3 -d app/lib/ app/src/",
-		"dev": "nodemon scripts/manage.js --watch app/src --watch app/index.js --exec babel-node --presets es2015,stage-3"
+		"compile": "babel --presets latest -d app/lib/ app/src/",
+		"dev": "nodemon scripts/manage.js --watch app/lib --watch app/index.js --exec node",
+		"watch": "nodemon --watch app/src"
 	}
 }
