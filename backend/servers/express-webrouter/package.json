@@ -16,7 +16,7 @@
 	"main": "app/index.js",
 	"name": "itcounts-express-webrouter",
 	"scripts": {
-		"compile": "./node_modules/.bin/babel --presets es2015,stage-3 -d app/lib/ app/src/",
-		"dev": "./node_modules/nodemon/bin/nodemon.js scripts/manage.js --watch app/src --watch app/index.js --exec babel-node --presets es2015,stage-3"
+		"compile": "babel --presets es2015,stage-3 -d app/lib/ app/src/",
+		"dev": "nodemon scripts/manage.js --watch app/src --watch app/index.js --exec babel-node --presets es2015,stage-3"
 	}
 }
