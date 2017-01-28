@@ -1,3 +1,9 @@
+export function bias (alpha) {
+  return (d) => {
+    d.x += d.bias * alpha
+  }
+}
+
 // Given two quantities a and b, returns the fraction to split the circle a + b.
 export function fraction (a, b) {
   var k = a / (a + b)
