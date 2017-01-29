@@ -17,8 +17,8 @@
 	"name": "itcounts-express-webrouter",
 	"scripts": {
 		"compile": "babel --presets latest -d app/lib/ app/src/",
-		"dev": "concurrently \"npm run manage\" \"npm run watch\"",
-		"manage": "nodemon scripts/manage.js --watch app/lib --watch app/index.js --exec node",
-		"watch": "nodemon --watch app/src --exec \"npm run compile\""
+		"dev": "concurrently \"npm run dev-start\" \"npm run dev-watch\"",
+		"dev-start": "nodemon --watch app/lib --watch app/index.js --exec \"sh scripts/localhost_start.sh\"",
+		"dev-watch": "nodemon --watch app/src --exec \"npm run compile\""
 	}
 }
