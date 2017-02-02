@@ -8,6 +8,9 @@ export async function getAsyncData (value) {
     case 'age':
       request = '/api/dataviz_bubble/age_range/5';
       break
+    case 'commission_permanente':
+      request = '/api/dataviz_bubble/groupBy/commission_permanente';
+      break 
     case 'parti_politique':
     default:
       request = '/api/dataviz_bubble/groupBy/groupe-organisme';

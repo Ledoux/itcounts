@@ -29,7 +29,11 @@ const options = [
   {
     text: 'Par tranche d\'âge',
     value: 'age'
-  }
+  },
+  {
+    text: 'Par commission',
+    value: 'commission_permanente'
+  },
 ]
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
