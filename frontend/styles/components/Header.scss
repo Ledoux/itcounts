@@ -1,8 +1,6 @@
 .header {
-  background-color: $middle-grey;
   color: black;
   align-items: center;
-  position: fixed;
   z-index: 3;
   width: 100%;
   padding-left: 1rem;
@@ -13,20 +11,34 @@
   }
 
   .logo {
-    height: $header-height - 1rem;
-    width: 10rem;
-    margin-left: 0.75rem;
+    height: 66px;
+    width: $logo-width;
   }
 
   &__top-nav {
     height: 100%;
-
-    &__link {
-      font-weight: 600;
-      font-size: 1.125rem;
-      line-height: 2.5rem;
-      color: black;
-      height: 5rem;
+    &__logo {
+      margin-left: 120px;
+      position: relative;
+      &__link {
+        color: $grey;
+        font-family: $font-family;
+        font-weight: 300;
+        font-size: 24px;
+        letter-spacing: 1px;
+        line-height: 2.5rem;
+      }
+      &__text {
+        color: #5878a3;
+        font-size: 16.6px;
+        font-weight: bold;
+        letter-spacing: 0.7px;
+        line-height: 1.19;
+        position: absolute;
+        bottom: 0;
+        left: $logo-width;
+        width: 120px;
+      }
     }
   }
 }

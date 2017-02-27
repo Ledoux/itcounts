@@ -1,7 +1,42 @@
 .home-page {
   position: absolute;
-  top: $header-height;
-  bottom:0;
-  left:0;
-  right:0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  &__welcome-section {
+    background-image: $blue-pastel-gradient;
+    padding-top: 197px;
+    position: relative;
+    &__assembly {
+      height: 343px;
+      width: 548px;
+    }
+    &__buildings {
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+    &__cta {
+      margin-bottom: 110px;
+    }
+    &__subtitle {
+      color: $grey;
+      font-family: $font-family;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.67;
+      margin-bottom: 100px;
+    }
+    &__title {
+      font-family: $font-family;
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 1.58;
+    }
+  }
+  &__equipe-section {
+    background-image: $blue-pastel-gradient;
+  }
 }

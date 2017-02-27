@@ -11,18 +11,23 @@ const Header = ({
   darkHeaderBackground
 }) => (<header className='header'>
   <div className='header__top-nav flex items-center relative'>
-    {/* all these routes are actually external except developers */}
-    <Link
-      className='header__top-nav__link mr3'
-      external='true'
-      href='http://cri-paris.org/en/discover-itcounts-start-promoting-gender-balance/'
-    >
-      <Logo className='header__top-nav__logo' onTopOfDarkSection />
-    </Link>
+    <div className='header__top-nav__logo'>
+      <Link
+        className='header__top-nav__logo__link col'
+        external='true'
+        href='http://cri-paris.org/en/discover-itcounts-start-promoting-gender-balance/'
+      >
+        <Logo />
+      </Link>
+      <div className='header__top-nav__logo__text col'>
+        PARIT&Eacute; <br /> AU POUVOIR
+      </div>
+    </div>
+    <div className='flex-auto' />
     <div className='xs-hide'>
       {links.map(({external, extraClass, label, path}, index) => {
         return (<Link
-          className={classnames('header__top-nav__link py2 mr3',
+          className={classnames('header__top-nav__link p2 mr3',
             extraClass)}
           key={index}
           {...{href: path, external}} >
@@ -31,5 +36,8 @@ const Header = ({
     </div>
   </div>
 </header>)
+
+Header.defaultProps = {
+}
 
 export default connect(null, { showModal })(Header)

@@ -1,10 +1,10 @@
 import App from '../containers/App'
 
-import { links } from './constants'
+import { pages } from './constants'
 
 const routes = {
   component: App,
-  childRoutes: links
+  childRoutes: pages
 }
 
 export default routes

@@ -1,0 +1,10 @@
+.logo {
+  width: 90px;
+  // needed to reset .icon default dimensions
+  height: auto;
+
+  fill: $blue;
+  &--on-dark-bg {
+    fill: white;
+  }
+}
