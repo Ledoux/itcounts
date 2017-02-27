@@ -1,8 +1,24 @@
 {
 	"dependencies": {
+		"body-parser": "~1.4.2",
 		"ejs": "^1.0.0",
-		"express": "^4.14.0"
+		"express": "^4.14.0",
+		"mongoose": "^4.1.9",
+		"s-age": "^1.1.0"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.16.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "6.22.0",
+		"concurrently": "^3.1.0",
+		"nodemon": "^1.11.0"
 	},
 	"main": "app/index.js",
-	"name": "itcounts-express-webrouter"
+	"name": "itcounts-express-webrouter",
+	"scripts": {
+		"compile": "babel --presets latest -d app/lib/ app/src/",
+		"dev": "concurrently \"npm run dev-start\" \"npm run dev-watch\"",
+		"dev-start": "nodemon --watch app/lib --watch app/index.js --exec \"sh scripts/localhost_start.sh\"",
+		"dev-watch": "nodemon --watch app/src --exec \"npm run compile\""
+	}
 }

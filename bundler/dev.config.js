@@ -13,7 +13,7 @@ const hotAssetsServer = {
 
 module.exports = Object.assign(
   config,
-  { hotAssetsServer: hotAssetsServer },
+  { hotAssetsServer },
   {
     devtool: 'source-map',
     entry: Object.assign(
@@ -25,12 +25,9 @@ module.exports = Object.assign(
         ].concat(config.entry.index)
       }
     ),
-    output: Object.assign(
-      config.output,
-      {
-        publicPath: `${hotAssetsServer.url}/${config.output.publicPath}`
-      }
-    ),
+    output: Object.assign(config.output, {
+      publicPath: `${hotAssetsServer.url}/${config.output.publicPath}`
+    }),
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.ProvidePlugin({

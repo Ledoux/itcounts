@@ -11,6 +11,6 @@ function getSagasFromImportObject (importObject) {
 
 export default function * rootSaga () {
   yield [
-    // ...getSagasFromImportObject(pagesSagas)
+    // getSagasFromImportObject(bubblesSagas)
   ].map(fork)
 }
