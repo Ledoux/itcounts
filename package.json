@@ -50,6 +50,7 @@
     "style-loader": "^0.13.0",
     "stylelint": "^7.0.2",
     "stylelint-config-standard": "^11.0.0",
+    "svg-sprite": "^1.3.6",
     "url-loader": "0.5.7",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
@@ -70,7 +71,8 @@
     "lint--js": "node_modules/standard/bin/cmd.js 'frontend/scripts/**/*.js'",
     "lint--css": "node_modules/stylelint/dist/cli.js --syntax scss 'frontend/styles/**/*.scss'",
     "postinstall": "cd backend/servers/express-webrouter && yarn",
-    "prod": "export TYPE=production && cd backend/servers/express-webrouter && sh scripts/heroku_start.sh"
+    "prod": "export TYPE=production && cd backend/servers/express-webrouter && sh scripts/heroku_start.sh",
+    "sprite-icons": "svg-sprite -d --di --defs-dest=backend/servers/express-webrouter/app/templates --ds _icon-sprite.html icons/*.svg"
   },
   "version": "0.0.1"
 }
