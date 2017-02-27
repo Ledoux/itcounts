@@ -34,6 +34,10 @@ const options = [
     text: 'Par commission',
     value: 'commission_permanente'
   },
+  {
+    text: 'Par mandat',
+    value: 'mandat'
+  },
 ]
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho

@@ -10,6 +10,9 @@ export async function getAsyncData (value) {
       break
     case 'commission_permanente':
       request = '/api/dataviz_bubble/groupBy/commission_permanente';
+      break
+     case 'mandat':
+      request = '/api/dataviz_bubble/groupBy/nb_mandats';
       break 
     case 'parti_politique':
     default:
