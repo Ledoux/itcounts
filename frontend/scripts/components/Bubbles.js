@@ -1,3 +1,5 @@
+// inspiration from http://www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html#Economy
+// https://static01.nyt.com/newsgraphics/2012/09/04/convention-speeches/ac823b240e99920e91945dbec49f35b268c09c38/index.js
 import { max } from 'd3-array'
 import { drag } from 'd3-drag'
 import { format } from 'd3-format'
@@ -6,8 +8,6 @@ import {
   forceCollide,
   forceManyBody,
   forceSimulation
-  // forceX,
-  // forceY
 } from 'd3-force'
 import { quadtree } from 'd3-quadtree'
 import { scaleSqrt } from 'd3-scale'
@@ -49,7 +49,12 @@ export default class Bubbles extends Component {
     const { forceStrength, height, width } = this.props
     // init svg element
     const svgElement = document.querySelector('.bubbles__svg')
+    const svgElementClientRect = svgElement.getBoundingClientRect()
+    const svgElementLeft = svgElementClientRect.left
+    const svgElementTop = svgElementClientRect.top
+    const labelsDivElement = document.querySelector('.g-labels')
     const svgSelection = this.svgSelection = select(svgElement)
+    const labelsDivSelection = this.labelsSelection = select(labelsDivElement)
     svgSelection.append('rect')
       .attr('class', 'g-overlay')
       .attr('width', width)
@@ -57,6 +62,7 @@ export default class Bubbles extends Component {
     // init nodes and labels selection
     const nodesSelection = this.nodesSelection = svgSelection
       .selectAll('.g-node')
+    //const labelsSelection = this.labelsSelection = labelsDivSelection
     const labelsSelection = this.labelsSelection = svgSelection
       .selectAll('.g-label')
     // init simulation
@@ -71,15 +77,10 @@ export default class Bubbles extends Component {
        // unpack
        const { collide, nodesSelection, labelsSelection } = this
        // transform
-       console.log('labelsSelection', labelsSelection)
        nodesSelection
-        // .each(bias(simulation.alpha * 105))
         .attr('transform', d => {
-          return 'translate(' + Math.max(50, d.x) + ',' + d.y + ')'
+          return 'translate(' + d.x + ',' + d.y + ')'
         })
-       labelsSelection
-        .style('left', d => (Math.max(50, d.x) - d.dx / 2) + 'px')
-        .style('top', d => (d.y - d.dy / 2) + 'px')
      })
      .stop()
     // drag
@@ -140,9 +141,6 @@ export default class Bubbles extends Component {
     nodesSelection = nodesSelection
       .data(nodes, d => d.name)
     nodesSelection.exit().remove()
-    labelsSelection = labelsSelection
-      .data(nodes, d => d.name)
-    labelsSelection.exit().remove()
     // we append the data into the selected elements
     // nodes and labels
     // and we split special element given homme/femme features
@@ -204,58 +202,26 @@ export default class Bubbles extends Component {
       .attr('y1', d => -Math.sqrt(d.r * d.r - Math.pow(-d.r + 2 * d.r * d.k, 2)))
       .attr('x2', d => -d.r + 2 * d.r * d.k)
       .attr('y2', d => Math.sqrt(d.r * d.r - Math.pow(-d.r + 2 * d.r * d.k, 2)))
+
     // all circles
     nodesSelection.selectAll('circle')
-      .attr('r', d => this.getRadius(d.count))
-    // label
-    this.labelsSelection = labelsSelection = labelsSelection
-        .enter()
-        .append('a')
-        .attr('id', d => 'label_' + d.id )
-        .attr('class', d => {
-          d.element = document.querySelector('#label_' + d.id)
-          return 'g-label'
-        })
-        .attr('class', 'g-label')
-        .call(linkTopic)
-    labelsSelection
-        .append('div')
-        .attr('class', 'g-name')
-        .text(d => d.name)
-    /*labelsSelection.append('div')
-        .attr('class', 'g-percent')
-        .style('font-size', d => Math.max(10, d.r / 2) + 'px'; })
-        .text(d =>Math.round(d.F/(d.F + d.H) * 100) + ' %'; });*/
-    labelsSelection
+      .attr('r', d => { d.r = this.getRadius(d.count); return d.r})
+
+    nodesSelection
+      .append('foreignObject')
+      .attr('width', d => 2 * d.r)
+      .attr('height', d => 2 * d.r)
+      .attr('transform', d => {
+        return 'translate(' + -d.r + ',' + -d.r + ')'
+      })
+      .append('xhtml:body')
+      .style('font', '14px \'Helvetica Neue\'')
+      .style('height', '100%')
+      .attr('class', 'flex justify-center items-center')
       .append('div')
-      .attr('class', 'g-value')
-      .style('font-size', d => Math.max(10, d.r / 3) + 'px')
-      .text(d => d.F +' - '+ d.H)
-    labelsSelection
-      .style('font-size', d => Math.max(10, d.r / 4) + 'px')
-      .style('width', d => d.r + 'px')
-      .style('display', 'flex')
-    // Create a temporary span to compute the true text width.
-    labelsSelection
-      .append('span')
+      .attr('class', 'g-name')
       .text(d => d.name)
-      .each(d => {
-        // console.log('d', d)
-        return Math.max(d.r * 2.5, d.element.getBoundingClientRect().width)
-        // return Math.max(d.r * 2.5, 100)
-      })
-      .remove()
-    labelsSelection
-      .style('width', d => d.dx + 'px')
-    // Compute the height of labels when wrapped.
-    labelsSelection
-      .each(d => {
-        // return 100
-        return d.element.getBoundingClientRect().height
-      })
-      .style('height', d => d.dy + 'px')
-    // add padding
-    selectAll('.g-name').style('margin','auto')
+    // label
     selectAll('.g-value').style('margin','auto')
     // update simulation
     simulation.nodes(nodes)
@@ -332,6 +298,7 @@ export default class Bubbles extends Component {
             }
           </select>
         </div>
+        <div className='g-labels'></div>
         <svg
           className='bubbles__svg'
           height={height}
@@ -346,7 +313,7 @@ export default class Bubbles extends Component {
 Bubbles.defaultProps = {
   collisionPadding: 4,
   clipPadding: 4,
-  forceStrength: -100,
+  forceStrength: 100,
   height: 400,
   minRadius: 40, // minimum collision radius
   maxRadius: 70, // also determines collision search radius
