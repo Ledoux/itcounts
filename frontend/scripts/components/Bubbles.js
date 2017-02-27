@@ -8,8 +8,6 @@ import {
   forceCollide,
   forceManyBody,
   forceSimulation
-  // forceX,
-  // forceY
 } from 'd3-force'
 import { quadtree } from 'd3-quadtree'
 import { scaleSqrt } from 'd3-scale'
@@ -76,18 +74,9 @@ export default class Bubbles extends Component {
        const { collide, nodesSelection, labelsSelection } = this
        // transform
        nodesSelection
-        // .each(bias(simulation.alpha * 105))
         .attr('transform', d => {
           return 'translate(' + d.x + ',' + d.y + ')'
         })
-        /*
-       labelsSelection
-        .style('left', d => {
-          d.element
-          return (svgElementClientRect.left - 33 + d.x) + 'px'
-        })
-        .style('top', d => (svgElementClientRect.top - 120 + d.y) + 'px')
-        */
      })
      .stop()
     // drag
@@ -148,11 +137,6 @@ export default class Bubbles extends Component {
     nodesSelection = nodesSelection
       .data(nodes, d => d.name)
     nodesSelection.exit().remove()
-    /*
-    labelsSelection = labelsSelection
-      .data(nodes, d => d.name)
-    labelsSelection.exit().remove()
-    */
     // we append the data into the selected elements
     // nodes and labels
     // and we split special element given homme/femme features
@@ -230,81 +214,10 @@ export default class Bubbles extends Component {
       .style('font', '14px \'Helvetica Neue\'')
       .style('height', '100%')
       .attr('class', 'flex justify-center items-center')
-      // .html(d => `<div class='g-labe'/>`)
       .append('div')
-      //.style('height', '100%')
-      // .style('line-height', d => 2*d.r + 'px')
       .attr('class', 'g-name')
       .text(d => d.name)
-
-
     // label
-    /*
-    this.labelsSelection = labelsSelection = labelsSelection
-        .enter()
-        .append('a')
-        .attr('id', d => 'label_' + d.id )
-        .attr('class', d => {
-          d.element = document.querySelector('#label_' + d.id)
-          return 'g-label'
-        })
-        .call(linkTopic)
-    */
-    /*
-    d3.selectAll('.g-label')
-      .append('div')
-      .attr('class', 'g-name')
-      .text(d => d.name)
-      */
-
-    //labelsSelection = this.labelsSelection =
-    /*
-    console.log(svgSelection.selectAll('.g-labe'), nodes)
-    // labelsSelection
-    this.labelsSelection = svgSelection.selectAll('.g-labe')
-        .data(nodes, d => { console.log(d); return d.name})
-    console.log('ET LA', this.labelsSelection)
-    this.labelsSelection.exit().remove()
-    this.labelsSelection.enter()
-        .append('div')
-        .attr('class', 'g-name')
-        .text(d => d.name)
-    */
-
-    /* NOTE HERE labelsSelection.append('div')
-        .attr('class', 'g-percent')
-        .style('font-size', d => Math.max(10, d.r / 2) + 'px'; })
-        .text(d =>Math.round(d.F/(d.F + d.H) * 100) + ' %'; });*/
-    /*
-    labelsSelection
-      .append('div')
-      .attr('class', 'g-value')
-      .style('font-size', d => Math.max(10, d.r / 3) + 'px')
-      .text(d => d.F +' - '+ d.H)
-    labelsSelection
-      .style('font-size', d => Math.max(10, d.r / 4) + 'px')
-      .style('width', d => d.r + 'px')
-      .style('display', 'flex')
-    // Create a temporary span to compute the true text width.
-    labelsSelection
-      .append('span')
-      .text(d => d.name)
-      .each(d => {
-        return Math.max(d.r * 2.5, d.element.getBoundingClientRect().width)
-        // return Math.max(d.r * 2.5, 100)
-      })
-      .remove()
-    labelsSelection
-      .style('width', d => d.dx + 'px')
-    // Compute the height of labels when wrapped.
-    labelsSelection
-      .each(d => {
-        return d.element.getBoundingClientRect().height
-      })
-      .style('height', d => d.dy + 'px')
-    */
-    // add padding
-    // selectAll('.g-name').style('margin','auto')
     selectAll('.g-value').style('margin','auto')
     // update simulation
     simulation.nodes(nodes)
