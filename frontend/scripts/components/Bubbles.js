@@ -15,23 +15,34 @@ import { event, select, selectAll } from 'd3-selection'
 import { transition } from 'd3-transition'
 import React, {Component, PropTypes} from 'react'
 
+import Quote from './Quote'
+import SocialShares from './SocialShares'
 import { getAsyncData } from '../utils/apis'
+import { HTAGS } from '../utils/constants'
 import { bias, fraction } from '../utils/math'
 
 const options = [
   {
+    content: `Morbi convallis justo in rhoncus eleifend. Duis pharetra,
+      nulla et placerat laoreet, lectus quam sagittis elit, at blandit ligula lorem sit amet turpis`,
     text: 'Par région',
     value: 'region'
   },
   {
+    content: `Sed quis vehicula nisi, eget feugiat sapien. Nullam egestas
+      eleifend neque vel vehicula. Suspendisse eu luctus ex. Nam dictum fermentum accumsan.`,
     text: 'Par groupe politique',
     value: 'parti_politique'
   },
   {
+    content: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
+      que le groupe Socialiste (35%) ${HTAGS}'`,
     text: 'Par tranche d\'âge',
     value: 'age'
   },
   {
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Etiam elit elit, vestibulum sit amet scelerisque vel, semper at orci`,
     text: 'Par commission',
     value: 'commission_permanente'
   },
@@ -45,7 +56,7 @@ const options = [
 export default class Bubbles extends Component {
   constructor () {
     super()
-    this.state = { nodes: [] }
+    this.state = { currentOption: options[0], nodes: [] }
     this.updateBubbles = this._updateBubbles.bind(this)
   }
   componentDidMount () {
@@ -279,6 +290,8 @@ export default class Bubbles extends Component {
     // unpack
     const { simulation } = this
     const { maxRadius, minRadius, width } = this.props
+    // get
+    const currentOption = options.filter(option => option.value === request)[0]
     // check if an option element exists already
     if (typeof this.optionElement !== 'undefined') {
       this.optionElement.classList.remove('g-option__body--selected')
@@ -322,14 +335,14 @@ export default class Bubbles extends Component {
       node.bias = .3 - Math.max(.1, Math.min(.9, node.k))
     })
     // update the component
-    this.setState({ nodes })
+    this.setState({ currentOption, nodes })
   }
   componentWillUnmount() {
     this.simulation.stop()
   }
   render () {
     const { optionsHeight, vizHeight, width } = this.props
-    const { nodes } = this.state
+    const { currentOption, odes } = this.state
     return (
       <div className='bubbles center'>
         <div className='bubbles__options mb2'>
@@ -345,6 +358,12 @@ export default class Bubbles extends Component {
             height={vizHeight}
             width={width}
           />
+        </div>
+        <div>
+          <Quote className='quote bubbles__quote p2'>
+            {currentOption.content}
+          </Quote>
+          <SocialShares className='social-shares bubbles__social-shares' />
         </div>
       </div>
     )

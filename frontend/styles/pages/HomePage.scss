@@ -56,14 +56,20 @@
       padding-top: 56px;
       padding-bottom: 55px;
     }
+    &__quote {
+
+    }
   }
   &__participate-section {
     background-image: $yellow-pastel-gradient;
     &__subtitle {
+      margin-left: 25%;
+      margin-right: 25%;
       color: $grey;
+      font-weight: 300;
       font-family: $font-family;
-      font-size: 30px;
-      line-height: 1.6;
+      font-size: 18px;
+      line-height: 1.67;
     }
     &__title {
       color: $grey;
@@ -71,6 +77,29 @@
       font-size: 60px;
       line-height: 1.33;
       padding-top: 56px;
+    }
+    &__quote {
+      margin-left: 25%;
+      margin-right: 25%;
+      margin-bottom: 50px;
+      &__up {
+        overflow-y: hidden;
+        &__img {
+          height: 120px;
+          width: 120px;
+        }
+        &__text {
+          font-family: $font-family;
+          font-size: 18px;
+          line-height: 2.5;
+          font-weight: 300;
+        }
+      }
+    }
+    &__social-shares {
+      margin-left: 25%;
+      margin-right: 25%;
+      margin-bottom: 50px;
     }
   }
   &__team-section {

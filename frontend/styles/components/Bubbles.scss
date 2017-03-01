@@ -1,8 +1,20 @@
 .bubbles {
   &__options {
-    border-bottom: 1px solid black;
     margin-left: 10%;
     margin-right: 10%;
+    &__svg {
+      border-bottom: 1px solid black;
+    }
+  }
+  &__quote {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 50px;
+  }
+  &__social-shares {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 50px;
   }
 }
 
