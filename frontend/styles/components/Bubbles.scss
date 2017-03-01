@@ -161,6 +161,7 @@ a.g-label {
     }
     transition: all 0.1s ease 0.1s;
     &__button {
+      cursor: pointer;
       height: 100%;
       width: 100%;
     }

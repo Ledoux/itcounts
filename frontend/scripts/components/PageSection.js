@@ -5,6 +5,7 @@ const PageSection = ({
   beforeSection,
   children,
   extraClass,
+  id,
   first,
   quilt
 }) => {
@@ -13,7 +14,7 @@ const PageSection = ({
     'page-section--quilt': quilt
   }, 'page-section', extraClass)
   return (
-    <section className={classes}>
+    <section id={id} className={classes}>
       <div className='page-section__inner'>
         {beforeSection &&
           <div className='page-section__between-sections'>{beforeSection}</div>
@@ -28,6 +29,7 @@ PageSection.propTypes = {
   beforeSection: PropTypes.node,
   children: PropTypes.node.isRequired,
   extraClass: PropTypes.string,
+  id: PropTypes.string,
   first: PropTypes.bool,
   quilt: PropTypes.bool
 

@@ -11,10 +11,10 @@ export const pages = [
 export const links = [
   {
     label: 'EQUIPE',
-    sectionId: 'team'
+    sectionId: 'equipe'
   },
   {
     label: 'PARTENAIRES',
-    sectionId: 'partner'
+    sectionId: 'partenaires'
   }
 ]

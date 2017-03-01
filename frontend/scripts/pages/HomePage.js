@@ -11,7 +11,9 @@ const HomePage = () => {
   return (
     <main className='home-page'>
 
-      <PageSection extraClass='home-page__welcome-section center'>
+      <PageSection
+        extraClass='home-page__welcome-section center'
+      >
         <Icon
           className='home-page__welcome-section__cloud'
           icon='cloud'
@@ -68,7 +70,10 @@ const HomePage = () => {
         </Button>
       </PageSection>
 
-      <PageSection extraClass='home-page__team-section center'>
+      <PageSection
+        extraClass='home-page__team-section center'
+        id='equipe'
+      >
         <p className="home-page__team-section__title mb1">
           Equipe
         </p>
@@ -158,7 +163,10 @@ const HomePage = () => {
         </div>
       </PageSection>
 
-      <PageSection extraClass='home-page__partners-section center'>
+      <PageSection
+        extraClass='home-page__partners-section center'
+        id='partenaires'
+      >
         <p className="home-page__partners-section__title mb1">
           Partenaires
         </p>

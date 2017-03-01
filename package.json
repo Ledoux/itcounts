@@ -23,6 +23,7 @@
     "redux": "^3.5.2",
     "redux-saga": "^0.10.4",
     "reselect": "^2.5.1",
+    "smoothscroll-polyfill": "^0.3.4",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

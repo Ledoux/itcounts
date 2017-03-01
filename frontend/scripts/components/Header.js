@@ -1,4 +1,3 @@
-import classnames from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -6,6 +5,11 @@ import Link from './Link'
 import Logo from './Logo'
 import { showModal } from '../reducers/modal'
 import { links } from '../utils/constants'
+
+if (typeof document !== 'undefined') {
+  // needs this polyfill to make scrollIntoView smooth working in Chrome
+  require('smoothscroll-polyfill').polyfill()
+}
 
 const Header = ({
   darkHeaderBackground
@@ -25,19 +29,22 @@ const Header = ({
     </div>
     <div className='flex-auto' />
     <div className='xs-hide'>
-      {links.map(({external, extraClass, label, path}, index) => {
+      {links.map(({label, sectionId}, index) => {
         return (<Link
-          className={classnames('header__top-nav__link p2 mr3',
-            extraClass)}
+          className='link header__top-nav__link p2 mr3'
           key={index}
-          {...{href: path, external}} >
+          href={`/#${sectionId}`}
+          onClick={() => {
+            console.log(document.querySelector(`section#${sectionId}`))
+            document.querySelector(`section#${sectionId}`)
+              .scrollIntoView({behavior: 'smooth'})
+          }}
+          {...{forceAnchorElement: true}}
+        >
             {label}
         </Link>) })}
     </div>
   </div>
 </header>)
-
-Header.defaultProps = {
-}
 
 export default connect(null, { showModal })(Header)
