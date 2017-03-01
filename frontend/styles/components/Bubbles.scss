@@ -1,6 +1,8 @@
 .bubbles {
-  &__svg {
-    border: solid 3px;
+  &__options {
+    border-bottom: 1px solid black;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 }
 
@@ -143,4 +145,27 @@ a.g-label {
   left: 360px;
   text-align: center;
   width: 250px;
+}
+
+.g-option {
+  height: 100%;
+  &__body {
+    background-color: white;
+    color: $option-grey;
+    font-family: $font-family;
+    font-weight: 300;
+    height: 100%;
+    &--selected {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    transition: all 0.1s ease 0.1s;
+    &__button {
+      height: 100%;
+      width: 100%;
+    }
+    &__selector {
+      fill: #d3dc4e
+    }
+  }
 }

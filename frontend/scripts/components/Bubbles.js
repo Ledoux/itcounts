@@ -12,6 +12,7 @@ import {
 import { quadtree } from 'd3-quadtree'
 import { scaleSqrt } from 'd3-scale'
 import { event, select, selectAll } from 'd3-selection'
+import { transition } from 'd3-transition'
 import React, {Component, PropTypes} from 'react'
 
 import { getAsyncData } from '../utils/apis'
@@ -46,40 +47,81 @@ export default class Bubbles extends Component {
     super()
     this.state = { nodes: [] }
     this.updateBubbles = this._updateBubbles.bind(this)
-    this.onChangeSelect = this._onChangeSelect.bind(this)
   }
   componentDidMount () {
     // unpack
-    const { forceStrength, height, width } = this.props
+    const { updateBubbles } = this
+    const { forceStrength,
+      optionsHeight,
+      selectorHeight,
+      selectorTransitionTime,
+      vizHeight,
+      width
+    } = this.props
     // init svg element
-    const svgElement = document.querySelector('.bubbles__svg')
-    const svgElementClientRect = svgElement.getBoundingClientRect()
-    const svgElementLeft = svgElementClientRect.left
-    const svgElementTop = svgElementClientRect.top
+    const optionsElement = document.querySelector('.bubbles__options__svg')
+    const optionsSelection = this.optionsSelection = select(optionsElement)
+    const selectorSelection = this.selectorSelection = select(optionsElement)
+    const vizElement = document.querySelector('.bubbles__viz__svg')
+    const vizElementClientRect = vizElement.getBoundingClientRect()
+    const vizElementLeft = vizElementClientRect.left
+    const vizElementTop = vizElementClientRect.top
     const labelsDivElement = document.querySelector('.g-labels')
-    const svgSelection = this.svgSelection = select(svgElement)
+    const vizSelection = this.vizSelection = select(vizElement)
     const labelsDivSelection = this.labelsSelection = select(labelsDivElement)
-    svgSelection.append('rect')
+    vizSelection.append('rect')
       .attr('class', 'g-overlay')
       .attr('width', width)
-      .attr('height', height)
-    // init nodes and labels selection
-    const nodesSelection = this.nodesSelection = svgSelection
+      .attr('height', vizHeight)
+    // init options, nodes and labels selection
+    const optionWidth = width/options.length
+    const t = transition().duration(selectorTransitionTime)
+    optionsSelection
+      .selectAll('.g-options')
+      .data(options, d => d.value)
+      .enter()
+      .append('foreignObject')
+      .attr('class', d => 'g-option')
+      .attr('x', (d,index) => index * optionWidth)
+      .attr('width', optionWidth)
+      .append('xhtml:body')
+      .attr('class', d => `flex justify-center items-center g-option__body g-option__body-${d.value}`)
+      .append('div')
+      .attr('class', 'g-option__body__button')
+      .attr('value', d => d.value)
+      .on('click', (d, index) => {
+        // move the slide
+        this.selectorSelection
+          .transition(t)
+          .attr('x', index * optionWidth)
+
+        // update bubbles
+        updateBubbles(d.value)
+      })
+      .text(d => d.text)
+    // append the selector
+    this.selectorSelection = optionsSelection
+      .append('rect')
+      .attr('class','g-option__body__selector')
+      .attr('y', optionsHeight - selectorHeight)
+      .attr('height', selectorHeight)
+      .attr('width', optionWidth)
+
+    const nodesSelection = this.nodesSelection = vizSelection
       .selectAll('.g-node')
-    //const labelsSelection = this.labelsSelection = labelsDivSelection
-    const labelsSelection = this.labelsSelection = svgSelection
+    const labelsSelection = this.labelsSelection = vizSelection
       .selectAll('.g-label')
     // init simulation
     const simulation = this.simulation = forceSimulation()
      .force('charge', forceManyBody().strength(forceStrength))
-     .force('center', forceCenter(width / 2, height / 2))
+     .force('center', forceCenter(width / 2, vizHeight / 2))
      .force('collide', forceCollide()
                         .radius(d => d.r + 0.5)
                         .iterations(2)
                       )
      .on('tick', () => {
        // unpack
-       const { collide, nodesSelection, labelsSelection } = this
+       const { collide, nodesSelection } = this
        // transform
        nodesSelection
         .attr('transform', d => {
@@ -88,8 +130,8 @@ export default class Bubbles extends Component {
      })
      .stop()
     // drag
-    svgSelection.call(drag()
-      .container(svgElement)
+    vizSelection.call(drag()
+      .container(vizElement)
       .subject(() => simulation.find(event.x, event.y))
       .on('start', () => {
         if (!event.active) simulation.alphaTarget(0.3).restart()
@@ -127,16 +169,18 @@ export default class Bubbles extends Component {
     const {
       linkTopic,
       simulation,
-      svgSelection
+      vizSelection
     } = this
     let {
       labelsSelection,
-      nodesSelection
+      nodesSelection,
+      optionsSelection
     } = this
     const {
       clipPadding,
       collisionPadding,
-      height,
+      optionsHeight,
+      vizHeight,
       maxRadius,
       width
     } = this.props
@@ -231,13 +275,17 @@ export default class Bubbles extends Component {
     simulation.nodes(nodes)
     simulation.restart()
   }
-  _onChangeSelect (event) {
-    this.updateBubbles(event.target.value)
-  }
   async _updateBubbles (request) {
     // unpack
     const { simulation } = this
     const { maxRadius, minRadius, width } = this.props
+    // check if an option element exists already
+    if (typeof this.optionElement !== 'undefined') {
+      this.optionElement.classList.remove('g-option__body--selected')
+    }
+    this.optionElement = document.querySelector(`.g-option__body-${request}`)
+    this.optionElement.classList.add('g-option__body--selected')
+
     // get the data from the api
     const data = await getAsyncData(request)
     // stop simulation
@@ -280,35 +328,24 @@ export default class Bubbles extends Component {
     this.simulation.stop()
   }
   render () {
-    const { height, width } = this.props
+    const { optionsHeight, vizHeight, width } = this.props
     const { nodes } = this.state
-    console.log('nodes', nodes)
     return (
       <div className='bubbles center'>
-        <div className='bubbles__select mb2'>
-          <select
-            ref={e => { this._selectElement = e }}
-            onChange={this.onChangeSelect}
-          >
-            {
-              options.map(({text, value}, index) => (
-                <option
-                  key={index}
-                  value={value}
-                >
-                  {text}
-                </option>
-              ))
-            }
-          </select>
+        <div className='bubbles__options mb2'>
+          <svg
+            className='bubbles__options__svg'
+            height={optionsHeight}
+            width={width}
+          />
         </div>
-        <div className='g-labels'></div>
-        <svg
-          className='bubbles__svg'
-          height={height}
-          width={width}
-        >
-        </svg>
+        <div className='bubbles__viz'>
+          <svg
+            className='bubbles__viz__svg'
+            height={vizHeight}
+            width={width}
+          />
+        </div>
       </div>
     )
   }
@@ -318,8 +355,11 @@ Bubbles.defaultProps = {
   collisionPadding: 4,
   clipPadding: 4,
   forceStrength: 100,
-  height: 400,
+  selectorHeight: 10,
+  optionsHeight: 75,
+  vizHeight: 500,
   minRadius: 40, // minimum collision radius
   maxRadius: 70, // also determines collision search radius
+  selectorTransitionTime: 700,
   width: 1000
 };

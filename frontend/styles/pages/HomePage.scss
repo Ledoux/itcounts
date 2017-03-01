@@ -8,6 +8,13 @@
     background-image: $blue-pastel-gradient;
     padding-top: 197px;
     position: relative;
+    &__cloud {
+      height: 200px;
+      left: 250px;
+      position: absolute;
+      width: 200px;
+      top: 100px;
+    }
     &__assembly {
       height: 343px;
       width: 548px;
@@ -44,6 +51,7 @@
       font-size: 36px;
       line-height: 1.83;
       padding-top: 56px;
+      padding-bottom: 55px;
     }
   }
   &__participate-section {

@@ -1,10 +1,9 @@
 import React from 'react'
 
 import Bubbles from '../components/Bubbles'
-import PageSection from '../components/PageSection'
-
 import Button from '../components/Button'
 import Icon from '../components/Icon'
+import PageSection from '../components/PageSection'
 import Quote from '../components/Quote'
 import SocialShares from '../components/SocialShares'
 
@@ -13,6 +12,10 @@ const HomePage = () => {
     <main className='home-page'>
 
       <PageSection extraClass='home-page__welcome-section center'>
+        <Icon
+          className='home-page__welcome-section__cloud'
+          icon='cloud'
+        />
         <Icon
           className='home-page__welcome-section__assembly mb2'
           icon='big-assembly'
@@ -38,11 +41,13 @@ const HomePage = () => {
       </PageSection>
 
       <PageSection extraClass='home-page__bubbles-section center'>
-        <p className="home-page__bubbles-section__title mb2">
+        <p className="home-page__bubbles-section__title">
           D&eacute;couvrez la proportion de femmes &aacute; l&#39;Assembl&eacute;e Nationale
           selon leur:
         </p>
-        <Bubbles />
+        <div className="mb2">
+          <Bubbles />
+        </div>
         <Quote />
         <SocialShares />
       </PageSection>
