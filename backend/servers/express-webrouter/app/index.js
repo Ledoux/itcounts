@@ -1,9 +1,11 @@
+require('babel-polyfill')
 const bodyParser = require('body-parser')
 const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
 
-const models = require('./lib/models')
+const { getModelWithApp } = require('./lib/model')
+const { setApisWithAppAndModel } = require('./lib/apis')
 
 const app = express()
 app.set('view engine', 'html')
@@ -27,6 +29,8 @@ app.get('/', function (req, res) {
   })
 })
 
-require('./lib/routes').default(app) // pass our application into our routes
+getModelWithApp(app).then(
+  model => setApisWithAppAndModel(app, model)
+)
 
 module.exports.app = app
