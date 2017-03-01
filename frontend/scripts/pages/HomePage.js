@@ -67,7 +67,90 @@ const HomePage = () => {
         <p className="home-page__team-section__title mb1">
           Equipe
         </p>
-
+        <div className='home-page__team-section__container'>
+          {[
+            [{
+              image: "virginie_robidou.png",
+              name: "Virginie Robidou",
+              speciality: "Dévelopeuse"
+            },
+            {
+              image: "agathe_brusset.png",
+              name: "Agathe Brusset",
+              speciality: "Coordinatrice du projet"
+            },
+            {
+              image: "aude_bernheim.png",
+              name: "Aude Bernheim",
+              speciality: "Conseil externe"
+            }],
+            [{
+              image: "erwan_ledoux.png",
+              name: "Erwan Ledoux",
+              speciality: "Dévelopeur"
+            },
+            {
+              image: "sylvain_raibaud.png",
+              name: "Sylvain Raibaud",
+              speciality: "Spécialiste PNL"
+            },
+            {
+              image: "adrien_bernheim.png",
+              name: "Adrien Bernheim",
+              speciality: "Graphiste"
+            }],
+            [{
+              image: "cecile_baltazart.png",
+              name: "Cécile Baltazart",
+              speciality: "Designer UX"
+            },
+            {
+              image: "nina_varchavsky.png",
+              name: "Nina Varchavsky",
+              speciality: "Cultivatrice d'idées"
+            },
+            {
+              image: "mickael_bolnet.png",
+              name: "Mickaël Bolnet",
+              speciality: "Dévelopeur Full Stack"
+            }],
+            [{
+              image: "baptiste_quentin.png",
+              name: "Baptiste Quentin",
+              speciality: "Coordinateur du projet"
+            },
+            {
+              image:"louis_jean_de_gastines.png",
+              name: "Louis-Jean de Gastines",
+              speciality: "Coordinateur du projet"
+            }]
+          ].map((rows, rowIndex) => (<div
+              className='home-page__team-section__container__rows mb2'
+              key={rowIndex}
+            >
+            {
+              rows.map(({image, name, speciality}, colIndex) => (<div
+                className='home-page__team-section__container__rows__profile col col-4 p2'
+                key={colIndex}>
+                <img
+                  className='home-page__team-section__container__rows__profile__img col col-4 p1'
+                  src={`static/images/${image}`}
+                />
+                <div
+                  className='home-page__team-section__container__rows__profile__text col col-8 p2'
+                >
+                  <div className='home-page__team-section__container__rows__profile__text__name mb2'>
+                    {name}
+                  </div>
+                  <div className='home-page__team-section__container__rows__profile__text__speciality'>
+                    {speciality}
+                  </div>
+                </div>
+              </div>))
+            }
+          </div>))
+        }
+        </div>
       </PageSection>
 
       <PageSection extraClass='home-page__partners-section center'>

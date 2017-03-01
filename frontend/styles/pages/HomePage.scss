@@ -43,6 +43,7 @@
       font-weight: bold;
       font-size: 36px;
       line-height: 1.83;
+      padding-top: 56px;
     }
   }
   &__participate-section {
@@ -58,15 +59,49 @@
       font-weight: bold;
       font-size: 60px;
       line-height: 1.33;
+      padding-top: 56px;
     }
   }
   &__team-section {
     background-image: $blue-pastel-gradient;
+    overflow-y: hidden;
     &__title {
       color: $grey;
       font-weight: bold;
       font-size: 60px;
       line-height: 1.33;
+      padding-top: 56px;
+    }
+    &__container {
+      margin-top: 7%;
+      margin-left: 10%;
+      margin-right: 10%;
+      margin-bottom: 128px;
+      overflow-y: hidden;
+      &__rows {
+        overflow-y: hidden;
+        &__profile {
+          &__img {
+            height: 80px;
+            width: 80px;
+          }
+          &__text {
+            text-align: left;
+            &__name {
+              color: $grey;
+              font-family: $font-family;
+              font-size: 18px;
+              font-weight: 500;
+            }
+            &__speciality {
+              color: $light-grey;
+              font-family: $font-family;
+              font-size: 18px;
+              font-weight: 300;
+            }
+          }
+        }
+      }
     }
   }
   &__partners-section {
