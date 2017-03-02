@@ -67,6 +67,8 @@ export default class Bubbles extends Component {
     const { updateBubbles } = this
     const {
       collideRadius,
+      legendX,
+      legendY,
       forceStrength,
       optionsHeight,
       selectorHeight,
@@ -122,6 +124,31 @@ export default class Bubbles extends Component {
       .attr('y', optionsHeight - selectorHeight)
       .attr('height', selectorHeight)
       .attr('width', optionWidth)
+
+    const legendSelection = vizSelection.append('g')
+                .attr('class', 'g-legend')
+    const legendRadius = 15
+    const spaceLegend = 95
+    legendSelection.append('text')
+                .attr('class', 'g-legend__femme__text')
+                .attr('x', legendX)
+                .attr('y', legendY + 5)
+                .text('femmes')
+    legendSelection.append('circle')
+                .attr('class', 'g-legend__femme__circle')
+                .attr('r', legendRadius)
+                .attr('cx', legendX + spaceLegend)
+                .attr('cy', legendY)
+    legendSelection.append('text')
+                .attr('class', 'g-legend__homme__text')
+                .attr('x', legendX + spaceLegend + 3 * legendRadius)
+                .attr('y', legendY + 5)
+                .text('hommes')
+    legendSelection.append('circle')
+                .attr('class', 'g-legend__homme__circle')
+                .attr('r', legendRadius)
+                .attr('cx', legendX + spaceLegend + 3 * legendRadius + spaceLegend)
+                .attr('cy', legendY)
 
     const nodesSelection = this.nodesSelection = vizSelection
       .selectAll('.g-node')
@@ -395,6 +422,8 @@ Bubbles.defaultProps = {
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
+  legendY: 30,
+  legendX: 20,
   forceStrength: 100,
   selectorHeight: 10,
   optionsHeight: 75,

@@ -110,7 +110,6 @@
   display:block;
 }
 .g-label.g-hover .g-name {
-  font-family: $font-family;
   display:none;
 }
 
@@ -188,4 +187,38 @@ a.g-label {
       fill: #d3dc4e
     }
   }
+}
+
+.g-legend {
+  &__femme {
+    &__text {
+      color: $grey;
+      font-family: $font-family;
+      font-size: 20px;
+      font-weight: 500;
+      font-style: italic;
+    }
+    &__circle {
+      fill: $green-girl;
+    }
+  }
+  &__homme {
+    &__text {
+      color: $grey;
+      font-family: $font-family;
+      font-size: 20px;
+      font-weight: 500;
+      font-style: italic;
+    }
+    &__circle {
+      fill: $blue-boy;
+    }
+  }
+}
+
+.g-name {
+  color: $option-grey;
+  font-family: $font-family;
+  font-weight: bold;
+  font-size: 15px;
 }
