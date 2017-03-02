@@ -66,18 +66,22 @@ const HomePage = () => {
           Participer
         </p>
         <Quote className='quote home-page__participate-section__quote'>
-          <div className='home-page__participate-section__quote__up p2'>
-            <img
-              className='home-page__participate-section__quote__up__img col col-4'
-              src='/static/images/camembert.png'
-            />
-            <p className='home-page__participate-section__quote__up__text col col-8 p2'>
-              R&eacute;patition du genre dans l&#39;Assembl&eacute;e Nationale
-            </p>
-          </div>
-          <div className='home-page__participate-section__quote__down'>
-            Signez votre p&eacute;tition pour plus de femmes &aacute; l&#39;Assembl&eacute;e Nationale.
-            [URL]&#35;VEGA &#35;Parit&eacute; &#35;Politique http://vega-project.org/
+          <div className="p3">
+            <div className='home-page__participate-section__quote__up mb3'>
+              <img
+                className='home-page__participate-section__quote__up__img col col-2'
+                src='/static/images/camembert.png'
+              />
+              <p className='home-page__participate-section__quote__up__text col col-8'>
+                R&eacute;patition du genre dans l&#39;Assembl&eacute;e Nationale
+              </p>
+            </div>
+            <div className='home-page__participate-section__quote__down p2'>
+              <p className='home-page__participate-section__quote__down__text'>
+                Signez votre p&eacute;tition pour plus de femmes &aacute; l&#39;Assembl&eacute;e Nationale.
+                [URL]&#35;VEGA &#35;Parit&eacute; &#35;Politique http://vega-project.org/
+              </p>
+            </div>
           </div>
         </Quote>
         <SocialShares className="home-page__participate-section__social-shares"/>

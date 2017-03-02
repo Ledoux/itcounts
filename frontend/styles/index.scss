@@ -6,6 +6,9 @@
 @import 'colors.scss';
 @import 'variables.scss';
 
+// defaults
+@import 'defaults';
+
 // components
 @import './components/Bubbles.scss';
 @import './components/Button.scss';

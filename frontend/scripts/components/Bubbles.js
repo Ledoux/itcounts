@@ -360,8 +360,10 @@ export default class Bubbles extends Component {
           />
         </div>
         <div>
-          <Quote className='quote bubbles__quote p2'>
-            {currentOption.content}
+          <Quote className='quote bubbles__quote'>
+            <p className="bubbles__quote__text p2">
+              {currentOption.content}
+            </p>
           </Quote>
           <SocialShares className='social-shares bubbles__social-shares' />
         </div>
