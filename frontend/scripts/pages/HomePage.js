@@ -90,7 +90,12 @@ const HomePage = () => {
           pouvoir politiques et publiques : <a> signez notre p&eacute;titiion </a>
           pour avoir un impact &aacute; l&#39;Assembl&eacute;e Nationale !
         </p>
-        <Button className="button button--large home-page__participate-section__cta">
+        <Button
+          className="button button--large home-page__participate-section__cta"
+          href="https://www.change.org/p/gouvernement-fran%C3%A7ais-la-parit%C3%A9-%C3%A0-l-assembl%C3%A9e-nationale"
+          external
+          target="_blank"
+        >
           Signer la P&eacute;tition
         </Button>
       </PageSection>
@@ -229,18 +234,26 @@ const HomePage = () => {
       </PageSection>
 
       <PageSection extraClass='home-page__find-section center'>
-        <p className="home-page__find-section__title mb3">
+        <p className="home-page__find-section__title mb2">
           Retrouvez-nous
         </p>
         <div className="home-page__find-section__container">
-          <Icon
-            className='home-page__find-section__container__icon mr3'
-            icon='facebook'
-          />
-          <Icon
-            className='home-page__find-section__container__icon'
-            icon='twitter'
-          />
+          <a href="https://www.facebook.com/pariteaupouvoir"
+            target="_blank"
+          >
+            <Icon
+              className='home-page__find-section__container__icon mr3'
+              icon='facebook'
+            />
+          </a>
+          <a href="https://twitter.com/PariteAuPouvoir"
+            target="_blank"
+          >
+            <Icon
+              className='home-page__find-section__container__icon'
+              icon='twitter'
+            />
+          </a>
         </div>
       </PageSection>
 
