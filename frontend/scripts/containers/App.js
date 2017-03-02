@@ -12,7 +12,7 @@ const App = class App extends Component {
       <div className='app'>
         {/* NOTE: Helmet lib content goes into <head> tags */}
         <Helmet
-          title='Erwan Ledoux'
+          title='Parité au Pouvoir'
           meta={[
             { property: 'og:site_name', content: 'Parité au Pouvoir' },
             { property: 'twitter:site', content: '@DataForGood_FR' },

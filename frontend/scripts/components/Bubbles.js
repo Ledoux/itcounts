@@ -23,12 +23,6 @@ import { bias, fraction } from '../utils/math'
 
 const options = [
   {
-    description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
-      que le groupe Socialiste (35%).`,
-    text: 'région',
-    value: 'region'
-  },
-  {
     collideRadius: 50,
     description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
       alors que l'Ile de France en est loin.`,
@@ -36,16 +30,22 @@ const options = [
     value: 'parti_politique'
   },
   {
-    description: `Après 70 ans, la proportion de députés femmes passe en dessous
-      de la barre des 15%.`,
-    text: 'tranche d\'âge',
-    value: 'age'
-  },
-  {
     description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
       culturelles” que dans la “Finance”.`,
     text: 'commission',
     value: 'commission_permanente'
+  },
+  {
+    description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
+      que le groupe Socialiste (35%).`,
+    text: 'région',
+    value: 'region'
+  },
+  {
+    description: `Après 70 ans, la proportion de députés femmes passe en dessous
+      de la barre des 15%.`,
+    text: 'classe d\'âge',
+    value: 'age'
   },
   {
     description: `15% des députés cumulant 4 mandats sont des femmes contre moins

@@ -1,1 +1,1 @@
-export SITE_NAME=pariteaupouvoir && node scripts/manage.js
+node scripts/manage.js
