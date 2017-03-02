@@ -1,1 +1,1 @@
-heroku ps:scale web=1 --app staging-parite-au-pouvoir
+heroku ps:scale web=1 --app staging-pariteaupouvoir

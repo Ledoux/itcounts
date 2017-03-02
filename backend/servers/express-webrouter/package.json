@@ -14,7 +14,7 @@
 		"nodemon": "^1.11.0"
 	},
 	"main": "app/index.js",
-	"name": "parite-au-pouvoir-express-webrouter",
+	"name": "pariteaupouvoir-express-webrouter",
 	"scripts": {
 		"compile": "babel --presets latest -d app/lib/ app/src/",
 		"dev": "concurrently \"npm run dev-start\" \"npm run dev-watch\"",
