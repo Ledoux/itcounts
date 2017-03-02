@@ -18,5 +18,3 @@ export const links = [
     sectionId: 'partenaires'
   }
 ]
-
-export const HTAGS = '#VEGA #Parité #Politique http://vega-project'

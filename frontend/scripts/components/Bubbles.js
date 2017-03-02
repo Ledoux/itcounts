@@ -17,40 +17,44 @@ import React, {Component, PropTypes} from 'react'
 
 import Quote from './Quote'
 import SocialShares from './SocialShares'
+import { PROD_URL } from '../utils/config'
 import { getAsyncData } from '../utils/apis'
-import { HTAGS } from '../utils/constants'
 import { bias, fraction } from '../utils/math'
+
+const HTAGS = '#VEGA #Parité #Politique http://pariteaupouvoir.heroku.com'
 
 const options = [
   {
-    content: `Morbi convallis justo in rhoncus eleifend. Duis pharetra,
-      nulla et placerat laoreet, lectus quam sagittis elit, at blandit ligula lorem sit amet turpis`,
+    description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
+      que le groupe Socialiste (35%). ${HTAGS}`,
     text: 'Par région',
     value: 'region'
   },
   {
     collideRadius: 50,
-    content: `Sed quis vehicula nisi, eget feugiat sapien. Nullam egestas
-      eleifend neque vel vehicula. Suspendisse eu luctus ex. Nam dictum fermentum accumsan.`,
+    description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
+      alors que l'Ile de France en est loin. ${HTAGS}`,
     text: 'Par groupe politique',
     value: 'parti_politique'
   },
   {
-    content: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
-      que le groupe Socialiste (35%) ${HTAGS}'`,
+    description: `Après 70 ans, la proportion de députés femmes passe en dessous
+      de la barre des 15%. ${HTAGS}`,
     text: 'Par tranche d\'âge',
     value: 'age'
   },
   {
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Etiam elit elit, vestibulum sit amet scelerisque vel, semper at orci`,
+    description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
+      culturelles” que dans la “Finance”. ${HTAGS}`,
     text: 'Par commission',
     value: 'commission_permanente'
   },
   {
-    text: 'Par mandat',
+    description: `15% des députés cumulant 4 mandats sont des femmes contre moins
+      de 40% pour 1 mandat. ${HTAGS}`,
+    text: 'Mandats cumulés',
     value: 'mandat'
-  },
+  }
 ]
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
@@ -374,10 +378,14 @@ export default class Bubbles extends Component {
         <div>
           <Quote className='quote bubbles__quote'>
             <p className="bubbles__quote__text p2">
-              {currentOption.content}
+              {currentOption.description}
             </p>
           </Quote>
-          <SocialShares className='social-shares bubbles__social-shares' />
+          <SocialShares
+            className='social-shares bubbles__social-shares'
+            description={currentOption.description}
+            imageUrl={`${PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
+          />
         </div>
       </div>
     )

@@ -7,3 +7,5 @@ export const BASE_NAME = IS_DEV ? '/' : '/'
 if (IS_DEV) {
   console.log('running in DEV mode')
 }
+
+export const PROD_URL = 'http://pariteaupouvoir.heroku.com'
