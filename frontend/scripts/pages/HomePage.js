@@ -53,7 +53,7 @@ const HomePage = () => {
         id='bubbles'
       >
         <p className="home-page__bubbles-section__title">
-          D&eacute;couvrez la proportion de femmes &aacute; l&#39;Assembl&eacute;e Nationale
+          D&eacute;couvrez la proportion de femmes &agrave; l&#39;Assembl&eacute;e Nationale
           selon leur:
         </p>
         <div className="mb2">
@@ -78,7 +78,7 @@ const HomePage = () => {
             </div>
             <div className='home-page__participate-section__quote__down p2'>
               <p className='home-page__participate-section__quote__down__text'>
-                Signez votre p&eacute;tition pour plus de femmes &aacute; l&#39;Assembl&eacute;e Nationale.
+                Signez votre p&eacute;tition pour plus de femmes &agrave; l&#39;Assembl&eacute;e Nationale.
                 [URL]&#35;VEGA &#35;Parit&eacute; &#35;Politique http://vega-project.org/
               </p>
             </div>
@@ -88,7 +88,7 @@ const HomePage = () => {
         <p className="home-page__participate-section__subtitle mb3">
           Encouragez la representativit&eacute; des femmes dans les instances de
           pouvoir politiques et publiques : <a> signez notre p&eacute;titiion </a>
-          pour avoir un impact &aacute; l&#39;Assembl&eacute;e Nationale !
+          pour avoir un impact &agrave; l&#39;Assembl&eacute;e Nationale !
         </p>
         <Button
           className="button button--large home-page__participate-section__cta"
@@ -163,13 +163,29 @@ const HomePage = () => {
               image:"louis_jean_de_gastines.png",
               name: "Louis-Jean de Gastines",
               speciality: "Coordinateur du projet"
+            }, {
+              rawHTML:`
+              <div>
+                <p class='home-page__team-section__container__thanks__title mb1'>
+                  Et des remerciements particuliers &agrave; :
+                </p>
+                <p class='home-page__team-section__container__thanks__people'>
+                  Matthieu Daladouire : D&eacute;veloppeur Front-End <br />
+                  Steven Lasry  : D&eacute;veloppeur Full Stack
+                </p>
+              </div>`
             }]
           ].map((rows, rowIndex) => (<div
               className='home-page__team-section__container__rows mb2'
               key={rowIndex}
             >
             {
-              rows.map(({image, name, speciality}, colIndex) => (<div
+              rows.map(({image, name, rawHTML, speciality}, colIndex) => rawHTML
+                ? (<div
+                  className='home-page__team-section__container__thanks col col-4 p2 mb2'
+                  key={colIndex} dangerouslySetInnerHTML={{__html: rawHTML}}
+                />)
+                : (<div
                 className='home-page__team-section__container__rows__profile col col-4 p2'
                 key={colIndex}>
                 <img
@@ -201,7 +217,7 @@ const HomePage = () => {
           Partenaires
         </p>
         <div className="home-page__partners-section__container">
-          <div className="home-page__partners-section__container__partner col col-6 p2">
+          <div className="home-page__partners-section__container__partner col md-col-6 p2">
             <img
               className='home-page__partners-section__container__partner__img mb2'
               src='/static/images/data_for_good.png'
@@ -216,7 +232,7 @@ const HomePage = () => {
               les m&eacute;gadonn&eacute;es au service du bien.
             </p>
           </div>
-          <div className="home-page__partners-section__container__partner col col-6 p2">
+          <div className="home-page__partners-section__container__partner col md-col-6 p2">
             <img
               className='home-page__partners-section__container__partner__img mb2'
               src='/static/images/wax.png'

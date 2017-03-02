@@ -140,6 +140,7 @@
       margin-bottom: 50px;
     }
     &__cta {
+      color: $grey;
       background-color: $apple-green;
       margin-bottom: 100px;
     }
@@ -153,13 +154,28 @@
       font-size: $title-font-size;
       line-height: $title-line-height;
       padding-top: 56px;
+      margin-bottom: 30px;
     }
     &__container {
-      margin-top: 7%;
       margin-left: 10%;
       margin-right: 10%;
-      margin-bottom: 128px;
+      margin-bottom: 90px;
       overflow-y: hidden;
+      &__thanks {
+        color: $grey;
+        font-family: $font-family;
+        padding-top: 30px;
+        text-align: left;
+        &__title {
+          font-size: 18px;
+          font-weight: 500;
+        }
+        &__people {
+          font-size: 16px;
+          font-weight: 300;
+          line-height: 1.5;
+        }
+      }
       &__rows {
         overflow-y: hidden;
         &__profile {
@@ -219,6 +235,11 @@
           font-size: 14px;
           line-height: 1.29;
           opacity: 0.3;
+          @media (max-width: $md) {
+            margin-left: 30%;
+            margin-right: 30%;
+            margin-bottom: 20px;
+          }
         }
       }
     }

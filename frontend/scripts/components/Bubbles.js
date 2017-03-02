@@ -29,6 +29,7 @@ const options = [
     value: 'region'
   },
   {
+    collideRadius: 50,
     content: `Sed quis vehicula nisi, eget feugiat sapien. Nullam egestas
       eleifend neque vel vehicula. Suspendisse eu luctus ex. Nam dictum fermentum accumsan.`,
     text: 'Par groupe politique',
@@ -62,7 +63,9 @@ export default class Bubbles extends Component {
   componentDidMount () {
     // unpack
     const { updateBubbles } = this
-    const { forceStrength,
+    const {
+      collideRadius,
+      forceStrength,
       optionsHeight,
       selectorHeight,
       selectorTransitionTime,
@@ -125,11 +128,6 @@ export default class Bubbles extends Component {
     // init simulation
     const simulation = this.simulation = forceSimulation()
      .force('charge', forceManyBody().strength(forceStrength))
-     .force('center', forceCenter(width / 2, vizHeight / 2))
-     .force('collide', forceCollide()
-                        .radius(d => d.r + 0.5)
-                        .iterations(2)
-                      )
      .on('tick', () => {
        // unpack
        const { collide, nodesSelection } = this
@@ -145,7 +143,8 @@ export default class Bubbles extends Component {
       .container(vizElement)
       .subject(() => simulation.find(event.x, event.y))
       .on('start', () => {
-        if (!event.active) simulation.alphaTarget(0.3).restart()
+        if (!event.active) simulation.alphaTarget(0.3)
+          .restart()
         event.subject.fx = event.subject.x
         event.subject.fy = event.subject.y
       })
@@ -189,13 +188,14 @@ export default class Bubbles extends Component {
     } = this
     const {
       clipPadding,
+      collideRadius,
       collisionPadding,
       optionsHeight,
       vizHeight,
       maxRadius,
       width
     } = this.props
-    const { nodes } = this.state
+    const { currentOption, nodes } = this.state
     // data
     nodesSelection = nodesSelection
       .data(nodes, d => d.name)
@@ -284,6 +284,18 @@ export default class Bubbles extends Component {
     selectAll('.g-value').style('margin','auto')
     // update simulation
     simulation.nodes(nodes)
+    // restart (by also reset the alpha to make the new nodes moving like a new start)
+    simulation.alpha(1)
+    // maybe this set needs a special collide
+    simulation.force('collide', forceCollide()
+       .radius(d => d.r + (currentOption.collideRadius || collideRadius))
+       .iterations(2)
+     )
+    // center
+    const centerCoordinates = currentOption.centerCoordinates || [
+      width / 2, vizHeight / 2.5]
+    simulation.force('center', forceCenter(...centerCoordinates))
+    // restart
     simulation.restart()
   }
   async _updateBubbles (request) {
@@ -330,7 +342,7 @@ export default class Bubbles extends Component {
       node.cr = Math.max(minRadius, node.r)
       node.k = fraction(node.F, node.H)
       if (isNaN(node.k)) node.k = .5
-      node.cx = node.x =(1 - node.k) * width + Math.random()
+      node.cx = node.x = (1 - node.k) * width + Math.random()
       node.cy = node.y = node.H
       node.bias = .3 - Math.max(.1, Math.min(.9, node.k))
     })
@@ -342,7 +354,7 @@ export default class Bubbles extends Component {
   }
   render () {
     const { optionsHeight, vizHeight, width } = this.props
-    const { currentOption, odes } = this.state
+    const { currentOption } = this.state
     return (
       <div className='bubbles center'>
         <div className='bubbles__options mb2'>
@@ -373,6 +385,7 @@ export default class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
+  collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
   forceStrength: 100,
