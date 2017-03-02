@@ -87,12 +87,12 @@
 }
 
 .g-homme.g-swatch {
-  background-color: #e7774a;
+  background-color: $blue-boy;
   border-radius: 0 4px 4px 0;
 }
 
 .g-femme.g-swatch {
-  background-color: #64549d;
+  background-color: $green-girl;
   border-radius: 4px 0 0 4px;
 }
 
@@ -114,24 +114,24 @@
 }
 
 .g-node .g-femme {
-  fill: #64549d;
+  fill: $green-girl;
 }
 
 .g-node.g-hover .g-femme {
-  fill: #7567a8;
+  fill: $green-girl;
 }
 
 .g-node .g-homme {
-  fill: #e7774a;
+  fill: $blue-boy;
 }
 
 .g-node.g-hover .g-homme {
-  fill: #e9845c;
+  fill: $blue-boy;
 }
 
 .g-node .g-split {
   stroke: #000;
-  stroke-opacity: .18;
+  stroke-opacity: 0;
   shape-rendering: crispEdges;
 }
 

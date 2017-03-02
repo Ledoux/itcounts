@@ -35,13 +35,13 @@ const SocialShares = ({
 }
 
 SocialShares.defaultProps =  {
-  appUrl: 'http://parite-au-pouvoir.heroku.com',
+  appUrl: 'http://pariteaupouvoir.heroku.com',
   caption: 'Parité au Pouvoir',
   description: `Signez notre pétition pour plus de femmes à l'Assemblée Nationale !
-  http://parite-au-pouvoir.heroku.com %23VEGA %23Parité %23Politique
+  http://pariteaupouvoir.heroku.com %23VEGA %23Parité %23Politique
   `,
-  imageUrl: 'http://parite-au-pouvoir.heroku.com/static/images/camembert.png',
-  shareUrl: 'http://parite-au-pouvoir.heroku.com',
+  imageUrl: 'http://pariteaupouvoir.heroku.com/static/images/camembert.png',
+  shareUrl: 'http://pariteaupouvoir.heroku.com',
   title: "Quelle est la répartition du genre dans l\'Assemblée Nationale ?",
 }
 
