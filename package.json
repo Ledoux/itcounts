@@ -57,7 +57,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "main": "frontend/index.js",
-  "name": "itcounts",
+  "name": "parite-au-pouvoir",
   "scripts": {
     "build": "echo **BUILD** && npm run bundle;",
     "build-prod": "export TYPE=prod && npm run build",
