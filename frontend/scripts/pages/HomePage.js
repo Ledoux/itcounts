@@ -230,12 +230,30 @@ const HomePage = () => {
             <p className="home-page__partners-section__container__partner__title mb2">
               Data For Good
             </p>
-            <p className="home-page__partners-section__container__partner__subtitle">
+            <p className="home-page__partners-section__container__partner__subtitle mb2">
               Data For Good est une association qui
               a pour mission d&#39;acc&eacute;l&eacute;rer
               les d&eacute;marches citoyennes et d&#39;utiliser
               les m&eacute;gadonn&eacute;es au service du bien.
             </p>
+            <div className="home-page__partners-section__container__partner__socials">
+              <a href="https://www.facebook.com/dataforgoodfr/"
+                target="_blank"
+              >
+                <Icon
+                  className='home-page__partners-section__container__partner__socials__icon mr3'
+                  icon='facebook'
+                />
+              </a>
+              <a href="https://twitter.com/dataforgood"
+                target="_blank"
+              >
+                <Icon
+                  className='home-page__partners-section__container__partner__socials__icon'
+                  icon='twitter'
+                />
+              </a>
+            </div>
           </div>
           <div className="home-page__partners-section__container__partner col md-col-6 p2">
             <img
@@ -246,10 +264,28 @@ const HomePage = () => {
             <p className="home-page__partners-section__container__partner__title mb2">
               WAX
             </p>
-            <p className="home-page__partners-section__container__partner__subtitle">
+            <p className="home-page__partners-section__container__partner__subtitle mb2">
               WAX Science est une association &acute; but non lucratif
               qui promeut une science ludique, ouverte et sans st&eacute;r&eacute;otypes.
             </p>
+            <div className="home-page__partners-section__container__partner__socials">
+              <a href="https://www.facebook.com/WAXscience/"
+                target="_blank"
+              >
+                <Icon
+                  className='home-page__partners-section__container__partner__socials__icon mr3'
+                  icon='facebook'
+                />
+              </a>
+              <a href="https://twitter.com/WAXScience"
+                target="_blank"
+              >
+                <Icon
+                  className='home-page__partners-section__container__partner__socials__icon'
+                  icon='twitter'
+                />
+              </a>
+            </div>
           </div>
         </div>
       </PageSection>
