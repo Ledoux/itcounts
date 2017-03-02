@@ -1,6 +1,6 @@
 import App from '../containers/App'
 
-import { pages } from './constants'
+import { pages } from './config'
 
 const routes = {
   component: App,

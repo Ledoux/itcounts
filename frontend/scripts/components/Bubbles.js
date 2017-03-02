@@ -17,41 +17,39 @@ import React, {Component, PropTypes} from 'react'
 
 import Quote from './Quote'
 import SocialShares from './SocialShares'
-import { PROD_URL } from '../utils/config'
+import { PROD_URL } from '../utils/secret'
 import { getAsyncData } from '../utils/apis'
 import { bias, fraction } from '../utils/math'
-
-const HTAGS = '#VEGA #Parité #Politique http://pariteaupouvoir.heroku.com'
 
 const options = [
   {
     description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
-      que le groupe Socialiste (35%). ${HTAGS}`,
-    text: 'Par région',
+      que le groupe Socialiste (35%).`,
+    text: 'région',
     value: 'region'
   },
   {
     collideRadius: 50,
     description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
-      alors que l'Ile de France en est loin. ${HTAGS}`,
-    text: 'Par groupe politique',
+      alors que l'Ile de France en est loin.`,
+    text: 'groupe politique',
     value: 'parti_politique'
   },
   {
     description: `Après 70 ans, la proportion de députés femmes passe en dessous
-      de la barre des 15%. ${HTAGS}`,
-    text: 'Par tranche d\'âge',
+      de la barre des 15%.`,
+    text: 'tranche d\'âge',
     value: 'age'
   },
   {
     description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
-      culturelles” que dans la “Finance”. ${HTAGS}`,
-    text: 'Par commission',
+      culturelles” que dans la “Finance”.`,
+    text: 'commission',
     value: 'commission_permanente'
   },
   {
     description: `15% des députés cumulant 4 mandats sont des femmes contre moins
-      de 40% pour 1 mandat. ${HTAGS}`,
+      de 40% pour 1 mandat.`,
     text: 'Mandats cumulés',
     value: 'mandat'
   }
@@ -385,6 +383,7 @@ export default class Bubbles extends Component {
             className='social-shares bubbles__social-shares'
             description={currentOption.description}
             imageUrl={`${PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
+            title={`Découvrez la proportion de femmes à l'Assemblée Nationale selon leur ${currentOption.text}`}
           />
         </div>
       </div>

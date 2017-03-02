@@ -84,7 +84,10 @@ const HomePage = () => {
             </div>
           </div>
         </Quote>
-        <SocialShares className="home-page__participate-section__social-shares"/>
+        <SocialShares
+          className="home-page__participate-section__social-shares"
+          title="Quelle est la répartition du genre dans l'Assemblée Nationale ?"
+        />
         <p className="home-page__participate-section__subtitle mb3">
           Encouragez la representativit&eacute; des femmes dans les instances de
           pouvoir politiques et publiques : <a> signez notre p&eacute;titiion </a>

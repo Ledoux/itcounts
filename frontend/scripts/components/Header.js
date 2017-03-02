@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Link from './Link'
 import Logo from './Logo'
 import { showModal } from '../reducers/modal'
-import { links } from '../utils/constants'
+import { links } from '../utils/config'
 
 if (typeof document !== 'undefined') {
   // needs this polyfill to make scrollIntoView smooth working in Chrome

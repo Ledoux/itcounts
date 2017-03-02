@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import { Router, useRouterHistory } from 'react-router'
 import { createHistory } from 'history'
 
-import routes from '../utils/routes'
 import { IS_NODE, BASE_NAME } from '../utils/config'
+import routes from '../utils/routes'
 
 export const browserHistory = IS_NODE ? undefined : useRouterHistory(createHistory)({
   basename: BASE_NAME

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import Button from './Button'
 import Icon from './Icon'
-import { FACEBOOK_APP_ID } from '../utils/secret'
+import { HTAGS, FACEBOOK_APP_ID, PROD_URL } from '../utils/secret'
 
 const SocialShares = ({
   appUrl,
@@ -14,10 +14,11 @@ const SocialShares = ({
   shareUrl,
   title
 }) => {
+  const tagDescription = `${description} ${HTAGS} ${PROD_URL}`
   return (<div className={classnames(className,"social-shares center")}>
     <Button
         className='button social-shares__share col sm-col-6'
-        href={`https://www.facebook.com/dialog/feed?app_id=${FACEBOOK_APP_ID}&display=popup&title=${title}&description=${description}&caption=${caption}&picture=${imageUrl}&link=${appUrl}&redirect_uri=https://facebook.com`}
+        href={`https://www.facebook.com/dialog/feed?app_id=${FACEBOOK_APP_ID}&display=popup&title=${title}&description=${encodeURI(tagDescription).replace(/#/g, '%23')}&caption=${encodeURI(caption)}&picture=${imageUrl}&link=${appUrl}&redirect_uri=https://facebook.com`}
         target='_blank'
         external
       >
@@ -37,12 +38,10 @@ const SocialShares = ({
 SocialShares.defaultProps =  {
   appUrl: 'http://pariteaupouvoir.heroku.com',
   caption: 'Parité au Pouvoir',
-  description: `Signez notre pétition pour plus de femmes à l'Assemblée Nationale !
-  http://pariteaupouvoir.heroku.com %23VEGA %23Parité %23Politique
-  `,
+  description: "Signez notre pétition pour plus de femmes à l'Assemblée Nationale !",
   imageUrl: 'http://pariteaupouvoir.heroku.com/static/images/camembert.png',
   shareUrl: 'http://pariteaupouvoir.heroku.com',
-  title: "Quelle est la répartition du genre dans l\'Assemblée Nationale ?",
+  title: ' '
 }
 
 export default SocialShares
