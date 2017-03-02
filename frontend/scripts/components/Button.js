@@ -5,10 +5,11 @@ import Link from './Link'
 // prevent creating new function every time default prop onClick is required
 const noop = () => {}
 
-const Button = ({ children,
+const Button = ({children,
   className,
   disabled,
   download,
+  external,
   href,
   onClick,
   target,
@@ -18,12 +19,12 @@ const Button = ({ children,
   if (href) {
     return (
       <Link
+        external={external}
         href={href}
         target={target}
         forceAnchorElement={forceAnchorElement}
         className={classes}
         download={download}
-        onClick={onClick}
       >{children}</Link>
     )
   }

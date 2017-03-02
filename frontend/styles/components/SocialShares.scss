@@ -1,7 +1,13 @@
 .social-shares {
   overflow-y: hidden;
-  &-icon {
+  &__share {
     height: 60px;
-    width: 60px;
+    &__icon {
+      height: 100%;
+      width: 100%;
+    }
+    @media (max-width: $sm) {
+      width: 100%;
+    }
   }
 }

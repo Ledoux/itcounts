@@ -1,7 +1,6 @@
 .button {
   text-decoration: none;
   text-align: center;
-
   display: inline-block;
   font-size: 1em;
   line-height: 1.25;
@@ -9,28 +8,11 @@
   border: 0;
   border-radius: 0.5em;
   padding: 0.875em 1.375em;
-  background-color: $apple-green;
   cursor: pointer;
   font-family: $font-family;
   .icon {
     vertical-align: middle;
   }
-
-  // STYLE
-  &--line {
-    border: 1px solid currentColor;
-    background: transparent;
-  }
-
-  &--plain {
-    cursor: pointer;
-    background: 0;
-    border: 0;
-    outline: 0;
-    padding: 0;
-    text-align: left;
-  }
-
   // SIZE
   &--large {
     padding-left: 2.5em;
@@ -43,17 +25,5 @@
   &:focus {
     transform: scale(1.04);
     transition: all 0.2s ease-out;
-  }
-  // override here, rather than using :not selector above,
-  // to keep specificity low for :hover rule
-  &--plain {
-    &:hover,
-    &:focus {
-      transform: none;
-    }
-  }
-  &[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
   }
 }

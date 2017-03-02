@@ -31,7 +31,13 @@ const HomePage = () => {
           de soutenir <br /> l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
           l&#39;Assembl&eacute;e Nationale
         </p>
-        <Button className="button button--large home-page__welcome-section__cta">
+        <Button
+          className="button button--large home-page__welcome-section__cta"
+          onClick={() => {
+            document.querySelector(`section#bubbles`)
+              .scrollIntoView({behavior: 'smooth'})
+          }}
+        >
           D&eacute;couvrir
         </Button>
         <div>
@@ -42,7 +48,10 @@ const HomePage = () => {
         </div>
       </PageSection>
 
-      <PageSection extraClass='home-page__bubbles-section center'>
+      <PageSection
+        extraClass='home-page__bubbles-section center'
+        id='bubbles'
+      >
         <p className="home-page__bubbles-section__title">
           D&eacute;couvrez la proportion de femmes &aacute; l&#39;Assembl&eacute;e Nationale
           selon leur:
@@ -53,7 +62,7 @@ const HomePage = () => {
       </PageSection>
 
       <PageSection extraClass='home-page__participate-section center'>
-        <p className="home-page__participate-section__title mb1">
+        <p className="home-page__participate-section__title">
           Participer
         </p>
         <Quote className='quote home-page__participate-section__quote'>
@@ -72,12 +81,12 @@ const HomePage = () => {
           </div>
         </Quote>
         <SocialShares className="home-page__participate-section__social-shares"/>
-        <p className="home-page__participate-section__subtitle mb1">
+        <p className="home-page__participate-section__subtitle mb3">
           Encouragez la representativit&eacute; des femmes dans les instances de
           pouvoir politiques et publiques : <a> signez notre p&eacute;titiion </a>
           pour avoir un impact &aacute; l&#39;Assembl&eacute;e Nationale !
         </p>
-        <Button className="button button--large home-page__participate-section__cta mb3">
+        <Button className="button button--large home-page__participate-section__cta">
           Signer la P&eacute;tition
         </Button>
       </PageSection>

@@ -14,10 +14,10 @@ const App = class App extends Component {
         <Helmet
           title='Erwan Ledoux'
           meta={[
-            { property: 'og:site_name', content: 'DataForGood_FR' },
+            { property: 'og:site_name', content: 'Parité au Pouvoir' },
             { property: 'twitter:site', content: '@DataForGood_FR' },
             { property: 'twitter:creator', content: '@_erwanledoux' },
-            { property: 'og:title', content: 'Data For Good It Counts' },
+            { property: 'og:title', content: 'Parité au Pouvoir' },
             { property: 'og:description', content: '' },
             { property: 'description', content: '' },
             { property: 'twitter:card', content: 'summary_large_image' },

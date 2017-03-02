@@ -8,26 +8,26 @@ const Link = (props) => {
     props.download ||
     props.external ||
     props.forceAnchorElement
-  if (props.external) {
-    props = assign({}, props)
-    delete props.external
+  const linkProps = Object.assign({}, props)
+  let isExternal = false
+  if (linkProps.external) {
+    isExternal = true
+    delete linkProps.external
   }
   const LinkComponent = useAnchor ? 'a' : ReactRouterLink
-  console.log('LinkComponent', LinkComponent, props.href)
   if (!useAnchor) {
-    props.to = props.href
+    linkProps.to = linkProps.href
   }
-  props
-  return <LinkComponent
-    {...props}
-    onClick={e => {
+  if (linkProps.onClick) {
+    linkProps.onClick = (e) => {
       e.preventDefault()
-      window.history.pushState(null, null, props.href)
-      if (props.onClick) {
-        props.onClick()
+      if (!isExternal) {
+        window.history.pushState(null, null, linkProps.href)
       }
-    }}
-  />
+      props.onClick()
+    }
+  }
+  return <LinkComponent {...linkProps} />
 }
 
 export default Link

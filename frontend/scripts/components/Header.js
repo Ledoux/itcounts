@@ -35,7 +35,6 @@ const Header = ({
           key={index}
           href={`/#${sectionId}`}
           onClick={() => {
-            console.log(document.querySelector(`section#${sectionId}`))
             document.querySelector(`section#${sectionId}`)
               .scrollIntoView({behavior: 'smooth'})
           }}
