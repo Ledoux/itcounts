@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import Button from './Button'
 import Icon from './Icon'
-import { HTAGS, FACEBOOK_APP_ID, PROD_URL } from '../utils/secret'
+import { HASHTAGS, FACEBOOK_APP_ID, PROD_URL } from '../utils/secret'
 
 const SocialShares = ({
   appUrl,
@@ -14,7 +14,7 @@ const SocialShares = ({
   shareUrl,
   title
 }) => {
-  const tagDescription = `${description} ${HTAGS} ${PROD_URL}`
+  const tagDescription = `${description} ${HASHTAGS} ${PROD_URL}`
   return (<div className={classnames(className,"social-shares center")}>
     <Button
         className='button social-shares__share col sm-col-6'

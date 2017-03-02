@@ -28,10 +28,10 @@ const Header = ({
       </div>
     </div>
     <div className='flex-auto' />
-    <div className='xs-hide'>
+    <div className='header__top-nav__links xs-hide'>
       {links.map(({label, sectionId}, index) => {
         return (<Link
-          className='link header__top-nav__link p2 mr3'
+          className='link header__top-nav__links__link p2 mr3'
           key={index}
           href={`/#${sectionId}`}
           onClick={() => {

@@ -7,6 +7,8 @@ import PageSection from '../components/PageSection'
 import Quote from '../components/Quote'
 import SocialShares from '../components/SocialShares'
 
+import { HASHTAGS, PROD_URL } from '../utils/secret'
+
 const HomePage = () => {
   return (
     <main className='home-page'>
@@ -79,7 +81,7 @@ const HomePage = () => {
             <div className='home-page__participate-section__quote__down p2'>
               <p className='home-page__participate-section__quote__down__text'>
                 Signez votre p&eacute;tition pour plus de femmes &agrave; l&#39;Assembl&eacute;e Nationale.
-                [URL]&#35;VEGA &#35;Parit&eacute; &#35;Politique http://vega-project.org/
+                 {` ${HASHTAGS.replace(/#/g, '#')} ${PROD_URL}`}
               </p>
             </div>
           </div>
