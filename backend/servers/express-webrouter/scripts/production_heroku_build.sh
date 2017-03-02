@@ -3,7 +3,7 @@ if [[ ! $(heroku apps:info -a parite-au-pouvoir) ]]; then
   heroku create --app parite-au-pouvoir --buildpack heroku/nodejs --remote production
   heroku config:set --app parite-au-pouvoir TYPE=production
 else
-  echo "toster has been already created"
+  echo "parite-au-pouvoir has been already created"
   echo "Do you wish to delete this app (y/n)?"
   read answer
   if echo "$answer" | grep -iq "^y" ;then
