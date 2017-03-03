@@ -14,27 +14,27 @@ const HomePage = () => {
     <main className='home-page'>
 
       <PageSection
-        extraClass='home-page__welcome-section center'
+        extraClass='home-page__hero-section center'
       >
         <Icon
-          className='home-page__welcome-section__cloud'
+          className='icon home-page__hero-section__cloud'
           icon='cloud'
         />
         <Icon
-          className='home-page__welcome-section__assembly mb2'
+          className='icon home-page__hero-section__assembly mb2'
           icon='big-assembly'
         />
-        <p className="home-page__welcome-section__title mb1">
+        <p className="home-page__hero-section__title mb1 p2">
           26,9% de femmes à l&#39;Assembl&eacute;e, <br/ >
           51,5% de femmes en France.
         </p>
-        <p className="home-page__welcome-section__subtitle">
+        <p className="home-page__hero-section__subtitle mb2 p2">
           Visualiser pour mieux comprendre: Parit&eacute; au Pouvoir a pour mission
           de soutenir <br /> l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
           l&#39;Assembl&eacute;e Nationale
         </p>
         <Button
-          className="button button--large home-page__welcome-section__cta"
+          className="button button--large home-page__hero-section__cta"
           onClick={() => {
             document.querySelector(`section#bubbles`)
               .scrollIntoView({behavior: 'smooth'})
@@ -42,9 +42,9 @@ const HomePage = () => {
         >
           D&eacute;couvrir
         </Button>
-        <div>
+        <div className='home-page__hero-section__buildings'>
           <Icon
-            className='home-page__welcome-section__buildings'
+            className='icon home-page__hero-section__buildings__icon'
             icon='buildings'
           />
         </div>
@@ -117,7 +117,7 @@ const HomePage = () => {
             [{
               image: "virginie_robidou.png",
               name: "Virginie Robidou",
-              speciality: "Dévelopeuse"
+              speciality: "Développeuse"
             },
             {
               image: "agathe_brusset.png",
@@ -132,7 +132,7 @@ const HomePage = () => {
             [{
               image: "erwan_ledoux.png",
               name: "Erwan Ledoux",
-              speciality: "Dévelopeur"
+              speciality: "Développeur"
             },
             {
               image: "sylvain_raibaud.png",
@@ -157,7 +157,7 @@ const HomePage = () => {
             {
               image: "mickael_bolnet.png",
               name: "Mickaël Bolnet",
-              speciality: "Dévelopeur Full Stack"
+              speciality: "Développeur Full Stack"
             }],
             [{
               image: "baptiste_quentin.png",
@@ -165,32 +165,21 @@ const HomePage = () => {
               speciality: "Coordinateur du projet"
             },
             {
-              image:"louis_jean_de_gastines.png",
+              image: "louis_jean_de_gastines.png",
               name: "Louis-Jean de Gastines",
               speciality: "Coordinateur du projet"
-            }, {
-              rawHTML:`
-              <div>
-                <p class='home-page__team-section__container__thanks__title mb1'>
-                  Et des remerciements particuliers &agrave; :
-                </p>
-                <p class='home-page__team-section__container__thanks__people'>
-                  Matthieu Daladouire : D&eacute;veloppeur Front-End <br />
-                  Steven Lasry  : D&eacute;veloppeur Full Stack
-                </p>
-              </div>`
+            },
+            {
+              image: "steven_lasry.png",
+              name: "Steven Lasry",
+              speciality: "Développeur Full Stack"
             }]
           ].map((rows, rowIndex) => (<div
               className='home-page__team-section__container__rows mb2'
               key={rowIndex}
             >
             {
-              rows.map(({image, name, rawHTML, speciality}, colIndex) => rawHTML
-                ? (<div
-                  className='home-page__team-section__container__thanks col col-4 p2 mb2'
-                  key={colIndex} dangerouslySetInnerHTML={{__html: rawHTML}}
-                />)
-                : (<div
+              rows.map(({image, name, rawHTML, speciality}, colIndex) => (<div
                 className='home-page__team-section__container__rows__profile col col-4 p2'
                 key={colIndex}>
                 <img
@@ -211,6 +200,11 @@ const HomePage = () => {
             }
           </div>))
         }
+        </div>
+        <div className='home-page__team-section__container__thanks center mb1'>
+          <p>
+            Et des remerciements particuliers &agrave; <span style={{fontWeight: 'bold'}}>Matthieu Daladouire</span>, D&eacute;veloppeur Front-End
+          </p>
         </div>
       </PageSection>
 

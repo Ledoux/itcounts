@@ -1,50 +1,77 @@
 .home-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   pointer-events: none;
-  &__welcome-section {
+  &__hero-section {
     pointer-events: none;
-    background-image: $blue-pastel-gradient;
-    padding-top: 197px;
+    background-image: $hero-blue-pastel-gradient;
     position: relative;
     &__cloud {
-      height: 200px;
-      left: 250px;
+      left: 20%;
       position: absolute;
-      width: 200px;
-      top: 100px;
+      top: 50px;
+      height: 40px;
+      width: 100px;
+      @media (min-width: $md) {
+        height: 70px;
+        width: 150px;
+      }
     }
     &__assembly {
-      height: 343px;
-      width: 548px;
+      margin-top: 50px;
+      height: 300px;
+      width: 300px;
+      @media (min-width: $md) {
+        height: 300px;
+        width: 550px;
+      }
     }
-    &__buildings {
-      bottom: 0;
-      left: 0;
-      position: absolute;
-      width: 100%;
-    }
-    &__cta {
-      background-color: $apple-green;
-      margin-bottom: 110px;
-      pointer-events: auto;
+    &__title {
+      font-family: $font-family;
+      font-size: 30px;
+      @media (min-width: $md) {
+        font-size: 36px;
+      }
+      font-weight: bold;
+      line-height: 1.58;
     }
     &__subtitle {
       color: $grey;
       font-family: $font-family;
-      font-size: 24px;
+      font-size: 20px;
+      @media (min-width: $md) {
+        font-size: 24px;
+      }
       font-weight: 300;
       line-height: 1.67;
-      margin-bottom: 100px;
     }
-    &__title {
-      font-family: $font-family;
-      font-size: 36px;
-      font-weight: bold;
-      line-height: 1.58;
+    &__cta {
+      background-color: $apple-green;
+      pointer-events: auto;
+    }
+    &__buildings {
+      position: relative;
+      height: 100px;
+      &__icon {
+        position: absolute;
+        width: 900px;
+        height: 100px;
+        left: 0;
+        right: 0;
+        // overflow-x: hidden;
+        /*
+        height: 50px;
+        @media (min-width: $sm) {
+          height: 80px;
+        }
+        @media (min-width: $md) {
+          height: 100px;
+        }
+        @media (min-width: $lg) {
+          height: 130px;
+        }
+        */
+        left: 0;
+        bottom: 0;
+      }
     }
   }
   &__bubbles-section {
@@ -146,7 +173,7 @@
     }
   }
   &__team-section {
-    background-image: $blue-pastel-gradient;
+    background-image: $total-blue-pastel-gradient;
     overflow-y: hidden;
     &__title {
       color: $grey;
@@ -159,22 +186,14 @@
     &__container {
       margin-left: 10%;
       margin-right: 10%;
-      margin-bottom: 90px;
       overflow-y: hidden;
       &__thanks {
         color: $grey;
         font-family: $font-family;
         padding-top: 30px;
-        text-align: left;
-        &__title {
-          font-size: 18px;
-          font-weight: 500;
-        }
-        &__people {
-          font-size: 16px;
-          font-weight: 300;
-          line-height: 1.5;
-        }
+        margin-bottom: 90px;
+        font-size: 18px;
+        font-weight: 300;
       }
       &__rows {
         overflow-y: hidden;
