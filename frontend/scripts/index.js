@@ -3,11 +3,16 @@ import 'babel-polyfill'
 require('../styles/index.scss')
 // required for polyfilling for older browsers.. should not be needed though?
 require('whatwg-fetch')
+if (typeof document !== 'undefined') {
+  // needs this polyfill to make scrollIntoView smooth working in Chrome
+  require('smoothscroll-polyfill').polyfill()
+}
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { applyMiddleware, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import {responsiveStoreEnhancer} from 'redux-responsive'
 
 import Root from './containers/Root'
 import rootReducer from './reducers'
@@ -35,11 +40,13 @@ domReady().then(() => {
   let storeEnhancer
   if (window.devToolsExtension) {
     storeEnhancer = compose(
+      responsiveStoreEnhancer,
       applyMiddleware(sagaMiddleware),
       window.devToolsExtension()
     )
   } else {
     storeEnhancer = compose(
+      responsiveStoreEnhancer,
       applyMiddleware(sagaMiddleware)
     )
   }

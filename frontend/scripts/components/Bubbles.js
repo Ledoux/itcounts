@@ -14,6 +14,7 @@ import { scaleSqrt } from 'd3-scale'
 import { event, select, selectAll } from 'd3-selection'
 import { transition } from 'd3-transition'
 import React, {Component, PropTypes} from 'react'
+import { connect } from 'react-redux'
 
 import Quote from './Quote'
 import SocialShares from './SocialShares'
@@ -23,7 +24,7 @@ import { bias, fraction } from '../utils/math'
 
 const options = [
   {
-    collideRadius: 50,
+    collideRadius: 30,
     description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
       alors que l'Ile de France en est loin.`,
     text: 'groupe politique',
@@ -56,7 +57,7 @@ const options = [
 ]
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
-export default class Bubbles extends Component {
+class Bubbles extends Component {
   constructor () {
     super()
     this.state = { currentOption: options[0], nodes: [] }
@@ -159,12 +160,17 @@ export default class Bubbles extends Component {
      .force('charge', forceManyBody().strength(forceStrength))
      .on('tick', () => {
        // unpack
-       const { collide, nodesSelection } = this
+       const { nodesSelection } = this
        // transform
        nodesSelection
         .attr('transform', d => {
-          return 'translate(' + d.x + ',' + d.y + ')'
+          // add border rebound
+          const translateX = Math.max(d.r, Math.min(width - d.r, d.x))
+          const translateY = Math.max(d.r, Math.min(vizHeight - d.r, d.y))
+          // return
+          return `translate(${translateX},${translateY})`
         })
+
      })
      .stop()
     // drag
@@ -216,6 +222,7 @@ export default class Bubbles extends Component {
       optionsSelection
     } = this
     const {
+      centerYCoordinateRatio,
       clipPadding,
       collideRadius,
       collisionPadding,
@@ -322,7 +329,7 @@ export default class Bubbles extends Component {
      )
     // center
     const centerCoordinates = currentOption.centerCoordinates || [
-      width / 2, vizHeight / 2.5]
+      width / 2, vizHeight / centerYCoordinateRatio]
     simulation.force('center', forceCenter(...centerCoordinates))
     // restart
     simulation.restart()
@@ -419,6 +426,7 @@ export default class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
+  centerYCoordinateRatio: 2.5,
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
@@ -432,4 +440,14 @@ Bubbles.defaultProps = {
   maxRadius: 70, // also determines collision search radius
   selectorTransitionTime: 700,
   width: 1000
-};
+}
+
+const mapStateToProps = function ({ browser }) {
+  return {
+    centerYCoordinateRatio: browser.lessThan.md ? 2 : 2.5,
+    vizHeight: browser.lessThan.md ? 600 : 500,
+    width: browser.lessThan.md ? 300 : 1000
+  }
+}
+
+export default connect(mapStateToProps)(Bubbles)

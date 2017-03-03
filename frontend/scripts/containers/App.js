@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
 
 import Header from '../components/Header'
-import Modal from '../components/Modal'
 
 const App = class App extends Component {
   render () {
@@ -29,8 +28,6 @@ const App = class App extends Component {
         <Header />
 
         {children}
-
-        <Modal />
 
       </div>
     )

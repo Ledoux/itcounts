@@ -11,7 +11,7 @@ import { HASHTAGS, PROD_URL } from '../utils/secret'
 
 const HomePage = () => {
   return (
-    <main className='home-page'>
+    <main className='main home-page'>
 
       <PageSection
         extraClass='home-page__hero-section center'
@@ -37,7 +37,7 @@ const HomePage = () => {
           className="button button--large home-page__hero-section__cta"
           onClick={() => {
             document.querySelector(`section#bubbles`)
-              .scrollIntoView({behavior: 'smooth'})
+                    .scrollIntoView({behavior: 'smooth'})
           }}
         >
           D&eacute;couvrir
@@ -68,18 +68,18 @@ const HomePage = () => {
           Participer
         </p>
         <Quote className='quote home-page__participate-section__quote'>
-          <div className="p3">
-            <div className='home-page__participate-section__quote__up mb3'>
+          <div className="home-page__participate-section__quote__container">
+            <div className='home-page__participate-section__quote__container__up mb3'>
               <img
-                className='home-page__participate-section__quote__up__img col col-2'
+                className='home-page__participate-section__quote__container__up__img col col-2'
                 src='/static/images/camembert.png'
               />
-              <p className='home-page__participate-section__quote__up__text col col-8'>
+              <p className='home-page__participate-section__quote__container__up__text col col-8'>
                 R&eacute;patition du genre dans l&#39;Assembl&eacute;e Nationale
               </p>
             </div>
-            <div className='home-page__participate-section__quote__down p2'>
-              <p className='home-page__participate-section__quote__down__text'>
+            <div className='home-page__participate-section__quote__container__down p2'>
+              <p className='home-page__participate-section__quote__container__down__text'>
                 Signez votre p&eacute;tition pour plus de femmes &agrave; l&#39;Assembl&eacute;e Nationale.
                  {` ${HASHTAGS.replace(/#/g, '#')} ${PROD_URL}`}
               </p>
@@ -180,16 +180,16 @@ const HomePage = () => {
             >
             {
               rows.map(({image, name, rawHTML, speciality}, colIndex) => (<div
-                className='home-page__team-section__container__rows__profile col col-4 p2'
+                className='home-page__team-section__container__rows__profile col col-4'
                 key={colIndex}>
                 <img
-                  className='home-page__team-section__container__rows__profile__img col col-4 p1'
+                  className='home-page__team-section__container__rows__profile__img col col-4'
                   src={`static/images/${image}`}
                 />
                 <div
-                  className='home-page__team-section__container__rows__profile__text col col-8 p2'
+                  className='home-page__team-section__container__rows__profile__text col col-8'
                 >
-                  <div className='home-page__team-section__container__rows__profile__text__name mb2'>
+                  <div className='home-page__team-section__container__rows__profile__text__name'>
                     {name}
                   </div>
                   <div className='home-page__team-section__container__rows__profile__text__speciality'>
