@@ -68,6 +68,7 @@ class Bubbles extends Component {
     const { updateBubbles } = this
     const {
       collideRadius,
+      isDrag,
       legendX,
       legendY,
       forceStrength,
@@ -174,25 +175,27 @@ class Bubbles extends Component {
      })
      .stop()
     // drag
-    vizSelection.call(drag()
-      .container(vizElement)
-      .subject(() => simulation.find(event.x, event.y))
-      .on('start', () => {
-        if (!event.active) simulation.alphaTarget(0.3)
-          .restart()
-        event.subject.fx = event.subject.x
-        event.subject.fy = event.subject.y
-      })
-      .on('drag', () => {
-        event.subject.fx = event.x
-        event.subject.fy = event.y
-      })
-      .on('end', () => {
-        if (!event.active) simulation.alphaTarget(0)
-        event.subject.fx = null
-        event.subject.fy = null
-      })
-    )
+    if (isDrag) {
+      vizSelection.call(drag()
+        .container(vizElement)
+        .subject(() => simulation.find(event.x, event.y))
+        .on('start', () => {
+          if (!event.active) simulation.alphaTarget(0.3)
+            .restart()
+          event.subject.fx = event.subject.x
+          event.subject.fy = event.subject.y
+        })
+        .on('drag', () => {
+          event.subject.fx = event.x
+          event.subject.fy = event.y
+        })
+        .on('end', () => {
+          if (!event.active) simulation.alphaTarget(0)
+          event.subject.fx = null
+          event.subject.fy = null
+        })
+      )
+    }
     // init mouseover and mouseout on nodes
     const mouseover = (element) => {
       this.nodesSelection.classed('g-hover', p => p === element)
@@ -430,6 +433,7 @@ Bubbles.defaultProps = {
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
+  isDrag: true,
   legendY: 30,
   legendX: 20,
   forceStrength: 100,
@@ -444,6 +448,7 @@ Bubbles.defaultProps = {
 
 const mapStateToProps = function ({ browser }) {
   return {
+    isDrag: !browser.lessThan.md,
     centerYCoordinateRatio: browser.lessThan.md ? 2 : 2.5,
     vizHeight: browser.lessThan.md ? 600 : 500,
     width: browser.lessThan.md ? 300 : 1000

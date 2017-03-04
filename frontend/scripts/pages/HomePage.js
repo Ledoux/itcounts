@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Assembly from '../components/Assembly'
 import Bubbles from '../components/Bubbles'
 import Button from '../components/Button'
 import Icon from '../components/Icon'
@@ -61,6 +62,20 @@ const HomePage = () => {
         <div className="mb2">
           <Bubbles />
         </div>
+      </PageSection>
+
+      <PageSection
+        extraClass='home-page__assembly-section center'
+      >
+        <p className="home-page__assembly-section__title">
+          Cartographier la parit&eacute; dans l&#39;H&eacute;micycle :
+        </p>
+        <p className="home-page__assembly-section__subtitle mb3 p2">
+          Localisez nos d&eacute;put&eacute; et apprenez-en plus sur la
+          r&eacute;partition spatial des genres selon le nombre de mandats cumul&eacute;,
+          des commisions ou des groupes politiques
+        </p>
+        <Assembly />
       </PageSection>
 
       <PageSection extraClass='home-page__participate-section center'>

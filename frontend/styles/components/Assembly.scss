@@ -1,0 +1,60 @@
+.assembly {
+  margin-bottom: 60px;
+  &__content {
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    overflow: hidden;
+    &__legend {
+      background-color: #FAFAFA;
+      box-shadow: 5px 5px 5px #888888;
+      border-radius: 20px;
+      padding: 20px;
+      &__title {
+        color: $option-grey;
+        font-family: $font-family;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding: 10px;
+        text-align: left;
+      }
+      &__switch {
+        font-family: $font-family;
+        font-size: 14px;
+        margin-bottom: 30px;
+      }
+      &__row {
+        margin-bottom: 5px;
+        overflow-y: hidden;
+        &__icon {
+          height: 15px;
+          width: 15px;
+        }
+        &__text {
+          color: $dark-grey;
+          font-family: $font-family;
+          font-size: 14px;
+          font-weight: 300;
+          margin-bottom: 15px;
+          text-align: left;
+        }
+      }
+    }
+    &__viz {
+      padding: 25px;
+      height: 65%;
+      width: 65%;
+    }
+  }
+  &__description {
+    color: $grey;
+    font-family: $font-family;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.67;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}

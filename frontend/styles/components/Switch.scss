@@ -1,0 +1,34 @@
+.switch {
+  border-radius: 20px;
+  border-color: #f3f7bf;
+  color: #d3dc4e;
+  height: 40px;
+  width: 180px;
+  position: relative;
+  cursor: pointer;
+  div {
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    height: 100%;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    transition: all 0.5s;
+    width: 50%;
+  }
+  &--off {
+    background-color: #ECEFF1;
+    div {
+      background-color: #455A64;
+      left: 0;
+    }
+  }
+  &--on {
+    background-color: #f3f7bf;
+    div {
+      background-color: #d3dc4e;
+      left: 50%;
+    }
+  }
+}

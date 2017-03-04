@@ -10,6 +10,7 @@
 @import 'defaults';
 
 // components
+@import './components/Assembly.scss';
 @import './components/Bubbles.scss';
 @import './components/Button.scss';
 @import './components/Header.scss';
@@ -19,6 +20,7 @@
 @import './components/Quote.scss';
 @import './components/PageSection.scss';
 @import './components/SocialShares.scss';
+@import './components/Switch.scss';
 
 // custom page styles
 @import './pages/HomePage.scss';
