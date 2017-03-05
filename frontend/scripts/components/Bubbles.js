@@ -53,7 +53,7 @@ const options = [
   {
     description: `15% des députés cumulant 4 mandats sont des femmes contre moins
       de 40% pour 1 mandat.`,
-    text: 'Mandats cumulés',
+    text: 'mandats cumulés',
     value: 'mandat'
   }
 ]
