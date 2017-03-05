@@ -156,8 +156,8 @@ class Assembly extends Component {
             </p>
             <Switch
               className='switch assembly__content__legend__switch'
-              OffComponent={<p> Info </p>}
-              OnComponent={<p> D&eacute;put&eacute;es </p>}
+              OffElement={<p> Info </p>}
+              OnElement={<p> D&eacute;put&eacute;es </p>}
             />
             <p className='assembly__content__legend__title'>
               L&eacute;gende

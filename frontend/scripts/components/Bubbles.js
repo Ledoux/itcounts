@@ -1,5 +1,6 @@
 // inspiration from http://www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html#Economy
 // https://static01.nyt.com/newsgraphics/2012/09/04/convention-speeches/ac823b240e99920e91945dbec49f35b268c09c38/index.js
+import classnames from 'classnames'
 import { max } from 'd3-array'
 import { drag } from 'd3-drag'
 import { format } from 'd3-format'
@@ -11,12 +12,13 @@ import {
 } from 'd3-force'
 import { quadtree } from 'd3-quadtree'
 import { scaleSqrt } from 'd3-scale'
-import { event, select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
+import { select, selectAll } from 'd3-selection'
+import throttle from 'lodash.throttle'
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 
 import Quote from './Quote'
+import Slider from './Slider'
 import SocialShares from './SocialShares'
 import { PROD_URL } from '../utils/secret'
 import { getAsyncData } from '../utils/apis'
@@ -55,78 +57,43 @@ const options = [
     value: 'mandat'
   }
 ]
+options.forEach((option, index) => {option.index = index})
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
 class Bubbles extends Component {
   constructor () {
     super()
     this.state = { currentOption: options[0], nodes: [] }
+    this.handleSelectOption = this._handleSelectOption.bind(this)
     this.updateBubbles = this._updateBubbles.bind(this)
   }
   componentDidMount () {
     // unpack
     const { updateBubbles } = this
     const {
+      centerYCoordinateRatio,
       collideRadius,
       isDrag,
       legendX,
       legendY,
       forceStrength,
       optionsHeight,
+      optionWidth,
       selectorHeight,
-      selectorTransitionTime,
-      vizHeight,
-      width
+      vizHeight
     } = this.props
+    const {
+      currentOption
+    } = this.state
     // init svg element
-    const optionsElement = document.querySelector('.bubbles__options__svg')
-    const optionsSelection = this.optionsSelection = select(optionsElement)
-    const selectorSelection = this.selectorSelection = select(optionsElement)
-    const vizElement = document.querySelector('.bubbles__viz__svg')
-    const vizElementClientRect = vizElement.getBoundingClientRect()
-    const vizElementLeft = vizElementClientRect.left
-    const vizElementTop = vizElementClientRect.top
+    const vizElement = this.vizElement = document.querySelector('.bubbles__viz__svg')
+    const vizWidth = this.vizWidth = vizElement.clientWidth
     const labelsDivElement = document.querySelector('.g-labels')
     const vizSelection = this.vizSelection = select(vizElement)
     const labelsDivSelection = this.labelsSelection = select(labelsDivElement)
     vizSelection.append('rect')
       .attr('class', 'g-overlay')
-      .attr('width', width)
-      .attr('height', vizHeight)
-    // init options, nodes and labels selection
-    const optionWidth = width/options.length
-    const t = transition().duration(selectorTransitionTime)
-    optionsSelection
-      .selectAll('.g-options')
-      .data(options, d => d.value)
-      .enter()
-      .append('foreignObject')
-      .attr('class', d => 'g-option')
-      .attr('x', (d,index) => index * optionWidth)
-      .attr('width', optionWidth)
-      .append('xhtml:body')
-      .attr('class', d => `flex justify-center items-center g-option__body g-option__body-${d.value}`)
-      .append('div')
-      .attr('class', 'g-option__body__button')
-      .attr('value', d => d.value)
-      .on('click', (d, index) => {
-        // move the slide
-        this.selectorSelection
-          .transition(t)
-          .attr('x', index * optionWidth)
-
-        // update bubbles
-        updateBubbles(d.value)
-      })
-      .text(d => d.text)
-    // append the selector
-    this.selectorSelection = optionsSelection
-      .append('rect')
-      .attr('class','g-option__body__selector')
-      .attr('y', optionsHeight - selectorHeight)
-      .attr('height', selectorHeight)
-      .attr('width', optionWidth)
-
+    // add the legend
     const legendSelection = vizSelection.append('g')
                 .attr('class', 'g-legend')
     const legendRadius = 15
@@ -152,6 +119,7 @@ class Bubbles extends Component {
                 .attr('cx', legendX + spaceLegend + 3 * legendRadius + spaceLegend)
                 .attr('cy', legendY)
 
+    // add nodes and labels
     const nodesSelection = this.nodesSelection = vizSelection
       .selectAll('.g-node')
     const labelsSelection = this.labelsSelection = vizSelection
@@ -166,7 +134,7 @@ class Bubbles extends Component {
        nodesSelection
         .attr('transform', d => {
           // add border rebound
-          const translateX = Math.max(d.r, Math.min(width - d.r, d.x))
+          const translateX = Math.max(d.r, Math.min(vizWidth - d.r, d.x))
           const translateY = Math.max(d.r, Math.min(vizHeight - d.r, d.y))
           // return
           return `translate(${translateX},${translateY})`
@@ -209,10 +177,23 @@ class Bubbles extends Component {
       a.on('mouseover', mouseover)
        .on('mouseout', mouseout)
     }
+
+    // add event listener
+    this._throttledResize = throttle(() => {
+      simulation.stop()
+      const vizWidth = this.vizWidth = vizElement.clientWidth
+      const centerCoordinates = currentOption.centerCoordinates || [
+        vizWidth / 2, vizHeight / centerYCoordinateRatio]
+      simulation.force('center', forceCenter(...centerCoordinates))
+      simulation.alpha(1)
+      simulation.restart()
+    }, 100)
+    window.addEventListener('resize', this._throttledResize)
+
     // fill with the default first option
     this.updateBubbles(options[0].value)
   }
-  componentDidUpdate () {
+  componentDidUpdate (prevProps, prevState) {
     // unpack
     const {
       linkTopic,
@@ -230,11 +211,15 @@ class Bubbles extends Component {
       collideRadius,
       collisionPadding,
       optionsHeight,
+      optionWidth,
       vizHeight,
       maxRadius,
       width
     } = this.props
-    const { currentOption, nodes } = this.state
+    const {
+      currentOption,
+      nodes
+    } = this.state
     // data
     nodesSelection = nodesSelection
       .data(nodes, d => d.name)
@@ -323,33 +308,36 @@ class Bubbles extends Component {
     selectAll('.g-value').style('margin','auto')
     // update simulation
     simulation.nodes(nodes)
-    // restart (by also reset the alpha to make the new nodes moving like a new start)
-    simulation.alpha(1)
     // maybe this set needs a special collide
     simulation.force('collide', forceCollide()
        .radius(d => d.r + (currentOption.collideRadius || collideRadius))
        .iterations(2)
      )
     // center
+    const vizWidth = document.querySelector('.bubbles__viz__svg').clientWidth
     const centerCoordinates = currentOption.centerCoordinates || [
-      width / 2, vizHeight / centerYCoordinateRatio]
+      vizWidth / 2, vizHeight / centerYCoordinateRatio]
     simulation.force('center', forceCenter(...centerCoordinates))
+    // restart (by also reset the alpha to make the new nodes moving like a new start)
+    simulation.alpha(1)
     // restart
     simulation.restart()
   }
+  _handleSelectOption (request) {
+    let { currentOption } = this.state
+    // check that we actually need to update or not
+    if (currentOption.value === request) {
+      return
+    } else {
+      this.updateBubbles(request)
+    }
+  }
   async _updateBubbles (request) {
     // unpack
-    const { simulation } = this
+    const { vizWidth, simulation } = this
     const { maxRadius, minRadius, width } = this.props
     // get
     const currentOption = options.filter(option => option.value === request)[0]
-    // check if an option element exists already
-    if (typeof this.optionElement !== 'undefined') {
-      this.optionElement.classList.remove('g-option__body--selected')
-    }
-    this.optionElement = document.querySelector(`.g-option__body-${request}`)
-    this.optionElement.classList.add('g-option__body--selected')
-
     // get the data from the api
     const data = await getAsyncData(request)
     // stop simulation
@@ -381,7 +369,7 @@ class Bubbles extends Component {
       node.cr = Math.max(minRadius, node.r)
       node.k = fraction(node.F, node.H)
       if (isNaN(node.k)) node.k = .5
-      node.cx = node.x = (1 - node.k) * width + Math.random()
+      node.cx = node.x = (1 - node.k) * vizWidth + Math.random()
       node.cy = node.y = node.H
       node.bias = .3 - Math.max(.1, Math.min(.9, node.k))
     })
@@ -392,16 +380,35 @@ class Bubbles extends Component {
     this.simulation.stop()
   }
   render () {
+    const { handleSelectOption, optionTransition } =  this
     const { optionsHeight, vizHeight, width } = this.props
     const { currentOption } = this.state
+    const optionWidth = 100/options.length
     return (
       <div className='bubbles center'>
-        <div className='bubbles__options mb2'>
-          <svg
-            className='bubbles__options__svg'
-            height={optionsHeight}
-            width={width}
-          />
+        <div className='bubbles__options mb2' />
+        <div className='bubbles__slider'>
+          <div className='bubbles__slider__container flex justify-center'>
+            {
+              options.map(({text, value}, index) => (<button
+                className={classnames('bubbles__slider__container__option', {
+                  'bubbles__slider__option--selected': currentOption.value === value
+                })}
+                key={index}
+                onClick={() => handleSelectOption(value)}
+              >
+                  {text}
+              </button>))
+            }
+          </div>
+          <div className='bubbles__slider__container__selector'>
+            <div className='bubbles__slider__container__selector__shift'
+              style={{
+                left: `${currentOption.index * optionWidth}%`,
+                width: `${optionWidth}%`
+              }}
+            />
+          </div>
         </div>
         <div className='bubbles__viz'>
           <svg
@@ -429,7 +436,7 @@ class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
-  centerYCoordinateRatio: 2.5,
+  centerYCoordinateRatio: 2,
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
@@ -441,17 +448,21 @@ Bubbles.defaultProps = {
   optionsHeight: 75,
   vizHeight: 500,
   minRadius: 40, // minimum collision radius
-  maxRadius: 70, // also determines collision search radius
-  selectorTransitionTime: 700,
-  width: 1000
+  maxRadius: 70 // also determines collision search radius
 }
 
 const mapStateToProps = function ({ browser }) {
+  const width = browser.lessThan.lg ? (
+    browser.lessThan.md ? (
+      browser.lessThan.sm ? 300 : 500
+    ) : 650
+  ) : 1000
   return {
-    isDrag: !browser.lessThan.md,
-    centerYCoordinateRatio: browser.lessThan.md ? 2 : 2.5,
-    vizHeight: browser.lessThan.md ? 600 : 500,
-    width: browser.lessThan.md ? 300 : 1000
+    // isDrag: !browser.lessThan.md,
+    // centerYCoordinateRatio: browser.lessThan.md ? 2 : 2.5,
+    // vizHeight: browser.lessThan.md ? 600 : 500,
+    // optionWidth: width/options.length,
+    // width
   }
 }
 

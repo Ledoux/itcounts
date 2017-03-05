@@ -4,6 +4,7 @@ import Assembly from '../components/Assembly'
 import Bubbles from '../components/Bubbles'
 import Button from '../components/Button'
 import Icon from '../components/Icon'
+import Link from '../components/Link'
 import PageSection from '../components/PageSection'
 import Quote from '../components/Quote'
 import SocialShares from '../components/SocialShares'
@@ -25,7 +26,7 @@ const HomePage = () => {
           className='icon home-page__hero-section__assembly mb2'
           icon='big-assembly'
         />
-        <p className="home-page__hero-section__title mb1 p2">
+        <p className="home-page__hero-section__title p2">
           26,9% de femmes à l&#39;Assembl&eacute;e, <br/ >
           51,5% de femmes en France.
         </p>
@@ -325,7 +326,11 @@ const HomePage = () => {
 
       <PageSection extraClass='home-page__footer-section center p2'>
         <p className='home-page__footer-section__links'>
-          Contact - Copyright - Mentions l&eacute;gales
+          <a href='mailto:waxscience@gmail.com' style={
+              {textDecoration: 'none', color: 'white'}
+            } external>
+            Contact
+          </a> - Copyright - Mentions l&eacute;gales
         </p>
       </PageSection>
 

@@ -15,8 +15,8 @@ class Switch extends Component {
       handleSwitchClick
     } = this
     const { className,
-      OnComponent,
-      OffComponent
+      OnElement,
+      OffElement
     } = this.props
     const {
       isSwitched
@@ -29,15 +29,15 @@ class Switch extends Component {
       onClick={handleSwitchClick}
     >
       <div>
-        { isSwitched ? OnComponent : OffComponent}
+        { isSwitched ? OnElement : OffElement}
       </div>
     </button>)
   }
 }
 
 Switch.defaultProps = {
-  OffComponent: <p> OFF </p>,
-  OnComponent: <p> ON </p>
+  OffElement: <p> OFF </p>,
+  OnElement: <p> ON </p>
 }
 
 export default Switch
