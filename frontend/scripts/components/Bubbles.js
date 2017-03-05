@@ -93,32 +93,6 @@ class Bubbles extends Component {
     const labelsDivSelection = this.labelsSelection = select(labelsDivElement)
     vizSelection.append('rect')
       .attr('class', 'g-overlay')
-    // add the legend
-    const legendSelection = vizSelection.append('g')
-                .attr('class', 'g-legend')
-    const legendRadius = 15
-    const spaceLegend = 95
-    legendSelection.append('text')
-                .attr('class', 'g-legend__femme__text')
-                .attr('x', legendX)
-                .attr('y', legendY + 5)
-                .text('femmes')
-    legendSelection.append('circle')
-                .attr('class', 'g-legend__femme__circle')
-                .attr('r', legendRadius)
-                .attr('cx', legendX + spaceLegend)
-                .attr('cy', legendY)
-    legendSelection.append('text')
-                .attr('class', 'g-legend__homme__text')
-                .attr('x', legendX + spaceLegend + 3 * legendRadius)
-                .attr('y', legendY + 5)
-                .text('hommes')
-    legendSelection.append('circle')
-                .attr('class', 'g-legend__homme__circle')
-                .attr('r', legendRadius)
-                .attr('cx', legendX + spaceLegend + 3 * legendRadius + spaceLegend)
-                .attr('cy', legendY)
-
     // add nodes and labels
     const nodesSelection = this.nodesSelection = vizSelection
       .selectAll('.g-node')
@@ -133,8 +107,10 @@ class Bubbles extends Component {
        // transform
        nodesSelection
         .attr('transform', d => {
-          // add border rebound
-          const translateX = Math.max(d.r, Math.min(vizWidth - d.r, d.x))
+          // add border rebound (it is important to keep this.vizWidth because
+          // this value may change with resize so we need to get its fresh values
+          // stored in the this pointer)
+          const translateX = Math.max(d.r, Math.min(this.vizWidth - d.r, d.x))
           const translateY = Math.max(d.r, Math.min(vizHeight - d.r, d.y))
           // return
           return `translate(${translateX},${translateY})`
@@ -427,6 +403,16 @@ class Bubbles extends Component {
             />
           </div>
         </div>
+        <div className='bubbles__legend'>
+          <div className='bubbles__legend__row col col-6'>
+            <p className='bubbles__legend__row__circle bubbles__legend__row__circle--women col col-2'/>
+            <p className='bubbles__legend__row__text col col-10'> femmes </p>
+          </div>
+          <div className='bubbles__legend__row col col-6'>
+            <p className='bubbles__legend__row__circle bubbles__legend__row__circle--men col col-2' />
+            <p className='bubbles__legend__row__text col col-10'> hommes </p>
+          </div>
+        </div>
         <div className='bubbles__viz'>
           <svg
             className='bubbles__viz__svg'
@@ -453,7 +439,7 @@ class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
-  centerYCoordinateRatio: 2.,
+  centerYCoordinateRatio: 2.2,
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
