@@ -27,28 +27,29 @@ import { bias, fraction } from '../utils/math'
 const options = [
   {
     collideRadius: 30,
-    maxRadius: 150,
+    maxSmRadius: 110,
+    maxMdRadius: 150,
     description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
       alors que l'Ile de France en est loin.`,
     text: 'groupe politique',
     value: 'parti_politique'
   },
   {
-    maxFontSize: 15,
+    maxSmFontSize: 15,
+    maxMdFontSize: 20,
     description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
       culturelles” que dans la “Finance”.`,
     text: 'commission',
     value: 'commission_permanente'
   },
   {
-    maxRadius: 110,
-    maxFontSize: 22,
     description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
       que le groupe Socialiste (35%).`,
     text: 'région',
     value: 'region'
   },
   {
+    maxMdRadius: 120,
     description: `Après 70 ans, la proportion de députés femmes passe en dessous
       de la barre des 15%.`,
     text: 'classe d\'âge',
@@ -190,11 +191,15 @@ class Bubbles extends Component {
       clipPadding,
       collideRadius,
       collisionPadding,
+      isLessThanMd,
       optionsHeight,
       optionWidth,
       vizHeight,
-      maxFontSize,
-      maxRadius,
+      maxSmFontSize,
+      maxMdFontSize,
+      maxSmRadius,
+      maxMdRadius,
+      minFontSize,
       minRadius,
       width
     } = this.props
@@ -202,6 +207,24 @@ class Bubbles extends Component {
       currentOption,
       nodes
     } = this.state
+    const maxRadius = isLessThanMd
+    ? (currentOption.maxSmRadius || maxSmRadius)
+    : (currentOption.maxMdRadius || maxMdRadius)
+    const maxFontSize = isLessThanMd
+    ? (currentOption.maxSmFontSize || maxSmFontSize)
+    : (currentOption.maxMdFontSize || maxMdFontSize)
+    // if it is just a change of size just change size and return
+    if (prevProps.isLessThanMd !== isLessThanMd) {
+      nodesSelection
+        .selectAll('foreignObject')
+        .style('font-size', d => {
+          return `${Math.max(minFontSize, (d.r / maxRadius) * maxFontSize)}px`
+        })
+        .style('font-weight', d => {
+          return `${(d.r / maxRadius) * 800}`
+        })
+      return
+    }
     // data
     nodesSelection = nodesSelection
       .data(nodes, d => d.name)
@@ -274,7 +297,6 @@ class Bubbles extends Component {
         d.r = this.getRadius(d.count);
         return d.r
     })
-
     nodesSelection
       .append('foreignObject')
       .attr('width', d => 2 * d.r)
@@ -288,12 +310,13 @@ class Bubbles extends Component {
       .attr('class', 'flex justify-center items-center')
       .append('div')
       .attr('class', 'g-name')
+      .attr('title', d => d.name)
       .text(d => d.name)
       .style('font-size', d => {
-        return `${(d.r / maxRadius) * (currentOption.maxFontSize || maxFontSize)}px`
+        return `${Math.max(minFontSize, (d.r / maxRadius) * maxFontSize)}px`
       })
       .style('font-weight', d => {
-        return `${(d.r / maxRadius) * 500}`
+        return `${(d.r / maxRadius) * 800}`
       })
     // label
     selectAll('.g-value').style('margin','auto')
@@ -326,9 +349,16 @@ class Bubbles extends Component {
   async _updateBubbles (request) {
     // unpack
     const { vizWidth, simulation } = this
-    const { maxRadius, minRadius, width } = this.props
-    // get
+    const {
+      isLessThanMd,
+      maxSmRadius,
+      maxMdRadius,
+      minRadius
+    } = this.props
     const currentOption = options.filter(option => option.value === request)[0]
+    const maxRadius = isLessThanMd
+    ? (currentOption.maxSmRadius || maxSmRadius)
+    : (currentOption.maxMdRadius || maxMdRadius)
     // get the data from the api
     const data = await getAsyncData(request)
     // stop simulation
@@ -466,14 +496,17 @@ Bubbles.defaultProps = {
   optionsHeight: 75,
   radiusRatio: 1,
   vizHeight: 500,
+  minFontSize: 7,
   minRadius: 40, // minimum collision radius
-  maxRadius: 70, // also determines collision search radius
-  maxFontSize: 20
+  maxSmRadius: 70, // also determines collision search radius
+  maxMdRadius: 70, // also determines collision search radius
+  maxSmFontSize: 15,
+  maxMdFontSize: 25
 }
 
 const mapStateToProps = function ({ browser }) {
   return {
-    // isDrag: !browser.lessThan.md,
+    isLessThanMd: browser.lessThan.md
   }
 }
 

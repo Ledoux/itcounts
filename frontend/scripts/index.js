@@ -11,12 +11,10 @@ if (typeof document !== 'undefined') {
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { applyMiddleware, compose, createStore } from 'redux'
-import createSagaMiddleware from 'redux-saga'
 import {responsiveStoreEnhancer} from 'redux-responsive'
 
 import Root from './containers/Root'
 import rootReducer from './reducers'
-import rootSaga from './sagas'
 
 function domReady () {
   return new Promise(function (resolve) {
@@ -33,21 +31,17 @@ function domReady () {
   })
 }
 
-const sagaMiddleware = createSagaMiddleware()
-
 domReady().then(() => {
   const hydratedState = window.__INITIAL_STATE__
   let storeEnhancer
   if (window.devToolsExtension) {
     storeEnhancer = compose(
       responsiveStoreEnhancer,
-      applyMiddleware(sagaMiddleware),
       window.devToolsExtension()
     )
   } else {
     storeEnhancer = compose(
-      responsiveStoreEnhancer,
-      applyMiddleware(sagaMiddleware)
+      responsiveStoreEnhancer
     )
   }
   const store = createStore(
@@ -55,7 +49,6 @@ domReady().then(() => {
     hydratedState,
     storeEnhancer
   )
-  sagaMiddleware.run(rootSaga)
   // actual render app
   const reactDivElement = document.getElementById('app_div')
   if (!reactDivElement) {

@@ -60,6 +60,11 @@
     margin-top: 20px;
     margin-left: 5%;
     margin-right: 5%;
+    @media (max-width: $mini) {
+      margin-left: 2%;
+      margin-right: 2%;
+      width: 96%;
+    }
     padding: 10px;
     overflow: hidden;
     &__legend {
@@ -68,10 +73,10 @@
       border-radius: 20px;
       padding: 10px;
       margin-bottom: 30px;
-      @media (min-width: $mini) {
-        margin-left: 15%;
-        margin-right: 15%;
-        min-width: 70%;
+      @media (max-width: $mini) {
+        margin-left: 2%;
+        margin-right: 2%;
+        min-width: 96%;
       }
       @media (min-width: $sm) {
         padding: 20px;
