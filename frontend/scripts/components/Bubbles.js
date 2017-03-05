@@ -12,7 +12,7 @@ import {
 } from 'd3-force'
 import { quadtree } from 'd3-quadtree'
 import { scaleSqrt } from 'd3-scale'
-import { select, selectAll } from 'd3-selection'
+import { event, select, selectAll } from 'd3-selection'
 import throttle from 'lodash.throttle'
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
@@ -383,16 +383,33 @@ class Bubbles extends Component {
     const { handleSelectOption, optionTransition } =  this
     const { optionsHeight, vizHeight, width } = this.props
     const { currentOption } = this.state
-    const optionWidth = 100/options.length
+    const optionWidth = 100 / options.length
     return (
       <div className='bubbles center'>
-        <div className='bubbles__options mb2' />
+        <div className='bubbles__dropdown'>
+          <select
+            className='bubbles__dropdown__select'
+            onChange={(e) =>handleSelectOption(e.target.value)}
+          >
+            {
+              options.map(({text, value}, index) => (<option
+                className={classnames('bubbles__dropdown__select__option', {
+                  'bubbles__dropdown__select__option--selected': currentOption.value === value
+                })}
+                key={index}
+                value={value}
+              >
+                  {text}
+              </option>))
+            }
+          </select>
+        </div>
         <div className='bubbles__slider'>
           <div className='bubbles__slider__container flex justify-center'>
             {
               options.map(({text, value}, index) => (<button
                 className={classnames('bubbles__slider__container__option', {
-                  'bubbles__slider__option--selected': currentOption.value === value
+                  'bubbles__slider__container__option--selected': currentOption.value === value
                 })}
                 key={index}
                 onClick={() => handleSelectOption(value)}
@@ -436,7 +453,7 @@ class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
-  centerYCoordinateRatio: 2,
+  centerYCoordinateRatio: 2.,
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
@@ -452,17 +469,8 @@ Bubbles.defaultProps = {
 }
 
 const mapStateToProps = function ({ browser }) {
-  const width = browser.lessThan.lg ? (
-    browser.lessThan.md ? (
-      browser.lessThan.sm ? 300 : 500
-    ) : 650
-  ) : 1000
   return {
     // isDrag: !browser.lessThan.md,
-    // centerYCoordinateRatio: browser.lessThan.md ? 2 : 2.5,
-    // vizHeight: browser.lessThan.md ? 600 : 500,
-    // optionWidth: width/options.length,
-    // width
   }
 }
 

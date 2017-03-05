@@ -86,23 +86,17 @@
       margin-right: 10%;
     }
     &__subtitle {
-      margin-left: 25%;
-      margin-right: 25%;
+      margin-left: 10%;
+      margin-right: 10%;
+      @media (min-width: $md) {
+        margin-left: 25%;
+        margin-right: 25%;
+      }
       color: $grey;
       font-weight: 300;
       font-family: $font-family;
       font-size: 18px;
       line-height: 1.67;
-    }
-    &__content {
-      &__legend {
-
-      }
-      &__viz {
-        &__img {
-
-        }
-      }
     }
   }
   &__participate-section {

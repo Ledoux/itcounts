@@ -1,7 +1,5 @@
-import { event, select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
+import classnames from 'classnames'
 import React, {Component, PropTypes} from 'react'
-import { connect } from 'react-redux'
 import ToggleButton from 'react-toggle-button'
 
 import Icon from './Icon'
@@ -63,133 +61,112 @@ const options = [
     value: 'mandats_cumules'
   }
 ]
+options.forEach((option, index) => {option.index = index})
 
-// https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
 class Assembly extends Component {
   constructor () {
     super()
     this.state = { currentOption: options[0], isAll: true }
     this.updateAssembly = this._updateAssembly.bind(this)
     this.handleToggleClick = this._handleToggleClick.bind(this)
-  }
-  componentDidMount () {
-    // unpack
-    const { updateAssembly } = this
-    const { selectorTransitionTime,
-      selectorHeight,
-      optionsHeight,
-      width
-    } = this.props
-    // init svg element
-    const optionsElement = document.querySelector('.assembly__options__svg')
-    const optionsSelection = this.optionsSelection = select(optionsElement)
-    const selectorSelection = this.selectorSelection = select(optionsElement)
-    // init options, nodes and labels selection
-    const optionWidth = width/options.length
-    const t = transition().duration(selectorTransitionTime)
-    optionsSelection
-      .selectAll('.g-options')
-      .data(options, d => d.value)
-      .enter()
-      .append('foreignObject')
-      .attr('class', d => 'g-option')
-      .attr('x', (d,index) => index * optionWidth)
-      .attr('width', optionWidth)
-      .append('xhtml:body')
-      .attr('class', d => `flex justify-center items-center g-option__body g-option__body-${d.value}`)
-      .append('div')
-      .attr('class', 'g-option__body__button')
-      .attr('value', d => d.value)
-      .on('click', (d, index) => {
-        // move the slide
-        this.selectorSelection
-          .transition(t)
-          .attr('x', index * optionWidth)
-        // update assembly
-        updateAssembly(d.value)
-      })
-      .text(d => d.text)
-    // append the selector
-    this.selectorSelection = optionsSelection
-      .append('rect')
-      .attr('class','g-option__body__selector')
-      .attr('y', optionsHeight - selectorHeight)
-      .attr('height', selectorHeight)
-      .attr('width', optionWidth)
-    // fill with the default first option
-    this.updateAssembly(options[0].value)
+    this.handleSelectOption = this._handleSelectOption.bind(this)
   }
   _handleToggleClick () {
     this.setState({ isAll: !this.state.isAll })
   }
+  _handleSelectOption (request) {
+    let { currentOption } = this.state
+    // check that we actually need to update or not
+    if (currentOption.value === request) {
+      return
+    } else {
+      this.updateAssembly(request)
+    }
+  }
   async _updateAssembly (request) {
-    // unpack
-    const { maxRadius, minRadius, width } = this.props
     // get
     const currentOption = options.filter(option => option.value === request)[0]
-    // check if an option element exists already
-    if (typeof this.optionElement !== 'undefined') {
-      this.optionElement.classList.remove('g-option__body--selected')
-    }
-    this.optionElement = document.querySelector(`.g-option__body-${request}`)
-    this.optionElement.classList.add('g-option__body--selected')
     // update the component
     this.setState({ currentOption })
   }
   render () {
-    const { handleToggleClick } = this
-    const { optionsHeight, width } = this.props
+    const { handleSelectOption, handleToggleClick } = this
+    const { optionsHeight } = this.props
     const { currentOption, isAll } = this.state
+    const optionWidth = 100 / options.length
     return (
       <div className='assembly center'>
-        <div className='assembly__options mb2'>
-          <svg
-            className='assembly__options__svg'
-            height={optionsHeight}
-            width={width}
-          />
+        <div className='assembly__dropdown'>
+          <select
+            className='assembly__dropdown__select'
+            onChange={(e) => handleSelectOption(e.target.value)}
+          >
+            {
+              options.map(({text, value}, index) => (<option
+                className={classnames('assembly__dropdown__select__option', {
+                  'assembly__dropdown__select__option--selected': currentOption.value === value
+                })}
+                key={index}
+                value={value}
+              >
+                  {text}
+              </option>))
+            }
+          </select>
         </div>
-        <div className='assembly__content mb2'>
-          <div className='assembly__content__legend col col-4'>
-            <p className='assembly__content__legend__title'>
-              Filtres
-            </p>
-            <Switch
-              className='switch assembly__content__legend__switch'
-              OffElement={<p> Info </p>}
-              OnElement={<p> D&eacute;put&eacute;es </p>}
-            />
-            <p className='assembly__content__legend__title'>
-              L&eacute;gende
-            </p>
-            {currentOption.infos}
+        <div className='assembly__slider'>
+          <div className='assembly__slider__container flex justify-center'>
+            {
+              options.map(({text, value}, index) => (<button
+                className={classnames('assembly__slider__container__option', {
+                  'assembly__slider__container__option--selected': currentOption.value === value
+                })}
+                key={index}
+                onClick={() => handleSelectOption(value)}
+              >
+                  {text}
+              </button>))
+            }
           </div>
-          <div className='assembly__content__viz col col-7'>
-            <img
-              className='assembly__content__viz__img'
-              src={`static/images/assembly_${currentOption.value}_${isAll ? 'all':'women'}.png`}
+          <div className='assembly__slider__container__selector'>
+            <div className='assembly__slider__container__selector__shift'
+              style={{
+                left: `${currentOption.index * optionWidth}%`,
+                width: `${optionWidth}%`
+              }}
             />
           </div>
         </div>
-        <div className='assembly__description'>
-          {currentOption.description}
+        <div>
+          <div className='assembly__content mb2'>
+            <div className='assembly__content__legend col md-col-4'>
+              <p className='assembly__content__legend__title'>
+                Filtres
+              </p>
+              <Switch
+                className='switch assembly__content__legend__switch'
+                OffElement={<p> Info </p>}
+                OnElement={<p> D&eacute;put&eacute;es </p>}
+              />
+              <p className='assembly__content__legend__title'>
+                L&eacute;gende
+              </p>
+              {currentOption.infos}
+            </div>
+            <div className='assembly__content__viz col md-col-7'>
+              <img
+                className='assembly__content__viz__img'
+                src={`static/images/assembly_${currentOption.value}_${isAll ? 'all':'women'}.png`}
+              />
+            </div>
+          </div>
+          <div className='assembly__description'>
+            {currentOption.description}
+          </div>
         </div>
       </div>
     )
   }
 }
 
-Assembly.defaultProps = {
-  selectorHeight: 10,
-  optionsHeight: 75,
-  selectorTransitionTime: 700,
-  width: 1000
-}
-
-const mapStateToProps = function ({ browser }) {
-  return {
-    width: browser.lessThan.md ? 300 : 1000
-  }
-}
-
-export default connect(mapStateToProps)(Assembly)
+export default Assembly

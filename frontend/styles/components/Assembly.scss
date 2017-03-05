@@ -1,9 +1,65 @@
 .assembly {
   margin-bottom: 60px;
-  &__content {
-    margin-top: 20px;
+  &__dropdown {
+    margin-bottom: 10px;
+    @media (min-width: $md) {
+      display: none;
+    }
+    &__select {
+      background-color: white;
+      color: $grey;
+      height: 30px;
+      font-family: $font-family;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  &__slider {
+    @media (max-width: $md) {
+      display: none;
+    }
     margin-left: 10%;
     margin-right: 10%;
+    margin-bottom: 50px;
+    border-bottom: 2px solid #505050;
+    overflow-y: hidden;
+    &__container {
+      button:focus {
+        outline: none;
+      }
+      &__option {
+        background: white;
+        border: 0;
+        color: $grey;
+        font-family: $font-family;
+        font-size: 18px;
+        font-weight: 300;
+        cursor: pointer;
+        padding: 1rem;
+        width: 100%;
+        transition: all 0.5s;
+        &--selected {
+          color: $option-grey;
+          font-size: 22px;
+          font-weight: bold;
+        }
+      }
+      &__selector {
+        height: 20px;
+        position: relative;
+        &__shift {
+          background-color: $apple-green;
+          height: 100%;
+          position: absolute;
+          transition: left 0.5s;
+        }
+      }
+    }
+  }
+  &__content {
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
     padding: 10px;
     overflow: hidden;
     &__legend {
@@ -11,6 +67,27 @@
       box-shadow: 5px 5px 5px #888888;
       border-radius: 20px;
       padding: 20px;
+      margin-bottom: 30px;
+      @media (min-width: $mini) {
+        margin-left: 15%;
+        margin-right: 15%;
+        min-width: 70%;
+      }
+      @media (min-width: $sm) {
+        margin-left: 25%;
+        margin-right: 25%;
+        min-width: 50%;
+      }
+      @media (min-width: $md) {
+        margin-left: 0;
+        margin-right: 0px;
+        width: initial;
+        min-width: 300px;
+      }
+      @media (min-width: $lg) {
+        margin-left: 1%;
+        margin-right: 50px;
+      }
       &__title {
         color: $option-grey;
         font-family: $font-family;
@@ -43,9 +120,16 @@
       }
     }
     &__viz {
-      padding: 25px;
-      height: 65%;
-      width: 65%;
+      padding: 5px;
+      @media (min-width: $md) {
+        height: 100%;
+        // width: 65%;
+        padding: 5px;
+        margin-top: 5%;
+      }
+      @media (min-width: $lg) {
+        margin-top: 0;
+      }
     }
   }
   &__description {

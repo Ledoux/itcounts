@@ -1,5 +1,22 @@
 .bubbles {
+  &__dropdown {
+    margin-bottom: 10px;
+    @media (min-width: $md) {
+      display: none;
+    }
+    &__select {
+      background-color: white;
+      color: $grey;
+      height: 30px;
+      font-family: $font-family;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
   &__slider {
+    @media (max-width: $md) {
+      display: none;
+    }
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 50px;
@@ -19,7 +36,11 @@
         cursor: pointer;
         padding: 1rem;
         width: 100%;
+        transition: all 0.5s;
         &--selected {
+          color: $option-grey;
+          font-size: 22px;
+          font-weight: bold;
         }
       }
       &__selector {
