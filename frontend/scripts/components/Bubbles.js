@@ -27,18 +27,22 @@ import { bias, fraction } from '../utils/math'
 const options = [
   {
     collideRadius: 30,
+    maxRadius: 150,
     description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
       alors que l'Ile de France en est loin.`,
     text: 'groupe politique',
     value: 'parti_politique'
   },
   {
+    maxFontSize: 15,
     description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
       culturelles” que dans la “Finance”.`,
     text: 'commission',
     value: 'commission_permanente'
   },
   {
+    maxRadius: 110,
+    maxFontSize: 22,
     description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
       que le groupe Socialiste (35%).`,
     text: 'région',
@@ -189,7 +193,9 @@ class Bubbles extends Component {
       optionsHeight,
       optionWidth,
       vizHeight,
+      maxFontSize,
       maxRadius,
+      minRadius,
       width
     } = this.props
     const {
@@ -264,7 +270,10 @@ class Bubbles extends Component {
 
     // all circles
     nodesSelection.selectAll('circle')
-      .attr('r', d => { d.r = this.getRadius(d.count); return d.r})
+      .attr('r', d => {
+        d.r = this.getRadius(d.count);
+        return d.r
+    })
 
     nodesSelection
       .append('foreignObject')
@@ -280,6 +289,12 @@ class Bubbles extends Component {
       .append('div')
       .attr('class', 'g-name')
       .text(d => d.name)
+      .style('font-size', d => {
+        return `${(d.r / maxRadius) * (currentOption.maxFontSize || maxFontSize)}px`
+      })
+      .style('font-weight', d => {
+        return `${(d.r / maxRadius) * 500}`
+      })
     // label
     selectAll('.g-value').style('margin','auto')
     // update simulation
@@ -339,7 +354,7 @@ class Bubbles extends Component {
     let activeTopic = null // currently-displayed topic
     this.getRadius = scaleSqrt()
       .domain([0, max(nodes, d => d.count)])
-      .range([0, maxRadius])
+      .range([0, currentOption.maxRadius || maxRadius])
     nodes.forEach(node => {
       node.r = this.getRadius(node.count)
       node.cr = Math.max(minRadius, node.r)
@@ -449,9 +464,11 @@ Bubbles.defaultProps = {
   forceStrength: 100,
   selectorHeight: 10,
   optionsHeight: 75,
+  radiusRatio: 1,
   vizHeight: 500,
   minRadius: 40, // minimum collision radius
-  maxRadius: 70 // also determines collision search radius
+  maxRadius: 70, // also determines collision search radius
+  maxFontSize: 20
 }
 
 const mapStateToProps = function ({ browser }) {
