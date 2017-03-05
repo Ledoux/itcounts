@@ -3,3 +3,4 @@ npm-debug.log
 secret.js
 yarn-error.log
 lib/
+app/static/scripts/index_bundle.js
