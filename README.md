@@ -1,6 +1,6 @@
-# itcounts
+# Parité au Pouvoir
 
-This is here that you will find the code for the itcounts new single page app.
+This is here that you will find the code for the Parité au Pouvoir new single page app.
 
 ## Structure
 

@@ -1,117 +1,150 @@
 .bubbles {
-  &__svg {
-    border: solid 3px;
+  &__dropdown {
+    margin-bottom: 30px;
+    @media (min-width: $md) {
+      display: none;
+    }
+    &__select {
+      background-color: white;
+      color: $grey;
+      height: 30px;
+      font-family: $font-family;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  &__slider {
+    @media (max-width: $md) {
+      display: none;
+    }
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 50px;
+    border-bottom: 2px solid #505050;
+    overflow-y: hidden;
+    &__container {
+      button:focus {
+        outline: none;
+      }
+      &__option {
+        background: white;
+        border: 0;
+        color: $grey;
+        font-family: $font-family;
+        font-size: 18px;
+        font-weight: 300;
+        cursor: pointer;
+        padding: 1rem;
+        width: 100%;
+        transition: all 0.5s;
+        &--selected {
+          color: $option-grey;
+          font-size: 22px;
+          font-weight: bold;
+        }
+      }
+      &__selector {
+        height: 20px;
+        position: relative;
+        &__shift {
+          background-color: $apple-green;
+          height: 100%;
+          position: absolute;
+          transition: left 0.5s;
+        }
+      }
+    }
+  }
+  &__options {
+    margin-left: 5%;
+    margin-right: 5%;
+    &__svg {
+      border-bottom: 1px solid black;
+    }
+  }
+  &__quote {
+    margin-left: 10%;
+    margin-right: 10%;
+    @media (min-width: $md) {
+      margin-left: 30%;
+      margin-right: 30%;
+    }
+    margin-bottom: 50px;
+    &__text {
+      color: $light-grey;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1.67;
+    }
+  }
+  &__social-shares {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 50px;
+  }
+  &__legend {
+    margin-bottom: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 30px;
+    &__row {
+      width: 200px;
+      &__circle {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        &--women {
+          background-color: $green-girl;
+        }
+        &--men {
+          background-color: $blue-boy;
+        }
+      }
+      &__text {
+        font-family: $font-family;
+        font-size: 20px;
+        font-weight: 500;
+        font-style: italic;
+        height: 100%;
+        padding: 5px;
+        text-align: left;
+      }
+    }
+  }
+  &__viz {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 40px;
+    &__svg {
+      border: 1px solid black;
+      width: 100%;
+    }
   }
 }
 
-#g-chart {
-  overflow: hidden;
-  position: relative;
-}
-
-.g-legend {
-  color: #999;
-  font: 11px/1.3em Verdana;
-  height: 30px;
-  margin-top: 15px;
-  position: relative;
-  text-align: center;
-}
-
-.g-arrow {
-  position: absolute;
-  width: 100px;
-}
-
-.g-arrow:before {
-  position: absolute;
-  font-size: 15px;
-  font-style: normal;
-  top: 7px;
-}
-
-.g-femme.g-arrow {
-  left: 170px;
-  padding-left: 40px;
-}
-
-.g-arrow.g-femme:before {
-  content: "←";
-  right: 100px;
-}
-
-.g-homme.g-arrow {
-  right: 170px;
-  padding-right: 40px;
-}
-
-.g-arrow.g-homme:before {
-  content: "→";
-  left: 100px;
-}
-
-.g-overview {
-  position: absolute;
-  left: 360px;
-  text-align: center;
-  width: 250px;
-}
-
-.g-swatch {
-  width: 6px;
-  height: 8px;
-  display: inline-block;
-  position: relative;
-  top: 1px;
-  margin: 0 3px;
-}
-
-.g-homme.g-swatch {
-  background-color: #e7774a;
-  border-radius: 0 4px 4px 0;
-}
-
-.g-femme.g-swatch {
-  background-color: #64549d;
-  border-radius: 4px 0 0 4px;
-}
-
-.g-legend .g-femme.g-pointer {
-  position: absolute;
-  left: 314px;
-  text-align: right;
-  padding-right: 20px;
-}
-
-.g-label .g-value, .g-label .g-percent  {
-  display:none;
-}
-.g-label.g-hover .g-value, .g-label.g-hover .g-percent {
-  display:block;
-}
 .g-label.g-hover .g-name {
   display:none;
 }
 
 .g-node .g-femme {
-  fill: #64549d;
+  fill: $green-girl;
 }
 
 .g-node.g-hover .g-femme {
-  fill: #7567a8;
+  fill: $green-girl;
 }
 
 .g-node .g-homme {
-  fill: #e7774a;
+  fill: $blue-boy;
 }
 
 .g-node.g-hover .g-homme {
-  fill: #e9845c;
+  fill: $blue-boy;
 }
 
 .g-node .g-split {
   stroke: #000;
-  stroke-opacity: .18;
+  stroke-opacity: 0;
   shape-rendering: crispEdges;
 }
 
@@ -143,4 +176,43 @@ a.g-label {
   left: 360px;
   text-align: center;
   width: 250px;
+}
+
+.g-option {
+  height: 100%;
+  &__body {
+    background-color: white;
+    color: $option-grey;
+    font-family: $font-family;
+    font-weight: 300;
+    height: 100%;
+    font-size: 15px;
+    @media (min-width: $md) {
+      font-size: 17px;
+    }
+    &--selected {
+      font-size: 18px;
+      @media (min-width: $md) {
+        font-size: 24px;
+      }
+      font-weight: bold;
+    }
+    transition: all 0.1s ease 0.1s;
+    &__button {
+      overflow-x: initial;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+    }
+    &__selector {
+      fill: #d3dc4e
+    }
+  }
+}
+
+.g-name {
+  color: $option-grey;
+  font-family: $font-family;
+  font-weight: bold;
+  font-size: 15px;
 }

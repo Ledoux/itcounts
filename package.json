@@ -13,16 +13,20 @@
     "es6-promise": "^3.2.1",
     "extract-zip": "^1.5.0",
     "lodash.assign": "^4.2.0",
+    "lodash.throttle": "^4.1.1",
     "mkdirp": "^0.5.1",
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "react-helmet": "^3.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
+    "react-toggle-button": "^2.1.0",
     "rebass": "^0.2.6",
     "redux": "^3.5.2",
+    "redux-responsive": "^4.1.1",
     "redux-saga": "^0.10.4",
     "reselect": "^2.5.1",
+    "smoothscroll-polyfill": "^0.3.4",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
@@ -56,7 +60,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "main": "frontend/index.js",
-  "name": "itcounts",
+  "name": "pariteaupouvoir",
   "scripts": {
     "build": "echo **BUILD** && npm run bundle;",
     "build-prod": "export TYPE=prod && npm run build",

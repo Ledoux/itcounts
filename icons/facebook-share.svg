@@ -1,0 +1,13 @@
+<svg width="120px" height="32px" viewBox="0 0 120 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Shape" fill-rule="nonzero" fill="#4267B2">
+            <path d="M0,16 C0,7.163 7.17,0 15.997,0 L104.003,0 C112.838,0 120,7.162 120,16 C120,24.837 112.83,32 104.003,32 L15.997,32 C7.162,32 0,24.838 0,16 Z M20.155,10.656 L20.155,8.112 C19.425928,8.03460639 18.6931631,7.99721702 17.96,8 C15.789,8 14.302,9.325 14.302,11.76 L14.302,13.857 L11.846,13.857 L11.846,16.702 L14.302,16.702 L14.302,24 L17.239,24 L17.239,16.702 L19.689,16.702 L20.056,13.857 L17.239,13.857 L17.239,12.041 C17.239,11.218 17.468,10.657 18.649,10.657 L20.155,10.656 L20.155,10.656 Z"></path>
+        </g>
+        <text id="Partager" fill="#FFFFFF" font-family="Helvetica" font-size="14" font-weight="normal">
+            <tspan x="37" y="21">Partager</tspan>
+        </text>
+    </g>
+</svg>

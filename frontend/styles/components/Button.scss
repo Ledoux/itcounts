@@ -1,0 +1,29 @@
+.button {
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 1em;
+  line-height: 1.25;
+  font-weight: 500;
+  border: 0;
+  border-radius: 0.5em;
+  padding: 0.875em 1.375em;
+  cursor: pointer;
+  font-family: $font-family;
+  .icon {
+    vertical-align: middle;
+  }
+  // SIZE
+  &--large {
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    font-size: 1.25em;
+  }
+
+  // STATE
+  &:hover,
+  &:focus {
+    transform: scale(1.04);
+    transition: all 0.2s ease-out;
+  }
+}
