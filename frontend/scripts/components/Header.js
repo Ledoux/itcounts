@@ -26,11 +26,10 @@ const Header = ({
     <div className='header__top-nav__links'>
       {links.map(({label, sectionId}, index) => {
         return (<Link
-          className='link header__top-nav__links__link p2'
+          className='link header__top-nav__links__link'
           key={index}
           href={`/#${sectionId}`}
           onClick={() => {
-            console.log('ALLEZ', document.querySelector(`section#${sectionId}`))
             document.querySelector(`section#${sectionId}`)
                     .scrollIntoView({behavior: 'smooth'})
           }}

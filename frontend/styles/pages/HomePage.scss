@@ -68,7 +68,10 @@
       font-size: 30px;
       line-height: 1.53;
       padding-top: 56px;
-      padding-bottom: 55px;
+      padding-bottom: 20px;
+      @media (min-width: $sm) {
+        padding-bottom: 55px;
+      }
       margin-left: 10%;
       margin-right: 10%;
     }
@@ -102,8 +105,12 @@
   &__participate-section {
     background-image: $yellow-pastel-gradient;
     &__subtitle {
-      margin-left: 25%;
-      margin-right: 25%;
+      margin-left: 10%;
+      margin-right: 10%;
+      @media (min-width: $md) {
+        margin-left: 25%;
+        margin-right: 25%;
+      }
       color: $grey;
       font-weight: 300;
       font-family: $font-family;
@@ -119,8 +126,8 @@
       margin-bottom: 50px;
     }
     &__quote {
-      margin-left: 10%;
-      margin-right: 10%;
+      margin-left: 5%;
+      margin-right: 5%;
       @media (min-width: $sm) {
         margin-left: 20%;
         margin-right: 20%;
@@ -173,6 +180,7 @@
         }
         &__down {
           border-top: 1px solid $grey;
+          margin-bottom: 10px;
           &__text {
             color: $light-grey;
             font-family: $font-family;
@@ -187,8 +195,12 @@
       }
     }
     &__social-shares {
-      margin-left: 30%;
-      margin-right: 30%;
+      margin-left: 5%;
+      margin-right: 5%;
+      @media (min-width: $md) {
+        margin-left: 30%;
+        margin-right: 30%;
+      }
       margin-bottom: 50px;
     }
     &__cta {

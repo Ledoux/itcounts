@@ -83,16 +83,23 @@
     margin-bottom: 50px;
   }
   &__legend {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    @media (min-width: $sm) {
+      margin-bottom: 30px;
+      width: 400px;
+    }
     margin-left: 10%;
     margin-right: 10%;
     height: 30px;
     &__row {
-      width: 200px;
       &__circle {
         border-radius: 50%;
-        height: 30px;
-        width: 30px;
+        height: 20px;
+        width: 20px;
+        @media (min-width: $sm) {
+          height: 30px;
+          width: 30px;
+        }
         &--women {
           background-color: $green-girl;
         }
@@ -102,7 +109,10 @@
       }
       &__text {
         font-family: $font-family;
-        font-size: 20px;
+        font-size: 14px;
+        @media (min-width: $sm) {
+          font-size: 20px;
+        }
         font-weight: 500;
         font-style: italic;
         height: 100%;

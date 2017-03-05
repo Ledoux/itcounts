@@ -6,7 +6,6 @@ export function setApisWithAppAndModel (app, model) {
   // routes
   app.get('/api/dataviz_bubble/groupBy/:groupBy', (req, res) => {
     const groupBy = req.params.groupBy.replace('-','.')
-    console.log('Deputes', Deputes)
     Deputes.aggregate([
         {
             $group: {

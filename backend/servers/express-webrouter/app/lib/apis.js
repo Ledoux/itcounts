@@ -21,7 +21,6 @@ function setApisWithAppAndModel(app, model) {
 
   app.get('/api/dataviz_bubble/groupBy/:groupBy', function (req, res) {
     var groupBy = req.params.groupBy.replace('-', '.');
-    console.log('Deputes', Deputes);
     Deputes.aggregate([{
       $group: {
         _id: { "groupe": "$" + groupBy, "sexe": "$sexe" },

@@ -47,7 +47,6 @@
       }
     }
     &__links {
-      margin-right: 1px;
       @media (min-width: $sm) {
         margin-right: 5px;
       }
@@ -55,12 +54,14 @@
         color: $grey;
         font-family: $font-family;
         font-weight: bold;
-        font-size: 12px;
-        @media (min-width: $sm) {
-          font-size: 18px;
-        }
+        font-size: 10px;
         letter-spacing: 0.8px;
         line-height: 2.5rem;
+        padding: 0.5rem;
+        @media (min-width: $sm) {
+          font-size: 18px;
+          padding: 1rem;
+        }
       }
     }
 
