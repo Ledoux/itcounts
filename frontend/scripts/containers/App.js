@@ -9,18 +9,22 @@ const App = class App extends Component {
 
     return (
       <div className='app'>
-        {/* NOTE: Helmet lib content goes into <head> tags */}
+        {/*
+          NOTE: Helmet lib content goes into <head> tags
+          for twitter card validation go there
+          https://cards-dev.twitter.com/validator
+        */}
         <Helmet
           title='Parité au Pouvoir'
           meta={[
             { property: 'og:site_name', content: 'Parité au Pouvoir' },
-            { property: 'twitter:site', content: '@DataForGood_FR' },
-            { property: 'twitter:creator', content: '@_erwanledoux' },
+            { property: 'og:description', content: 'Allez' },
+            { property: 'description', content: 'Allez' },
             { property: 'og:title', content: 'Parité au Pouvoir' },
-            { property: 'og:description', content: '' },
-            { property: 'description', content: '' },
+            { property: 'twitter:creator', content: '@_erwanledoux' },
             { property: 'twitter:card', content: 'summary_large_image' },
-            // { property: 'og:image', content: shareImg },
+            { property: 'twitter:site', content: '@DataForGood_FR' },
+            { property: 'og:image', content: 'https://pariteaupouvoir.herokuapp.com/static/images/camembert.png' },
             { property: 'og:image:width', content: '2400' },
             { property: 'og:image:height', content: '1260' }
           ]}

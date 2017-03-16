@@ -26,43 +26,56 @@ import { bias, fraction } from '../utils/math'
 
 const options = [
   {
-    collideRadius: 30,
+    collideRadius: 3,
     maxSmRadius: 110,
     maxMdRadius: 150,
-    description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
-      alors que l'Ile de France en est loin.`,
-    text: 'groupe politique',
+    maxMdFontSize: 30,
+    description: `Le groupe Républicain comporte beaucoup moins de femmes (14%)
+    que le groupe Socialiste (35%).`,
+    text: 'Groupe Politique',
     value: 'parti_politique'
   },
   {
     maxSmFontSize: 15,
     maxMdFontSize: 20,
-    description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
-      culturelles” que dans la “Finance”.`,
-    text: 'commission',
+    description: `Il y a trois fois plus de députés femmes travaillant
+    dans les “Affaires culturelles” que dans la “Finance”.`,
+    text: 'Commission',
     value: 'commission_permanente'
   },
   {
-    description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
-      que le groupe Socialiste (35%).`,
-    text: 'région',
+    description: `La nouvelle Aquitaine atteint presque la parité pour
+    ses députés alors que l'Ile de France en est loin (35%).`,
+    text: 'Région',
     value: 'region'
   },
   {
     maxMdRadius: 120,
     description: `Après 70 ans, la proportion de députés femmes passe en dessous
       de la barre des 15%.`,
-    text: 'classe d\'âge',
+    text: 'Classe d\'âge',
     value: 'age'
   },
   {
+    minSmFontSize: 20,
+    minMdFontSize: 25,
     description: `15% des députés cumulant 4 mandats sont des femmes contre moins
       de 40% pour 1 mandat.`,
-    text: 'mandats cumulés',
+    text: 'Mandats cumulés',
     value: 'mandat'
   }
 ]
 options.forEach((option, index) => {option.index = index})
+
+// small tweaking function here because the name
+// in the db are sometimes not so well relevant
+// compared to what expect a naive client :) :).
+function getGoodName (name) {
+  if (name === 'Socialiste, écologiste et républicain') {
+    return 'Les socialistes'
+  }
+  return name
+}
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
 class Bubbles extends Component {
@@ -82,6 +95,8 @@ class Bubbles extends Component {
       legendX,
       legendY,
       forceStrength,
+      isXBorder,
+      isYBorder,
       optionsHeight,
       optionWidth,
       selectorHeight,
@@ -95,14 +110,11 @@ class Bubbles extends Component {
     const vizWidth = this.vizWidth = vizElement.clientWidth
     const labelsDivElement = document.querySelector('.g-labels')
     const vizSelection = this.vizSelection = select(vizElement)
-    const labelsDivSelection = this.labelsSelection = select(labelsDivElement)
     vizSelection.append('rect')
       .attr('class', 'g-overlay')
-    // add nodes and labels
+    // add nodes
     const nodesSelection = this.nodesSelection = vizSelection
       .selectAll('.g-node')
-    const labelsSelection = this.labelsSelection = vizSelection
-      .selectAll('.g-label')
     // init simulation
     const simulation = this.simulation = forceSimulation()
      .force('charge', forceManyBody().strength(forceStrength))
@@ -112,11 +124,17 @@ class Bubbles extends Component {
        // transform
        nodesSelection
         .attr('transform', d => {
+          if (isXBorder) {}
           // add border rebound (it is important to keep this.vizWidth because
           // this value may change with resize so we need to get its fresh values
           // stored in the this pointer)
-          const translateX = Math.max(d.r, Math.min(this.vizWidth - d.r, d.x))
-          const translateY = Math.max(d.r, Math.min(vizHeight - d.r, d.y))
+          const translateX = isXBorder
+          ? Math.max(d.r, Math.min(this.vizWidth - d.r, d.x))
+          : d.x
+          const translateY = isYBorder
+          ? Math.max(d.r, Math.min(vizHeight - d.r, d.y))
+          : d.y
+
           // return
           return `translate(${translateX},${translateY})`
         })
@@ -146,13 +164,16 @@ class Bubbles extends Component {
       )
     }
     // init mouseover and mouseout on nodes
-    const mouseover = (element) => {
-      this.nodesSelection.classed('g-hover', p => p === element)
-      this.labelsSelection.classed('g-hover', p => p === element)
+    const mouseover = (d) => {
+      const mouseoveredDiv = document.querySelector(`#info-${d.id}`)
+      const percentWomen = parseInt(100*d.F/d.count)
+      const percentMen = 100 - percentWomen
+      mouseoveredDiv.innerHTML = `${d.F} (${percentWomen}%) femmes,
+        \n ${d.H} (${percentMen}%) hommes`
     }
-    const mouseout = (element) => {
-      this.nodesSelection.classed('g-hover', false)
-      this.labelsSelection.classed('g-hover', false)
+    const mouseout = (d) => {
+      const mouseoveredDiv = document.querySelector(`#info-${d.id}`)
+      mouseoveredDiv.innerHTML = getGoodName(d.name)
     }
     this.linkTopic = (a) => {
       a.on('mouseover', mouseover)
@@ -199,7 +220,8 @@ class Bubbles extends Component {
       maxMdFontSize,
       maxSmRadius,
       maxMdRadius,
-      minFontSize,
+      minSmFontSize,
+      minMdFontSize,
       minRadius,
       width
     } = this.props
@@ -213,6 +235,9 @@ class Bubbles extends Component {
     const maxFontSize = isLessThanMd
     ? (currentOption.maxSmFontSize || maxSmFontSize)
     : (currentOption.maxMdFontSize || maxMdFontSize)
+    const minFontSize =  isLessThanMd
+    ? (currentOption.minSmFontSize || minSmFontSize)
+    : (currentOption.minMdFontSize || minMdFontSize)
     // if it is just a change of size just change size and return
     if (prevProps.isLessThanMd !== isLessThanMd) {
       nodesSelection
@@ -220,9 +245,11 @@ class Bubbles extends Component {
         .style('font-size', d => {
           return `${Math.max(minFontSize, (d.r / maxRadius) * maxFontSize)}px`
         })
-        .style('font-weight', d => {
-          return `${(d.r / maxRadius) * 800}`
-        })
+        // Do not make the font-weight proportionnal
+        // to radius it is too ugly for now
+        // .style('font-weight', d => {
+        //  return `${(d.r / maxRadius) * 800}`
+        // })
       return
     }
     // data
@@ -254,7 +281,7 @@ class Bubbles extends Component {
     hommeEnter
       .append('clipPath')
       .attr('id', d => 'g-clip-homme-' + d.id)
-      .append('rect');
+      .append('rect')
     hommeEnter
       .append('circle')
     nodesSelection
@@ -294,7 +321,10 @@ class Bubbles extends Component {
     // all circles
     nodesSelection.selectAll('circle')
       .attr('r', d => {
-        d.r = this.getRadius(d.count);
+        d.r = this.getRadius(d.count)
+        if (isLessThanMd) {
+          d.r = d.r / 2
+        }
         return d.r
     })
     nodesSelection
@@ -309,15 +339,18 @@ class Bubbles extends Component {
       .style('height', '100%')
       .attr('class', 'flex justify-center items-center')
       .append('div')
+      .attr('id', d => `info-${d.id}`)
       .attr('class', 'g-name')
-      .attr('title', d => d.name)
-      .text(d => d.name)
+      .attr('title', d => getGoodName(d.name))
+      .text(d => getGoodName(d.name))
       .style('font-size', d => {
         return `${Math.max(minFontSize, (d.r / maxRadius) * maxFontSize)}px`
       })
-      .style('font-weight', d => {
-        return `${(d.r / maxRadius) * 800}`
-      })
+      // Do not make the font-weight proportionnal
+      // to radius it is too ugly for now
+      // .style('font-weight', d => {
+      //  return `${(d.r / maxRadius) * 800}`
+      // })
     // label
     selectAll('.g-value').style('margin','auto')
     // update simulation
@@ -448,14 +481,15 @@ class Bubbles extends Component {
             />
           </div>
         </div>
-        <div className='bubbles__legend'>
-          <div className='bubbles__legend__row col col-6'>
+        <div className='bubbles__legend flex'>
+          <div className='bubbles__legend__row'>
             <p className='bubbles__legend__row__circle bubbles__legend__row__circle--women col col-2'/>
-            <p className='bubbles__legend__row__text col col-10'> femmes </p>
+            <p className='bubbles__legend__row__text col col-8'> femmes </p>
           </div>
-          <div className='bubbles__legend__row col col-6'>
+          <div className='flex-auto' />
+          <div className='bubbles__legend__row'>
             <p className='bubbles__legend__row__circle bubbles__legend__row__circle--men col col-2' />
-            <p className='bubbles__legend__row__text col col-10'> hommes </p>
+            <p className='bubbles__legend__row__text col col-8'> hommes </p>
           </div>
         </div>
         <div className='bubbles__viz'>
@@ -475,6 +509,7 @@ class Bubbles extends Component {
             className='social-shares bubbles__social-shares'
             description={currentOption.description}
             imageUrl={`${PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
+            shareUrl={`${PROD_URL}/static/cards/${currentOption.value}.html`}
             title={`Découvrez la proportion de femmes à l'Assemblée Nationale selon leur ${currentOption.text}`}
           />
         </div>
@@ -488,15 +523,18 @@ Bubbles.defaultProps = {
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
+  isXBorder: false,
+  isYBorder: false,
   isDrag: true,
   legendY: 30,
   legendX: 20,
-  forceStrength: 100,
+  forceStrength: 1000,
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,
   vizHeight: 500,
-  minFontSize: 7,
+  minSmFontSize: 7,
+  minMdFontSize: 12,
   minRadius: 40, // minimum collision radius
   maxSmRadius: 70, // also determines collision search radius
   maxMdRadius: 70, // also determines collision search radius

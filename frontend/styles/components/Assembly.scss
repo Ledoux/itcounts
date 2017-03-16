@@ -12,6 +12,7 @@
       font-family: $font-family;
       font-size: 18px;
       font-weight: bold;
+      text-align-last: center;
     }
   }
   &__slider {
@@ -36,6 +37,7 @@
         font-weight: 300;
         cursor: pointer;
         padding: 1rem;
+        min-height: 100px;
         width: 100%;
         transition: all 0.5s;
         &--selected {
@@ -99,10 +101,20 @@
         font-family: $font-family;
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 15px;
         padding: 10px;
         text-align: left;
+        position: relative;
+        &__subtitle {
+          color: $option-grey;
+          font-family: $font-family;
+          font-size: 16px;
+          font-weight: 300;
+          text-align: left;
+          position: absolute;;
+          width: 80%;
+        }
       }
+
       &__switch {
         font-family: $font-family;
         font-size: 14px;
@@ -136,12 +148,19 @@
       @media (min-width: $lg) {
         margin-top: 0;
       }
+      &__img {
+        height: 300px;
+        width: 500px;
+      }
     }
   }
   &__description {
     color: $grey;
     font-family: $font-family;
-    font-size: 18px;
+    font-size: 14px;
+    @media (min-width: $sm) {
+      font-size: 18px;
+    }
     font-weight: 300;
     line-height: 1.67;
     margin-left: 15%;

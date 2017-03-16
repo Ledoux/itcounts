@@ -23,17 +23,17 @@ const HomePage = () => {
           icon='cloud'
         />
         <Icon
-          className='icon home-page__hero-section__assembly mb2'
+          className='icon home-page__hero-section__assembly'
           icon='big-assembly'
         />
-        <p className="home-page__hero-section__title p2">
+        <p className="home-page__hero-section__title">
           26,9% de femmes à l&#39;Assembl&eacute;e, <br/ >
           51,5% de femmes en France.
         </p>
-        <p className="home-page__hero-section__subtitle mb2 p2">
+        <p className="home-page__hero-section__subtitle mb3">
           Visualiser pour mieux comprendre: Parit&eacute; au Pouvoir a pour mission
-          de soutenir <br /> l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
-          l&#39;Assembl&eacute;e Nationale
+          de soutenir l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
+          l&#39;Assembl&eacute;e Nationale.
         </p>
         <Button
           className="button button--large home-page__hero-section__cta"
@@ -51,6 +51,13 @@ const HomePage = () => {
           />
         </div>
       </PageSection>
+
+      <div>
+        Découvrez le projet Parit&eacute; au Pouvoir, cr&eacute;&eacute; par Wax Science,
+        pour visualiser les in&eacute;galit&eacute;s au sein de l&#39;Assembl&eacute;e Nationale.
+        Nous analysons les chiffres, mais aussi leurs discours et leur
+        emplacement au sein de l&#39;H&eacute;micycle.
+      </div>
 
       <PageSection
         extraClass='home-page__bubbles-section center'
@@ -73,7 +80,7 @@ const HomePage = () => {
         </p>
         <p className="home-page__assembly-section__subtitle mb3 p2">
           Localisez nos d&eacute;put&eacute; et apprenez-en plus sur la
-          r&eacute;partition spatial des genres selon le nombre de mandats cumul&eacute;,
+          r&eacute;partition spatiale des genres selon le nombre de mandats cumul&eacute;,
           des commisions ou des groupes politiques
         </p>
         <Assembly />
@@ -189,6 +196,16 @@ const HomePage = () => {
               image: "steven_lasry.png",
               name: "Steven Lasry",
               speciality: "Développeur Full Stack"
+            }],
+            [{
+              image: "flora_vincent.png",
+              name: "Flora Vincent",
+              speciality: "Conseil externe"
+            },
+            {
+              image: "mathieu_daladouire.png",
+              name: "Mathieu Daladouire",
+              speciality: "Développeur Front End"
             }]
           ].map((rows, rowIndex) => (<div
               className='home-page__team-section__container__rows mb2'
@@ -216,11 +233,6 @@ const HomePage = () => {
             }
           </div>))
         }
-        </div>
-        <div className='home-page__team-section__container__thanks center mb1'>
-          <p>
-            Et des remerciements particuliers &agrave; <span style={{fontWeight: 'bold'}}>Matthieu Daladouire</span>, D&eacute;veloppeur Front-End
-          </p>
         </div>
       </PageSection>
 
@@ -267,12 +279,12 @@ const HomePage = () => {
           </div>
           <div className="home-page__partners-section__container__partner col md-col-6 p2">
             <img
-              className='home-page__partners-section__container__partner__img mb2'
+              className='home-page__partners-section__container__partner__img home-page__partners-section__container__partner__img__wax mb2'
               src='/static/images/wax.png'
               style={{width: '209px'}}
             />
             <p className="home-page__partners-section__container__partner__title mb2">
-              WAX
+              WAX Science
             </p>
             <p className="home-page__partners-section__container__partner__subtitle mb2">
               WAX Science est une association &acute; but non lucratif

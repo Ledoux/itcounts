@@ -5,14 +5,17 @@ import ToggleButton from 'react-toggle-button'
 import Icon from './Icon'
 import Switch from './Switch'
 
+const description = `Saviez-vous que les emplacements proches des micros et des caméras,
+ou bien le long des allées et en bas de l'Assemblée, vers les
+ministres ou les chefs de groupe, étaient particulièrement convoités ?
+Ces places donnent plus de chances aux député-e-s qui s'y trouvent d'être filmé-e-s
+le jour des questins au gouvernement.
+
+Les femmes ont-elles les mêmes chances que les hommes de s'y trouver ?`
+
 const options = [
   {
-    description: `Saviez-vous que les emplacements proches des micros et des caméras,
-    ou bien le long des allées et en bas de l'Assemblée, vers les
-    ministres ou les chefs de groupe, étaient particulièrement convoités ?
-    Ces places donnent plus de chances aux députés qui s'y trouvent d'être filmés
-    le jour des questins aux gouvernement. Les femmes ont-elles les mêmes chances
-    que les hommes de s'y trouver ?`,
+    description,
     infos: [{
       icon: 'micro_blue',
       text: 'Micros'
@@ -42,22 +45,22 @@ const options = [
           </p>
       </div>)
     }),
-    text: 'meilleurs sieges',
+    text: 'Meilleurs sieges',
     value: 'meilleurs_sieges'
   },
   {
-    description: `Bla Bla Bla`,
-    text: 'groupe politique',
+    description,
+    text: 'Groupe politique',
     value: 'groupe_politique'
   },
   {
-    description: `Bla Bla Bla`,
-    text: 'commission',
+    description,
+    text: 'Commission',
     value: 'commission'
   },
   {
-    description: `Bla Bla Bla`,
-    text: 'mandats cumulés',
+    description,
+    text: 'Mandats cumulés',
     value: 'mandats_cumules'
   }
 ]
@@ -140,12 +143,17 @@ class Assembly extends Component {
         <div>
           <div className='assembly__content mb2'>
             <div className='assembly__content__legend col md-col-4'>
-              <p className='assembly__content__legend__title'>
+              <div className='assembly__content__legend__title mb3'>
                 Filtres
-              </p>
+                <p className='assembly__content__legend__title__subtitle'>
+                  cliquer sur le bouton pour ne voir que
+                    les femmes
+                </p>
+              </div>
+
               <Switch
                 className='switch assembly__content__legend__switch'
-                OffElement={<p> Info </p>}
+                OffElement={<p> Tous </p>}
                 OnElement={<p> D&eacute;put&eacute;es </p>}
               />
               <p className='assembly__content__legend__title'>
@@ -153,7 +161,7 @@ class Assembly extends Component {
               </p>
               {currentOption.infos}
             </div>
-            <div className='assembly__content__viz col md-col-7'>
+            <div className='assembly__content__viz col md-col-8'>
               <img
                 className='assembly__content__viz__img'
                 src={`static/images/assembly_${currentOption.value}_${isAll ? 'all':'women'}.png`}

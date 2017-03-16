@@ -11,6 +11,7 @@
       font-family: $font-family;
       font-size: 18px;
       font-weight: bold;
+      text-align-last: center;
     }
   }
   &__slider {
@@ -35,6 +36,7 @@
         font-weight: 300;
         cursor: pointer;
         padding: 1rem;
+        min-height: 100px;
         width: 100%;
         transition: all 0.5s;
         &--selected {
@@ -86,10 +88,10 @@
     margin-bottom: 10px;
     @media (min-width: $sm) {
       margin-bottom: 30px;
-      width: 400px;
     }
     margin-left: 10%;
     margin-right: 10%;
+    width: 80%;
     height: 30px;
     &__row {
       &__circle {
@@ -126,7 +128,6 @@
     margin-right: 10%;
     margin-bottom: 40px;
     &__svg {
-      border: 1px solid black;
       width: 100%;
     }
   }

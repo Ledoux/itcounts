@@ -1,3 +1,5 @@
+// test on https://cards-dev.twitter.com/validator
+
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
 
@@ -39,8 +41,8 @@ SocialShares.defaultProps =  {
   appUrl: 'http://pariteaupouvoir.heroku.com',
   caption: 'Parité au Pouvoir',
   description: "Signez notre pétition pour plus de femmes à l'Assemblée Nationale !",
-  imageUrl: 'http://pariteaupouvoir.heroku.com/static/images/camembert.png',
-  shareUrl: 'http://pariteaupouvoir.heroku.com',
+  imageUrl: `${PROD_URL}/static/images/camembert.png`,
+  shareUrl: PROD_URL,
   title: ' '
 }
 
