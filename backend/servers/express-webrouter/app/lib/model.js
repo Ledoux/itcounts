@@ -19,17 +19,24 @@ var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var secret = JSON.parse(_fs2.default.readFileSync(_path2.default.join(__dirname, '../../config/secret.json')));
 _mongoose2.default.Promise = global.Promise;
 
-function getModelWithApp(app) {
+function getModelWithApp(app, config) {
+  var mongoUrl = config.mongoUrl;
+
   return new global.Promise(function (resolve, reject) {
-    _mongoose2.default.connect(secret.MONGO_URL);
+    _mongoose2.default.connect();
     _mongoose2.default.connection.on('error', function (err) {
+      console.log('mongoUrl', mongoUrl);
       console.log(err);
+      resolve({
+        mongooseConnection: null,
+        Deputes: null
+      });
     });
     _mongoose2.default.connection.on('connected', function () {
-      var mongooseConnection = _mongoose2.default.createConnection(secret.MONGO_URL);
+      console.log('mongoUrl', mongoUrl);
+      var mongooseConnection = _mongoose2.default.createConnection(mongoUrl);
       console.log('Connection to mongo is okay');
       resolve({
         mongooseConnection: mongooseConnection,
