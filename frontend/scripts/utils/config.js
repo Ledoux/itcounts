@@ -1,3 +1,4 @@
+import LegalNoticesPage from '../pages/LegalNoticesPage'
 import HomePage from '../pages/HomePage'
 
 export const IS_NODE = process && !process.browser
@@ -15,6 +16,10 @@ export const pages = [
     component: HomePage,
     label: 'Home',
     path: '/'
+  },
+  {
+    component: LegalNoticesPage,
+    path: '/legal-notices'
   }
 ]
 

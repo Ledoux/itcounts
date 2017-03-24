@@ -19,15 +19,18 @@ const {
 } = process.env
 app.set('port', (PORT || 5000))
 
-app.get('/', function (req, res) {
+function redirectHome (req, res) {
   const indexFileName = process.env.TYPE === 'localhost'
   ? '_dev_index.html'
   : '_prod_index.html'
   res.render(path.join(__dirname, `templates/${indexFileName}`))
-})
+}
 
 getModelWithApp(app).then(
-  model => setApisWithAppAndModel(app, model)
+  model => {
+    setApisWithAppAndModel(app, model)
+    app.get('/*', redirectHome)
+  }
 )
 
 module.exports.app = app

@@ -1,5 +1,3 @@
-import React from 'react'
-
 // see https://docs.google.com/document/d/1ZIvwt_GX3LW-1Wh-y0e9AXR2qvOK0Ov7EHT2ZhXGlBY/edit#
 const content = {
   introduction: `Conformément aux dispositions de l’article 6 III 1 de la loi n°2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique, l’utilisateur du site internet pariteaupouvoir.com (ci-après, « le Site ») est informé des mentions légales suivantes :
@@ -15,7 +13,7 @@ const content = {
   `,
   sections: [
     {
-      title: Présentation du site
+      title: 'Présentation du site',
       text: `En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour
         la confiance dans l'économie numérique, il est précisé aux utilisateurs
         du site www.pariteaupouvoir.com l'identité des différents intervenants
@@ -30,7 +28,7 @@ const content = {
         Crédits : les mentions légales ont été générées et offertes par Subdelirium Mentions légales`
     },
     {
-      title: 'Conditions générales d’utilisation du site et des services proposés'
+      title: 'Conditions générales d’utilisation du site et des services proposés',
       text: `L’utilisation du site www.pariteaupouvoir.com implique
       l’acceptation pleine et entière des conditions générales
       d’utilisation ci-après décrites. Ces conditions d’utilisation
@@ -49,7 +47,7 @@ const content = {
       invité à s’y référer le plus souvent possible afin d’en prendre connaissance.`
     },
     {
-      title: 'Description des services fournis'
+      title: 'Description des services fournis',
       text: `Le site www.pariteaupouvoir.com a pour objet de fournir une
       information concernant l’ensemble des activités de la société.
 
@@ -65,7 +63,7 @@ const content = {
       réserve de modifications ayant été apportées depuis leur mise en ligne.`
     },
     {
-      title: 'Limitations contractuelles sur les données techniques'
+      title: 'Limitations contractuelles sur les données techniques',
       text: `Le site utilise la technologie JavaScript. Le site Internet ne
       pourra être tenu responsable de dommages matériels liés à
       l’utilisation du site. De plus, l’utilisateur du site s’engage à
@@ -89,7 +87,7 @@ const content = {
       L.335-2 et suivants du Code de Propriété Intellectuelle.`
     },
     {
-      title: 'Limitations de responsabilité'
+      title: 'Limitations de responsabilité',
       text: `WAX Science ne pourra être tenue responsable des dommages directs
       et indirects causés au matériel de l’utilisateur, lors de l’accès au site
       www.pariteaupouvoir.com, et résultant soit de l’utilisation d’un matériel
@@ -97,7 +95,7 @@ const content = {
       l’apparition d’un bug ou d’une incompatibilité.`
     },
     {
-      title: `WAX Science ne pourra également être tenue responsable des
+      text: `WAX Science ne pourra également être tenue responsable des
       dommages indirects (tels par exemple qu’une perte de marché ou perte
       d’une chance) consécutifs à l’utilisation du site www.pariteaupouvoir.com.
 
@@ -227,9 +225,4 @@ const content = {
   ]
 }
 
-const LegalNotices = () => {
-  return (
-    <main className='main legal-notices-page'>
-
-    </main>
-  )
+export default content

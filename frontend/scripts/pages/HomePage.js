@@ -55,10 +55,12 @@ const HomePage = () => {
       </PageSection>
 
       <div>
+        {/*
         Découvrez le projet Parit&eacute; au Pouvoir, cr&eacute;&eacute; par Wax Science,
         pour visualiser les in&eacute;galit&eacute;s au sein de l&#39;Assembl&eacute;e Nationale.
         Nous analysons les chiffres, mais aussi leurs discours et leur
         emplacement au sein de l&#39;H&eacute;micycle.
+        */}
       </div>
 
       <PageSection
@@ -296,7 +298,10 @@ const HomePage = () => {
               {textDecoration: 'none', color: 'white'}
             } external>
             Contact
-          </a> - Copyright - Mentions l&eacute;gales
+          </a> - Copyright - <Link href='/legal-notices'
+          style={
+              {textDecoration: 'none', color: 'white'}}
+          >Mentions l&eacute;gales</Link>
         </p>
       </PageSection>
 
