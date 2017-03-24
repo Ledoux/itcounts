@@ -120,6 +120,51 @@
       }
     }
   }
+  &__stats-section {
+    overflow-y: hidden;
+    margin-left: 5%;
+    margin-right: 5%;
+    @media (min-width: $sm) {
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    padding: 5rem;
+    &__row {
+      margin-bottom: 2rem;
+      overflow-y: hidden;
+      &__col {
+        margin-bottom: 3rem;
+        padding-left: 20%;
+        padding-right: 20%;
+        @media (min-width: $sm) {
+          margin-bottom: 0;
+          padding-left: 5%;
+          padding-right: 5%;
+        }
+        &__icon {
+          height: 10rem;
+          width: 10rem;
+          margin-bottom: 2rem;
+          @media (min-width: $sm) {
+            height: 10rem;
+            width: 10rem;
+          }
+        }
+        &__text {
+          padding-left: 10%;
+          padding-right: 10%;
+          @media (min-width: $sm) {
+            padding-left: 5%;
+            padding-right: 5%;
+          }
+          color: #282828;
+          font-family: $font-family;
+          font-size: 25px;
+          line-height: 1.67;
+        }
+      }
+    }
+  }
   &__participate-section {
     background-image: $yellow-pastel-gradient;
     &__title {

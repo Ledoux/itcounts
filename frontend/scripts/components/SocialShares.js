@@ -5,7 +5,7 @@ import classnames from 'classnames'
 
 import Button from './Button'
 import Icon from './Icon'
-import { HASHTAGS, FACEBOOK_APP_ID, PROD_URL } from '../utils/secret'
+import { HASHTAGS, FACEBOOK_APP_ID, PROD_URL } from '../utils/foos'
 
 const SocialShares = ({
   appUrl,

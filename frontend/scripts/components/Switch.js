@@ -9,6 +9,7 @@ class Switch extends Component {
   }
   _handleSwitchClick () {
     this.setState({ isSwitched: !this.state.isSwitched})
+    this.props.handleToggleClick()
   }
   render () {
     const {

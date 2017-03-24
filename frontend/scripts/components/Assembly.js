@@ -46,22 +46,26 @@ const options = [
       </div>)
     }),
     text: 'Meilleurs sieges',
-    value: 'meilleurs_sieges'
+    value: 'meilleurs_sieges',
+    image: 'zones'
   },
   {
     description,
     text: 'Groupe politique',
-    value: 'groupe_politique'
+    value: 'groupe_politique',
+    image: 'partis'
   },
   {
     description,
     text: 'Commission',
-    value: 'commission'
+    value: 'commission',
+    image: 'commissions'
   },
   {
     description,
     text: 'Mandats cumulés',
-    value: 'mandats_cumules'
+    value: 'mandats_cumules',
+    image: 'mandats'
   }
 ]
 options.forEach((option, index) => {option.index = index})
@@ -153,6 +157,7 @@ class Assembly extends Component {
 
               <Switch
                 className='switch assembly__content__legend__switch'
+                handleToggleClick={handleToggleClick}
                 OffElement={<p> Tous </p>}
                 OnElement={<p> D&eacute;put&eacute;es </p>}
               />
@@ -164,7 +169,7 @@ class Assembly extends Component {
             <div className='assembly__content__viz col md-col-8'>
               <img
                 className='assembly__content__viz__img'
-                src={`static/images/assembly_${currentOption.value}_${isAll ? 'all':'women'}.png`}
+                src={`static/images/${currentOption.image}${isAll ? '' : '_f'}.png`}
               />
             </div>
           </div>

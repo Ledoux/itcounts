@@ -9,7 +9,9 @@ import PageSection from '../components/PageSection'
 import Quote from '../components/Quote'
 import SocialShares from '../components/SocialShares'
 
-import { HASHTAGS, PROD_URL } from '../utils/secret'
+import { HASHTAGS, PROD_URL } from '../utils/foos'
+import people from '../utils/people'
+import stats from '../utils/stats'
 
 const HomePage = () => {
   return (
@@ -86,6 +88,28 @@ const HomePage = () => {
         <Assembly />
       </PageSection>
 
+      <PageSection
+        extraClass='home-page__stats-section center'
+        >
+        {
+          stats.map((statRows, rowIndex) => (<div
+            className='home-page__stats-section__row' key={rowIndex}>
+            {
+              statRows.map(({icon, text}, colIndex) => (<div
+                className='home-page__stats-section__row__col col sm-col-4'
+                key={colIndex}
+              >
+                <Icon className='icon home-page__stats-section__row__col__icon'
+                  icon='mini-assembly' />
+                <p className='home-page__stats-section__row__col__text'>
+                  {text}
+                </p>
+              </div>))
+            }
+          </div>))
+        }
+      </PageSection>
+
       <PageSection extraClass='home-page__participate-section center'>
         <p className="home-page__participate-section__title">
           Participer
@@ -136,78 +160,8 @@ const HomePage = () => {
           Equipe
         </p>
         <div className='home-page__team-section__container'>
-          {[
-            [{
-              image: "virginie_robidou.png",
-              name: "Virginie Robidou",
-              speciality: "Développeuse"
-            },
-            {
-              image: "agathe_brusset.png",
-              name: "Agathe Brusset",
-              speciality: "Coordinatrice du projet"
-            },
-            {
-              image: "aude_bernheim.png",
-              name: "Aude Bernheim",
-              speciality: "Conseil externe"
-            }],
-            [{
-              image: "erwan_ledoux.png",
-              name: "Erwan Ledoux",
-              speciality: "Développeur"
-            },
-            {
-              image: "sylvain_raibaud.png",
-              name: "Sylvain Raibaud",
-              speciality: "Spécialiste PNL"
-            },
-            {
-              image: "adrien_bernheim.png",
-              name: "Adrien Bernheim",
-              speciality: "Graphiste"
-            }],
-            [{
-              image: "cecile_baltazart.png",
-              name: "Cécile Baltazart",
-              speciality: "Designer UX"
-            },
-            {
-              image: "nina_varchavsky.png",
-              name: "Nina Varchavsky",
-              speciality: "Cultivatrice d'idées"
-            },
-            {
-              image: "mickael_bolnet.png",
-              name: "Mickaël Bolnet",
-              speciality: "Développeur Full Stack"
-            }],
-            [{
-              image: "baptiste_quentin.png",
-              name: "Baptiste Quentin",
-              speciality: "Coordinateur du projet"
-            },
-            {
-              image: "louis_jean_de_gastines.png",
-              name: "Louis-Jean de Gastines",
-              speciality: "Coordinateur du projet"
-            },
-            {
-              image: "steven_lasry.png",
-              name: "Steven Lasry",
-              speciality: "Développeur Full Stack"
-            }],
-            [{
-              image: "flora_vincent.png",
-              name: "Flora Vincent",
-              speciality: "Conseil externe"
-            },
-            {
-              image: "mathieu_daladouire.png",
-              name: "Mathieu Daladouire",
-              speciality: "Développeur Front End"
-            }]
-          ].map((rows, rowIndex) => (<div
+          {
+            people.map((rows, rowIndex) => (<div
               className='home-page__team-section__container__rows mb2'
               key={rowIndex}
             >
