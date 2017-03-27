@@ -52,6 +52,10 @@ const options = [
     image: 'zones'
   },
   {
+    description: `Alors que Les Républicains sont les plus mauvais
+    élèves de la parité, le groupe politique des Socialistes,
+    écologistes et républicains affiche un taux de 35% de femmes
+    dans ses rangs !`,
     infos: [{
       className: 'pastille--middle-green',
       text: 'Parti Socialiste'
@@ -85,12 +89,17 @@ const options = [
           </p>
       </div>)
     }),
-    description: '',
     text: 'Groupe politique',
     value: 'groupe_politique',
     image: 'partis'
   },
   {
+    description: `On remarque que les attributions des
+    député-e-s dans les commissions sont genrées : les
+    députées sont plus nombreuses dans les commissions dites
+    “non-régaliennes”, comme la commission aux affaires
+    culturelles que dans les commissions régaliennes,
+    comme celle de la finance`,
     infos: [{
       className: 'pastille--light-pink',
       text: 'Affaires Etrangères (régalienne)'
@@ -127,12 +136,13 @@ const options = [
           </p>
       </div>)
     }),
-    description: '',
     text: 'Commission',
     value: 'commission',
     image: 'commissions'
   },
   {
+    description: `Alors que la répartition femmes/hommes est
+    presque égale à 1 mandat, on atteint 85% d’hommes cumulant 4 mandats.`,
     infos: [{
       className: 'pastille--light-blue',
       text: 'Député-e-s 1-2 mandat(s)'
@@ -154,7 +164,6 @@ const options = [
           </p>
       </div>)
     }),
-    description: '',
     text: 'Mandats cumulés',
     value: 'mandats_cumules',
     image: 'mandats'

@@ -21,8 +21,8 @@ const people = [
     speciality: "Développeur"
   },
   {
-    image: "sylvain_raibaud.png",
-    name: "Sylvain Raibaud",
+    image: "sylvain_raybaud.png",
+    name: "Sylvain Raybaud",
     speciality: "Spécialiste PNL"
   },
   {

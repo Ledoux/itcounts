@@ -25,7 +25,7 @@ function getModelWithApp(app, config) {
   var mongoUrl = config.mongoUrl;
 
   return new global.Promise(function (resolve, reject) {
-    _mongoose2.default.connect();
+    _mongoose2.default.connect(mongoUrl);
     _mongoose2.default.connection.on('error', function (err) {
       console.log(err);
       resolve({

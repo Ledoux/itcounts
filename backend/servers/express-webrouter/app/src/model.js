@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise
 export function getModelWithApp (app, config) {
   const { mongoUrl } = config
   return new global.Promise((resolve, reject) => {
-    mongoose.connect()
+    mongoose.connect(mongoUrl)
     mongoose.connection.on('error', (err) => {
       console.log(err)
       resolve({
