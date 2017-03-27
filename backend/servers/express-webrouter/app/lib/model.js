@@ -27,7 +27,6 @@ function getModelWithApp(app, config) {
   return new global.Promise(function (resolve, reject) {
     _mongoose2.default.connect();
     _mongoose2.default.connection.on('error', function (err) {
-      console.log('mongoUrl', mongoUrl);
       console.log(err);
       resolve({
         mongooseConnection: null,
@@ -35,7 +34,6 @@ function getModelWithApp(app, config) {
       });
     });
     _mongoose2.default.connection.on('connected', function () {
-      console.log('mongoUrl', mongoUrl);
       var mongooseConnection = _mongoose2.default.createConnection(mongoUrl);
       console.log('Connection to mongo is okay');
       resolve({

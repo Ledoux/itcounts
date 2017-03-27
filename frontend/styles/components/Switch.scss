@@ -32,4 +32,19 @@
       left: 50%;
     }
   }
+  &--meilleurs_sieges {
+    &--on {
+      color: $light-grey;
+      background-color: #FFCCBC;
+      div {
+        background-color: #ff8000;
+      }
+    }
+    &--off {
+      background-color: #eefa7f;
+      div {
+        background-color: #caee71;
+      }
+    }
+  }
 }

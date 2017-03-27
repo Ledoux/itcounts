@@ -23,10 +23,10 @@ class Switch extends Component {
       isSwitched
     } = this.state
     return (<button
-      className={classnames(className, 'switch', {
+      className={classnames({
         'switch--off': !isSwitched,
         'switch--on': isSwitched
-      })}
+      }, className)}
       onClick={handleSwitchClick}
     >
       <div>

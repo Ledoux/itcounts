@@ -101,8 +101,7 @@ const HomePage = () => {
                 className='home-page__stats-section__row__col col sm-col-4'
                 key={colIndex}
               >
-                <Icon className='icon home-page__stats-section__row__col__icon'
-                  icon='mini-assembly' />
+                <Icon icon={icon} />
                 <p className='home-page__stats-section__row__col__text'>
                   {text}
                 </p>

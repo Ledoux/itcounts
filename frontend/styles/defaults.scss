@@ -22,3 +22,42 @@ img {
 .main {
   min-height: 100vh;
 }
+
+div .pastille {
+  &--light-blue {
+    background-color: $light-blue;
+  }
+  &--middle-blue {
+    background-color: $middle-blue;
+  }
+  &--dark-blue {
+    background-color: $dark-blue;
+  }
+  &--light-pink {
+    background-color: $light-pink;
+  }
+  &--middle-pink {
+    background-color: $middle-pink;
+  }
+  &--dark-pink {
+    background-color: $dark-pink;
+  }
+  &--orange {
+    background-color: $orange;
+  }
+  &--light-green {
+    background-color: $light-green;
+  }
+  &--middle-green {
+    background-color: $middle-green;
+  }
+  &--dark-green {
+    background-color: $dark-green;
+  }
+  &--black-green {
+    background-color: $black-green;
+  }
+  &--middle-grey {
+    background-color: $middle-grey;
+  }
+}

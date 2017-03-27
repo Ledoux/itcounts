@@ -2,73 +2,8 @@ import classnames from 'classnames'
 import React, {Component, PropTypes} from 'react'
 import ToggleButton from 'react-toggle-button'
 
-import Icon from './Icon'
 import Switch from './Switch'
-
-const description = `Saviez-vous que les emplacements proches des micros et des caméras,
-ou bien le long des allées et en bas de l'Assemblée, vers les
-ministres ou les chefs de groupe, étaient particulièrement convoités ?
-Ces places donnent plus de chances aux député-e-s qui s'y trouvent d'être filmé-e-s
-le jour des questins au gouvernement.
-
-Les femmes ont-elles les mêmes chances que les hommes de s'y trouver ?`
-
-const options = [
-  {
-    description,
-    infos: [{
-      icon: 'micro_blue',
-      text: 'Micros'
-    }, {
-      icon: 'dark_green',
-      text: 'Sièges de haute "valeur" politique'
-    }, {
-      icon: 'medium_green',
-      text: 'Sièges de moyenne "valeur" politique'
-    }, {
-      icon: 'light_green',
-      text: 'Sièges de faible "valeur" politique'
-    }, {
-      icon: 'medium_grey',
-      text: 'Gouvernement'
-    }].map(({icon, text}, index) => {
-      return (<div
-          className='assembly__content__legend__row'
-          key={index}
-        >
-          <Icon
-            className='assembly__content__legend__row__icon col mr2'
-            icon={icon}
-          />
-          <p className='assembly__content__legend__row__text col'>
-            {text}
-          </p>
-      </div>)
-    }),
-    text: 'Meilleurs sieges',
-    value: 'meilleurs_sieges',
-    image: 'zones'
-  },
-  {
-    description,
-    text: 'Groupe politique',
-    value: 'groupe_politique',
-    image: 'partis'
-  },
-  {
-    description,
-    text: 'Commission',
-    value: 'commission',
-    image: 'commissions'
-  },
-  {
-    description,
-    text: 'Mandats cumulés',
-    value: 'mandats_cumules',
-    image: 'mandats'
-  }
-]
-options.forEach((option, index) => {option.index = index})
+import options from '../utils/assembly'
 
 class Assembly extends Component {
   constructor () {
@@ -156,7 +91,12 @@ class Assembly extends Component {
               </div>
 
               <Switch
-                className='switch assembly__content__legend__switch'
+                className={classnames('switch assembly__content__legend__switch',
+                  {
+                    [`switch--${currentOption.value}--on`]: !isAll,
+                    [`switch--${currentOption.value}--off`]: isAll
+                  }
+                )}
                 handleToggleClick={handleToggleClick}
                 OffElement={<p> Tous </p>}
                 OnElement={<p> D&eacute;put&eacute;es </p>}

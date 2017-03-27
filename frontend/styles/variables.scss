@@ -9,6 +9,7 @@ $xl: 75em;
 $header-height: 7rem;
 
 // font
-$font-family: "Helvetica Neue", Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+$font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
 $title-font-size: 30px;
 $title-line-height: 1.33;
