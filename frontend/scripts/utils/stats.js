@@ -11,7 +11,7 @@ const stats = [
     d'obtenir une place avec micro que les hommes.`
 
   }, {
-    icon: 'cutlhune',
+    icon: 'culthune',
     text: `Les femmes occupent 1/3 (37,5%) de la
     commission des affaires culturelles et 1/8
     (13,7%) de la commission des finances.`
