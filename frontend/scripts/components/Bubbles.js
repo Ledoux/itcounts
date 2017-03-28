@@ -40,7 +40,7 @@ function getGoodName (name) {
 // have always clientWidth equal to zero for svg
 function getClientWidth (element) {
   return element.clientWidth === 0
-  ? element.parentElement.clientWidth
+  ? (element.parentElement && element.parentElement.clientWidth) || 0
   : element.clientWidth
 }
 
