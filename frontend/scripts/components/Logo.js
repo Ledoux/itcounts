@@ -4,11 +4,8 @@ import classnames from 'classnames'
 import Icon from './Icon'
 
 const Logo = ({onTopOfDarkSection}) => {
-  const classes = classnames({
-    'logo--on-dark-bg': onTopOfDarkSection
-  }, 'logo icon')
-  return (<div>
-    <Icon icon='mini-assembly' className={classes} />
+  return (<div className='logo'>
+    <img className='icon logo__img' src='/static/images/mini-assembly.png'/>
   </div>)
 }
 

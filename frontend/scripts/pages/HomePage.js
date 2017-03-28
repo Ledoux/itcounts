@@ -18,7 +18,7 @@ import stats from '../utils/stats'
 const HomePage = () => {
   return (
     <main className='main home-page'>
-      <Button
+      {/*<Button
         className="button button--large home-page__cta"
         onClick={() => {
           document.querySelector(`section#bubbles`)
@@ -26,7 +26,7 @@ const HomePage = () => {
         }}
       >
         D&eacute;couvrir
-      </Button>
+      </Button>*/}
       <PageSection
         extraClass='home-page__hero-section center'
       >
@@ -47,6 +47,15 @@ const HomePage = () => {
           de soutenir l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
           l&#39;Assembl&eacute;e Nationale.
         </p>
+        <Button
+          className="button button--large home-page__cta"
+          onClick={() => {
+            document.querySelector(`section#bubbles`)
+                    .scrollIntoView({behavior: 'smooth'})
+          }}
+        >
+          D&eacute;couvrir
+        </Button>
         <div className='home-page__hero-section__buildings'>
           <Icon
             className='icon home-page__hero-section__buildings__icon'
@@ -91,7 +100,7 @@ const HomePage = () => {
                 className='home-page__stats-section__row__col col sm-col-4'
                 key={colIndex}
               >
-                <Icon className='home-page__stats-section__row__col__icon'
+                <Icon className={`home-page__stats-section__row__col__icon home-page__stats-section__row__col__icon--${icon}`}
                   icon={icon} />
                 <p className='home-page__stats-section__row__col__text'>
                   {text}
@@ -260,7 +269,7 @@ const HomePage = () => {
 
       <PageSection extraClass='home-page__find-section center'>
         <p className="home-page__find-section__title mb2">
-          Retrouvez-nous
+          Rejoignez-nous
         </p>
         <div className="home-page__find-section__container">
           <a href="https://www.facebook.com/pariteaupouvoir"
@@ -283,16 +292,26 @@ const HomePage = () => {
       </PageSection>
 
       <PageSection extraClass='home-page__footer-section center p2'>
-        <p className='home-page__footer-section__links'>
-          <a href='mailto:waxscience@gmail.com' style={
+        <div className='home-page__footer-section__links flex justify-center'>
+          <a className='mr1' href='mailto:waxscience@gmail.com' style={
               {textDecoration: 'none', color: 'white'}
             } external>
             Contact
-          </a> - Copyright - <Link href='/legal-notices'
+          </a>
+          <p className='mr1'>
+            -
+          </p>
+          <p className='mr1' title='copyright pariteaupouvoir 2017'>
+            Copyright
+          </p>
+          <p className='mr1'>
+            -
+          </p>
+          <Link href='/legal-notices'
           style={
               {textDecoration: 'none', color: 'white'}}
           >Mentions l&eacute;gales</Link>
-        </p>
+        </div>
       </PageSection>
 
     </main>

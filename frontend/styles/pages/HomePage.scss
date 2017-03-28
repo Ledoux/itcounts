@@ -1,5 +1,6 @@
 .home-page {
-  pointer-events: none;
+  // pointer-events: none;
+  /*
   &__cta {
     position: relative;
     background-color: $apple-green;
@@ -17,11 +18,25 @@
       width: 20%;
     }
   }
+  */
+  // pointer-events: auto;
+  &__cta {
+    position: relative;
+    background-color: $apple-green;
+    // pointer-events: auto;
+    bottom: 17%;
+    width: 30%;
+    @media (min-width: $sm) {
+      width: 20%;
+    }
+    margin-bottom: 5rem;
+    z-index: 2000;
+  }
   &__hero-section {
     background-image: $total-blue-pastel-gradient;
     height: 100vh;
     // height: 60rem;
-    z-index: -1000;
+    z-index: 0;
     margin-top: - $header-height;
     position: relative;
     &__cloud {
@@ -43,13 +58,14 @@
       margin-top: 30%;
       height: 150px;
       width: 150px;
-      @media (min-width: $lg) {
+      @media (min-width: $sm) {
         margin-top: 5%;
         height: 250px;
         width: 250px;
       }
     }
     &__title {
+      font-family: $font-family;
       font-size: 14px;
       margin-left: 10%;
       margin-right: 10%;
@@ -67,11 +83,12 @@
     }
     &__subtitle {
       color: $grey;
-      font-size: 10px;
+      font-family: $font-family;
+      font-size: 16px;
       margin-bottom: 2rem;
-      margin-left: 10%;
-      margin-right: 10%;
-      width: 80%;
+      margin-left: 5%;
+      margin-right: 5%;
+      width: 90%;
       @media (min-width: $md) {
         font-size: 20px;
         margin-left: 15%;
@@ -80,9 +97,10 @@
       }
       font-weight: 300;
       line-height: 1.67;
+      // margin-bottom: 5rem;
+      margin-bottom: 1rem;
     }
     &__buildings {
-      z-index: -1000;
       position: absolute;
       height: 100px;
       left: 0;
@@ -100,10 +118,12 @@
   &__bubbles-section {
     background-image: $yellow-pastel-gradient;
     background-color: white;
-    z-index: 1000;
+    position: relative;
+    z-index: 3000;
     // height: 100vh;
     &__title {
       color: $dark-grey;
+      font-family: $font-family;
       font-weight: bold;
       font-size: 16px;
       line-height: 1.53;
@@ -113,19 +133,17 @@
       margin-right: 2.5%;
       width: 95%;
       @media (min-width: $sm) {
-        font-size: 30px;
-        padding-bottom: 10px;
+        font-size: 20px;
         margin-left: 10%;
         margin-right: 10%;
         width: 80%;
       }
-
     }
   }
   &__assembly-section {
     // height: 100vh;
-    z-index: 2000;
     background-color: white;
+    border-bottom: 1px solid #EBEBEB;
     &__title {
       color: $dark-grey;
       font-family: $font-family;
@@ -181,11 +199,23 @@
         &__icon {
           height: 8rem;
           width: 8rem;
-          margin-bottom: 2rem;
+          padding: 1rem;
+          margin-bottom: 0;
           @media (min-width: $sm) {
-            height: 8rem;
-            width: 8rem;
+            padding: 2.5rem;
+            height: 11rem;
+            width: 11rem;
           }
+          &--people {
+            padding: 0;
+            height: 9rem;
+            width: 9rem;
+            @media (min-width: $sm) {
+              height: 11rem;
+              width: 11rem;
+            }
+          }
+          min-height: 12rem;
         }
         &__text {
           padding-left: 10%;
@@ -195,7 +225,9 @@
             padding-right: 5%;
           }
           color: #282828;
-          font-size: 22px;
+          font-weight: 300;
+          font-family: $font-family;
+          font-size: 16px;
           line-height: 1.67;
         }
       }
@@ -246,7 +278,7 @@
           &__text {
             height: 100%;
             font-family: $font-family;
-            font-size: 18px;
+            font-size: 16px;
             line-height: 1.5;
             font-weight: 300;
             padding: 10px;
@@ -277,7 +309,7 @@
             font-weight: bold;
             font-size: 14px;
             @media (min-width: $md) {
-              font-size: 18px;
+              font-size: 16px;
             }
             line-height: 1.67;
           }
@@ -293,8 +325,9 @@
         width: 40%;
       }
       color: $grey;
+      font-family: $font-family;
       font-weight: 300;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 1.67;
       margin-bottom: 3rem;
     }
@@ -376,9 +409,9 @@
             &__name {
               color: $grey;
               font-family: $font-family;
-              font-size: 14px;
+              font-size: 12px;
               @media (min-width: $md) {
-                font-size: 18px;
+                font-size: 14px;
               }
               font-weight: 500;
               margin-bottom: 5px;
@@ -388,7 +421,7 @@
               font-family: $font-family;
               font-size: 12px;
               @media (min-width: $md) {
-                font-size: 18px;
+                font-size: 14px;
               }
               font-weight: 300;
             }
@@ -402,7 +435,7 @@
     overflow-y: hidden;
     // height: 100vh;
     &__title {
-      color: $grey;
+      font-family: $font-family;
       font-weight: bold;
       font-size: $title-font-size;
       line-height: $title-line-height;
@@ -422,17 +455,16 @@
           }
         }
         &__title {
-          color: $grey;
           font-family: $font-family;
           font-weight: 500;
-          font-size: 24px;
+          font-size: 20px;
         }
         &__subtitle {
-          color: $light-grey;
           font-family: $font-family;
-          font-size: 14px;
+          font-size: 16px;
+          font-weight: 300;
           line-height: 1.29;
-          opacity: 0.3;
+          min-height: 6rem;
           @media (max-width: $md) {
             margin-left: 30%;
             margin-right: 30%;

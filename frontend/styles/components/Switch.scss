@@ -1,9 +1,10 @@
 .switch {
+  border: 0px;
   border-radius: 20px;
   border-color: #f3f7bf;
   color: #d3dc4e;
   height: 40px;
-  width: 60%;
+  width: 6rem;
   min-width: 100px;
   position: relative;
   cursor: pointer;
@@ -16,7 +17,7 @@
     position: absolute;
     top: 0;
     transition: all 0.5s;
-    width: 50%;
+    width: 75%;
   }
   &--off {
     background-color: #ECEFF1;
@@ -29,7 +30,7 @@
     background-color: #f3f7bf;
     div {
       background-color: #d3dc4e;
-      left: 50%;
+      left: 25%;
     }
   }
   &--meilleurs_sieges {

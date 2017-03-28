@@ -5,7 +5,8 @@ import { max } from 'd3-array'
 import { drag } from 'd3-drag'
 import { format } from 'd3-format'
 import {
-  forceCenter,
+  forceX,
+  forceY,
   forceCollide,
   forceManyBody,
   forceSimulation
@@ -52,7 +53,8 @@ class Bubbles extends Component {
       isDrag,
       legendX,
       legendY,
-      forceStrength,
+      chargeStrength,
+      gravityStrength,
       isLessThanMd,
       isXBorder,
       isYBorder,
@@ -80,7 +82,7 @@ class Bubbles extends Component {
       .selectAll('.g-node')
     // init simulation
     const simulation = this.simulation = forceSimulation()
-     .force('charge', forceManyBody().strength(forceStrength))
+     .force('charge', forceManyBody().strength(chargeStrength))
      .on('tick', () => {
        // unpack
        const { nodesSelection } = this
@@ -147,8 +149,10 @@ class Bubbles extends Component {
       simulation.stop()
       const vizWidth = this.vizWidth = vizElement.clientWidth
       const centerCoordinates = currentOption.centerCoordinates || [
-        vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
-      simulation.force('center', forceCenter(...centerCoordinates))
+        vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio
+          || centerYCoordinateRatio)]
+      simulation.force('x', forceX(centerCoordinates[0]).strength(gravityStrength))
+      simulation.force('y', forceY(centerCoordinates[1]).strength(gravityStrength))
       simulation.alpha(1)
       simulation.restart()
     }, 100)
@@ -175,6 +179,7 @@ class Bubbles extends Component {
       collideRadius,
       collisionPadding,
       isLessThanMd,
+      gravityStrength,
       optionsHeight,
       optionWidth,
       vizHeight,
@@ -261,6 +266,8 @@ class Bubbles extends Component {
         d.r = this.getRadius(d.count)
         if (isLessThanMd) {
           d.r = d.r / 2
+        } else {
+          d.r = d.r / 1.25
         }
         return d.r
     })
@@ -334,7 +341,8 @@ class Bubbles extends Component {
     const vizWidth = document.querySelector('.bubbles__viz__svg').clientWidth
     const centerCoordinates = currentOption.centerCoordinates || [
       vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
-    simulation.force('center', forceCenter(...centerCoordinates))
+    simulation.force('x', forceX(centerCoordinates[0]).strength(gravityStrength))
+    simulation.force('y', forceY(centerCoordinates[1]).strength(gravityStrength))
     // restart (by also reset the alpha to make the new nodes moving like a new start)
     simulation.alpha(1)
     // restart
@@ -463,12 +471,12 @@ class Bubbles extends Component {
         <div className='bubbles__legend flex'>
           <div className='bubbles__legend__row'>
             <p className='bubbles__legend__row__circle bubbles__legend__row__circle--women col col-2'/>
-            <p className='bubbles__legend__row__text col col-8'> femmes </p>
+            <p className='bubbles__legend__row__text col col-8'> Femmes </p>
           </div>
           <div className='flex-auto' />
           <div className='bubbles__legend__row'>
             <p className='bubbles__legend__row__circle bubbles__legend__row__circle--men col col-2' />
-            <p className='bubbles__legend__row__text col col-8'> hommes </p>
+            <p className='bubbles__legend__row__text col col-8'> Hommes </p>
           </div>
         </div>
         <div className='bubbles__viz'>
@@ -498,7 +506,8 @@ class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
-  centerYCoordinateRatio: 2.2,
+  // centerYCoordinateRatio: 2.2,
+  centerYCoordinateRatio: 2.,
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
@@ -507,12 +516,13 @@ Bubbles.defaultProps = {
   isDrag: true,
   legendY: 30,
   legendX: 20,
-  forceStrength: 100,
+  chargeStrength: 200,
+  gravityStrength: 0.1,
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,
-  ratioLessThanMdVizHeight: 0.7,
-  vizHeight: 500,
+  ratioLessThanMdVizHeight: 0.8,
+  vizHeight: 400,
   minSmFontSize: 7,
   minMdFontSize: 12,
   minRadius: 40, // minimum collision radius

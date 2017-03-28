@@ -5,9 +5,10 @@
 // variables
 @import 'colors.scss';
 @import 'variables.scss';
+@import 'typography.scss';
 
 // defaults
-@import 'defaults';
+@import 'defaults.scss';
 
 // components
 @import './components/Assembly.scss';

@@ -36,3 +36,9 @@ For now, deploying in staging (production should be done via a Continuous integr
 ```bash
 npm run deploy-stg
 ```
+
+## Note
+In order to create  custom domain with one&on and heroku,
+you need to define a subdomain www. , and in that subdomain,
+you can set the CNAME in order to target the DNS Target found
+in the heroku settings.

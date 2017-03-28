@@ -1,13 +1,14 @@
 
 const options = [
   {
-    centerYCoordinateRatio: 3,
+    centerYCoordinateRatio: 1.8,
     collideRadius: 3,
-    maxSmRadius: 200,
+    maxSmRadius: 150,
     maxMdRadius: 150,
     minSmFontSize: 8,
-    maxSmFontSize: 30,
-    maxMdFontSize: 30,
+    maxSmFontSize: 28,
+    minMdFontSize: 10,
+    maxMdFontSize: 24,
     description: `Le groupe Républicain comporte beaucoup moins de femmes (14%)
     que le groupe Socialiste (35%).`,
     text: 'Groupe Politique',
