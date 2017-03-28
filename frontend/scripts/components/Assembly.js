@@ -80,9 +80,9 @@ class Assembly extends Component {
           </div>
         </div>
         <div>
-          <div className='assembly__content mb2'>
-            <div className='assembly__content__legend col md-col-4'>
-              <div className='assembly__content__legend__title mb3'>
+          <div className='assembly__content'>
+            <div className='assembly__content__legend col lg-col-3'>
+              <div className='assembly__content__legend__title'>
                 Filtres
                 <p className='assembly__content__legend__title__subtitle'>
                   cliquer sur le bouton pour ne voir que
@@ -101,12 +101,12 @@ class Assembly extends Component {
                 OffElement={<p> Tous </p>}
                 OnElement={<p> D&eacute;put&eacute;es </p>}
               />
-              <p className='assembly__content__legend__title'>
+            <p className='assembly__content__legend__title assembly__content__legend__title--legend'>
                 L&eacute;gende
               </p>
               {currentOption.infos}
             </div>
-            <div className='assembly__content__viz col md-col-8'>
+            <div className='assembly__content__viz col lg-col-9'>
               <img
                 className='assembly__content__viz__img'
                 src={`static/images/${currentOption.image}${isAll ? '' : '_f'}.png`}

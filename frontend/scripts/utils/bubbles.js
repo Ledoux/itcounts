@@ -1,6 +1,7 @@
 
 const options = [
   {
+    centerYCoordinateRatio: 3,
     collideRadius: 3,
     maxSmRadius: 110,
     maxMdRadius: 150,

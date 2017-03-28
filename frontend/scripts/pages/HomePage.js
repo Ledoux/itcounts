@@ -16,7 +16,16 @@ import stats from '../utils/stats'
 const HomePage = () => {
   return (
     <main className='main home-page'>
-
+      <Button
+        className="button button--large home-page__cta"
+        onClick={() => {
+          console.log('BON')
+          document.querySelector(`section#bubbles`)
+                  .scrollIntoView({behavior: 'smooth'})
+        }}
+      >
+        D&eacute;couvrir
+      </Button>
       <PageSection
         extraClass='home-page__hero-section center'
       >
@@ -32,20 +41,23 @@ const HomePage = () => {
           26,9% de femmes à l&#39;Assembl&eacute;e, <br/ >
           51,5% de femmes en France.
         </p>
-        <p className="home-page__hero-section__subtitle mb3">
+        <p className="home-page__hero-section__subtitle">
           Visualiser pour mieux comprendre: Parit&eacute; au Pouvoir a pour mission
           de soutenir l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
           l&#39;Assembl&eacute;e Nationale.
         </p>
+        {/*
         <Button
           className="button button--large home-page__hero-section__cta"
           onClick={() => {
+            console.log('BON')
             document.querySelector(`section#bubbles`)
                     .scrollIntoView({behavior: 'smooth'})
           }}
         >
           D&eacute;couvrir
         </Button>
+        */}
         <div className='home-page__hero-section__buildings'>
           <Icon
             className='icon home-page__hero-section__buildings__icon'
@@ -71,9 +83,7 @@ const HomePage = () => {
           D&eacute;couvrez la proportion de femmes &agrave; l&#39;Assembl&eacute;e Nationale
           selon leur:
         </p>
-        <div className="mb2">
-          <Bubbles />
-        </div>
+        <Bubbles />
       </PageSection>
 
       <PageSection
@@ -82,7 +92,7 @@ const HomePage = () => {
         <p className="home-page__assembly-section__title">
           Cartographier la parit&eacute; dans l&#39;H&eacute;micycle :
         </p>
-        <p className="home-page__assembly-section__subtitle mb3 p2">
+        <p className="home-page__assembly-section__subtitle">
           Localisez nos d&eacute;put&eacute; et apprenez-en plus sur la
           r&eacute;partition spatiale des genres selon le nombre de mandats cumul&eacute;,
           des commisions ou des groupes politiques

@@ -1,34 +1,68 @@
 .home-page {
   pointer-events: none;
+  &__cta {
+    position: relative;
+    background-color: $apple-green;
+    pointer-events: auto;
+    position: absolute;
+    bottom: 17%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 35%;
+    right: 65%;
+    width: 30%;
+    @media (min-width: $sm) {
+      left: 40%;
+      right: 60%;
+      width: 20%;
+    }
+  }
   &__hero-section {
-    background-image: $hero-blue-pastel-gradient;
-    overflow-x: hidden;
+    background-image: $total-blue-pastel-gradient;
+    // background-image: $hero-blue-pastel-gradient;
+    // overflow-x: hidden;
+    // height: calc(100vh - $header-height);
+    // overflow-y: auto;
+    height: 100vh;
+    z-index: -1000;
+    margin-top: - $header-height;
     position: relative;
     &__cloud {
       left: 20%;
       position: absolute;
-      top: 50px;
+      top: 15%;
       height: 40px;
-      width: 100px;
+      width: 50px;
+      @media (min-width: $md) {
+        height: 70px;
+        width: 150px;
+      }
       @media (min-width: $md) {
         height: 70px;
         width: 150px;
       }
     }
     &__assembly {
-      height: 300px;
-      width: 300px;
+      margin-top: 30%;
+      height: 150px;
+      width: 150px;
+      @media (min-width: $lg) {
+        margin-top: 10%;
+        height: 300px;
+        width: 300px;
+      }
     }
     &__title {
       font-family: $font-family;
-      font-size: 28px;
+      font-size: 16px;
       margin-left: 10%;
       margin-right: 10%;
       width: 80%;
       @media (min-width: $md) {
-        font-size: 36px;
+        font-size: 34px;
         margin-left: 20%;
         margin-right: 20%;
+        height: 10%;
         width: 60%;
       }
       font-weight: bold;
@@ -38,59 +72,71 @@
     &__subtitle {
       color: $grey;
       font-family: $font-family;
-      font-size: 18px;
-      margin-left: 5%;
-      margin-right: 5%;
-      width: 90%;
+      font-size: 12px;
+      margin-bottom: 3rem;
+      margin-left: 10%;
+      margin-right: 10%;
+      width: 80%;
       @media (min-width: $md) {
-        font-size: 24px;
+        font-size: 22px;
         margin-left: 20%;
         margin-right: 20%;
         width: 60%;
       }
       @media (min-width: $lg) {
         font-size: 24px;
-        margin-left: 30%;
-        margin-right: 30%;
-        width: 40%;
+        margin-left: 20%;
+        margin-right: 20%;
+        width: 60%;
       }
       font-weight: 300;
       line-height: 1.67;
     }
-    &__cta {
-      background-color: $apple-green;
-      pointer-events: auto;
-    }
     &__buildings {
-      position: relative;
+      z-index: -1000;
+      position: absolute;
       height: 100px;
+      left: 0;
+      right: 0;
+      bottom: -2rem;
+      @media (min-width: $sm) {
+        bottom: 0;
+      }
       &__icon {
-        position: absolute;
-        width: 900px;
+        // position: absolute;
+        width: 100vw;
         height: 100px;
-        left: 0;
-        right: 0;
+        // @media (min-width: $lg) {
+        //  width: 900px;
+        //}
       }
     }
   }
   &__bubbles-section {
+    background-image: $yellow-pastel-gradient;
+    // background-color: white;
+    z-index: 1000;
+    // height: 100vh;
     &__title {
       color: $dark-grey;
       font-family: $font-family;
       font-weight: bold;
       font-size: 20px;
       line-height: 1.53;
-      padding-top: 56px;
-      padding-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 10px;
       @media (min-width: $sm) {
         font-size: 30px;
-        padding-bottom: 55px;
+        padding-bottom: 10px;
       }
       margin-left: 10%;
       margin-right: 10%;
     }
   }
   &__assembly-section {
+    // height: 100vh;
+    z-index: 2000;
+    background-color: white;
     &__title {
       color: $dark-grey;
       font-family: $font-family;
@@ -100,8 +146,8 @@
         font-size: 30px;
       }
       line-height: 1.53;
-      padding-top: 56px;
-      padding-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 10px;
       margin-left: 10%;
       margin-right: 10%;
     }
@@ -122,32 +168,34 @@
   }
   &__stats-section {
     overflow-y: hidden;
+    // height: 100vh;
     margin-left: 5%;
     margin-right: 5%;
+    padding: 1rem;
     @media (min-width: $sm) {
+      padding: 5rem;
       margin-left: 5%;
       margin-right: 5%;
     }
-    padding: 5rem;
     &__row {
       margin-bottom: 2rem;
       overflow-y: hidden;
       &__col {
         margin-bottom: 3rem;
-        padding-left: 20%;
-        padding-right: 20%;
+        padding-left: 10%;
+        padding-right: 10%;
         @media (min-width: $sm) {
           margin-bottom: 0;
           padding-left: 5%;
           padding-right: 5%;
         }
         &__icon {
-          height: 10rem;
-          width: 10rem;
+          height: 8rem;
+          width: 8rem;
           margin-bottom: 2rem;
           @media (min-width: $sm) {
-            height: 10rem;
-            width: 10rem;
+            height: 8rem;
+            width: 8rem;
           }
         }
         &__text {
@@ -158,8 +206,7 @@
             padding-right: 5%;
           }
           color: #282828;
-          font-family: $font-family;
-          font-size: 25px;
+          font-size: 22px;
           line-height: 1.67;
         }
       }
@@ -167,6 +214,7 @@
   }
   &__participate-section {
     background-image: $yellow-pastel-gradient;
+    // height: 100vh;
     &__title {
       color: $grey;
       font-weight: bold;
@@ -177,19 +225,6 @@
       line-height: $title-line-height;
       padding-top: 56px;
       margin-bottom: 50px;
-    }
-    &__subtitle {
-      margin-left: 10%;
-      margin-right: 10%;
-      @media (min-width: $md) {
-        margin-left: 25%;
-        margin-right: 25%;
-      }
-      color: $grey;
-      font-weight: 300;
-      font-family: $font-family;
-      font-size: 18px;
-      line-height: 1.67;
     }
     &__quote {
       margin-left: 5%;
@@ -260,6 +295,20 @@
         }
       }
     }
+    &__subtitle {
+      margin-left: 10%;
+      margin-right: 10%;
+      @media (min-width: $md) {
+        margin-left: 30%;
+        margin-right: 30%;
+        width: 40%;
+      }
+      color: $grey;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 1.67;
+      margin-bottom: 3rem;
+    }
     &__social-shares {
       margin-left: 5%;
       margin-right: 5%;
@@ -267,26 +316,29 @@
         margin-left: 30%;
         margin-right: 30%;
       }
-      margin-bottom: 50px;
+      margin-bottom: 3rem;
     }
     &__cta {
       color: $grey;
       background-color: $apple-green;
-      margin-bottom: 100px;
+      margin-bottom: 1rem;
     }
   }
   &__team-section {
     background-image: $total-blue-pastel-gradient;
     overflow-y: hidden;
+    // height: 100vh;
     &__title {
       color: $grey;
       font-weight: bold;
       font-size: $title-font-size;
       line-height: $title-line-height;
-      padding-top: 56px;
-      margin-bottom: 30px;
+      padding-top: 2rem;
+      margin-bottom: 3rem;
     }
     &__container {
+      padding-top: 10%;
+      padding-bottom: 10%;
       margin-left: 10%;
       margin-right: 10%;
       @media (min-width: $sm) {
@@ -357,8 +409,9 @@
     }
   }
   &__partners-section {
-    margin-bottom: 58px;
+    margin-bottom: 2rem;
     overflow-y: hidden;
+    // height: 100vh;
     &__title {
       color: $grey;
       font-weight: bold;

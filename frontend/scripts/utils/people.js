@@ -23,7 +23,7 @@ const people = [
   {
     image: "sylvain_raybaud.png",
     name: "Sylvain Raybaud",
-    speciality: "Spécialiste PNL"
+    speciality: "Spécialiste NLP"
   },
   {
     image: "adrien_bernheim.png",

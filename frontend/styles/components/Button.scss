@@ -15,9 +15,14 @@
   }
   // SIZE
   &--large {
-    padding-left: 2.5em;
-    padding-right: 2.5em;
-    font-size: 1.25em;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 0.75em;
+    @media (min-width: $sm) {
+      padding-left: 2.5em;
+      padding-right: 2.5em;
+      font-size: 1.25em;
+    }
   }
 
   // STATE

@@ -1,15 +1,16 @@
 .header {
   color: black;
-  background-image: $header-blue-pastel-gradient;;
+  // background-image: $header-blue-pastel-gradient;
+  // background-image:
   align-items: center;
   z-index: 3;
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
 
-  @media (min-width: $sm) {
-    height: $header-height;
-  }
+  // @media (min-width: $sm) {
+  height: $header-height;
+  //}
 
   .logo {
     height: 40px;

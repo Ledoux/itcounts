@@ -143,7 +143,7 @@ class Bubbles extends Component {
       simulation.stop()
       const vizWidth = this.vizWidth = vizElement.clientWidth
       const centerCoordinates = currentOption.centerCoordinates || [
-        vizWidth / 2, vizHeight / centerYCoordinateRatio]
+        vizWidth / 2, vizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
       simulation.force('center', forceCenter(...centerCoordinates))
       simulation.alpha(1)
       simulation.restart()
@@ -321,7 +321,7 @@ class Bubbles extends Component {
     // center
     const vizWidth = document.querySelector('.bubbles__viz__svg').clientWidth
     const centerCoordinates = currentOption.centerCoordinates || [
-      vizWidth / 2, vizHeight / centerYCoordinateRatio]
+      vizWidth / 2, vizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
     simulation.force('center', forceCenter(...centerCoordinates))
     // restart (by also reset the alpha to make the new nodes moving like a new start)
     simulation.alpha(1)
@@ -486,7 +486,7 @@ Bubbles.defaultProps = {
   isDrag: true,
   legendY: 30,
   legendX: 20,
-  forceStrength: 1000,
+  forceStrength: 100,
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,

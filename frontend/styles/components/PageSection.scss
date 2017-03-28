@@ -1,3 +1,9 @@
 section {
   pointer-events: auto;
 }
+
+.page-section {
+  &__inner {
+    height: 100%;
+  }
+}
