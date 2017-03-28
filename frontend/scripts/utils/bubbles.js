@@ -5,7 +5,7 @@ const options = [
     collideRadius: 3,
     maxSmRadius: 200,
     maxMdRadius: 150,
-    minSmFontSize: 10,
+    minSmFontSize: 8,
     maxSmFontSize: 30,
     maxMdFontSize: 30,
     description: `Le groupe Républicain comporte beaucoup moins de femmes (14%)

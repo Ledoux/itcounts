@@ -511,7 +511,7 @@ Bubbles.defaultProps = {
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,
-  ratioLessThanMdVizHeight: 0.75,
+  ratioLessThanMdVizHeight: 0.7,
   vizHeight: 500,
   minSmFontSize: 7,
   minMdFontSize: 12,
