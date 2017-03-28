@@ -72,16 +72,13 @@
     overflow: hidden;
     &__legend {
       background-color: #FAFAFA;
-      box-shadow: 5px 5px 5px #888888;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
       border-radius: 20px;
       padding: 10px;
       margin-bottom: 30px;
       min-height: 30rem;
       @media (max-width: $mini) {
         width: 100%;
-      }
-      @media (min-width: $sm) {
-        min-height: 32rem;
       }
       &__title {
         color: $option-grey;

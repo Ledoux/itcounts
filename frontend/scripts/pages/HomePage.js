@@ -9,7 +9,9 @@ import PageSection from '../components/PageSection'
 import Quote from '../components/Quote'
 import SocialShares from '../components/SocialShares'
 
-import { HASHTAGS, PROD_URL } from '../utils/foos'
+import { HASHTAGS,
+  SWEET_PROD_URL
+} from '../utils/foos'
 import people from '../utils/people'
 import stats from '../utils/stats'
 
@@ -19,7 +21,6 @@ const HomePage = () => {
       <Button
         className="button button--large home-page__cta"
         onClick={() => {
-          console.log('BON')
           document.querySelector(`section#bubbles`)
                   .scrollIntoView({behavior: 'smooth'})
         }}
@@ -46,18 +47,6 @@ const HomePage = () => {
           de soutenir l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
           l&#39;Assembl&eacute;e Nationale.
         </p>
-        {/*
-        <Button
-          className="button button--large home-page__hero-section__cta"
-          onClick={() => {
-            console.log('BON')
-            document.querySelector(`section#bubbles`)
-                    .scrollIntoView({behavior: 'smooth'})
-          }}
-        >
-          D&eacute;couvrir
-        </Button>
-        */}
         <div className='home-page__hero-section__buildings'>
           <Icon
             className='icon home-page__hero-section__buildings__icon'
@@ -65,15 +54,6 @@ const HomePage = () => {
           />
         </div>
       </PageSection>
-
-      <div>
-        {/*
-        Découvrez le projet Parit&eacute; au Pouvoir, cr&eacute;&eacute; par Wax Science,
-        pour visualiser les in&eacute;galit&eacute;s au sein de l&#39;Assembl&eacute;e Nationale.
-        Nous analysons les chiffres, mais aussi leurs discours et leur
-        emplacement au sein de l&#39;H&eacute;micycle.
-        */}
-      </div>
 
       <PageSection
         extraClass='home-page__bubbles-section center'
@@ -134,13 +114,13 @@ const HomePage = () => {
                 src='/static/images/camembert.png'
               />
               <p className='home-page__participate-section__quote__container__up__text col col-8'>
-                R&eacute;patition du genre dans l&#39;Assembl&eacute;e Nationale
+                R&eacute;partition du genre dans l&#39;Assembl&eacute;e Nationale
               </p>
             </div>
             <div className='home-page__participate-section__quote__container__down p2'>
               <p className='home-page__participate-section__quote__container__down__text'>
                 Signez votre p&eacute;tition pour plus de femmes &agrave; l&#39;Assembl&eacute;e Nationale.
-                 {` ${HASHTAGS.replace(/#/g, '#')} ${PROD_URL}`}
+                 {` ${HASHTAGS.replace(/#/g, '#')} ${SWEET_PROD_URL}`}
               </p>
             </div>
           </div>
