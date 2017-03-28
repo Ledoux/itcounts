@@ -17,7 +17,7 @@ const { setApisWithAppAndModel } = require('./lib/apis')
 if (IS_LOCALHOST) {
   const env = require('node-env-file')
   const envType = IS_DEV
-  ? 'dev'
+  ? 'development'
   : (IS_SANDBOX
   ? 'sandbox'
   : null)
