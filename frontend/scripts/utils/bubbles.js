@@ -5,7 +5,7 @@ const options = [
     collideRadius: 3,
     maxSmRadius: 150,
     maxMdRadius: 150,
-    minSmFontSize: 8,
+    minSmFontSize: 6,
     maxSmFontSize: 28,
     minMdFontSize: 10,
     maxMdFontSize: 24,

@@ -18,15 +18,6 @@ import stats from '../utils/stats'
 const HomePage = () => {
   return (
     <main className='main home-page'>
-      {/*<Button
-        className="button button--large home-page__cta"
-        onClick={() => {
-          document.querySelector(`section#bubbles`)
-                  .scrollIntoView({behavior: 'smooth'})
-        }}
-      >
-        D&eacute;couvrir
-      </Button>*/}
       <PageSection
         extraClass='home-page__hero-section center'
       >
@@ -48,7 +39,7 @@ const HomePage = () => {
           l&#39;Assembl&eacute;e Nationale.
         </p>
         <Button
-          className="button button--large home-page__cta"
+          className="button button--large home-page__hero-section__cta"
           onClick={() => {
             document.querySelector(`section#bubbles`)
                     .scrollIntoView({behavior: 'smooth'})
