@@ -27,12 +27,20 @@ img {
 div .pastille {
   &--light-blue {
     background-color: $light-blue;
+    &--empty {
+      border: 1px solid $light-blue;
+      background-color: white;
+    }
   }
   &--middle-blue {
     background-color: $middle-blue;
   }
   &--dark-blue {
     background-color: $dark-blue;
+    &--empty {
+      border: 1px solid $dark-blue;
+      background-color: white;
+    }
   }
   &--light-pink {
     background-color: $light-pink;

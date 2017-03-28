@@ -47,4 +47,49 @@
       }
     }
   }
+  &--groupe_politique {
+    &--on {
+      color: $light-grey;
+      background-color: #FFCCBC;
+      div {
+        background-color: #ff8000;
+      }
+    }
+    &--off {
+      background-color: #eefa7f;
+      div {
+        background-color: #caee71;
+      }
+    }
+  }
+  &--commission {
+    &--on {
+      color: $light-grey;
+      background-color: #89dc67;
+      div {
+        background-color: #055400;
+      }
+    }
+    &--off {
+      background-color: #ee88d2;
+      div {
+        background-color: #ce3b81;
+      }
+    }
+  }
+  &--mandats_cumules {
+    &--on {
+      color: $light-grey;
+      background-color: #8ddcdd;
+      div {
+        background-color: #5777a6;
+      }
+    }
+    &--off {
+      background-color: #5777a6;
+      div {
+        background-color: #8ddcdd;
+      }
+    }
+  }
 }

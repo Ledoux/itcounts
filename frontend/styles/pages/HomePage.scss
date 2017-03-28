@@ -19,11 +19,8 @@
   }
   &__hero-section {
     background-image: $total-blue-pastel-gradient;
-    // background-image: $hero-blue-pastel-gradient;
-    // overflow-x: hidden;
-    // height: calc(100vh - $header-height);
-    // overflow-y: auto;
     height: 100vh;
+    // height: 60rem;
     z-index: -1000;
     margin-top: - $header-height;
     position: relative;
@@ -102,18 +99,14 @@
         bottom: 0;
       }
       &__icon {
-        // position: absolute;
         width: 100vw;
         height: 100px;
-        // @media (min-width: $lg) {
-        //  width: 900px;
-        //}
       }
     }
   }
   &__bubbles-section {
     background-image: $yellow-pastel-gradient;
-    // background-color: white;
+    background-color: white;
     z-index: 1000;
     // height: 100vh;
     &__title {

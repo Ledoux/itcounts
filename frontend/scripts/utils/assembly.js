@@ -72,7 +72,7 @@ const options = [
       className: 'pastille--orange',
       text: 'Non inscrits'
     }, {
-      className: 'pastille--middle_blue',
+      className: 'pastille--middle-blue',
       text: 'UDI'
     }].map(({className, text}, index) => {
       return (<div
@@ -145,10 +145,17 @@ const options = [
     presque égale à 1 mandat, on atteint 85% d’hommes cumulant 4 mandats.`,
     infos: [{
       className: 'pastille--light-blue',
-      text: 'Député-e-s 1-2 mandat(s)'
+      text: 'Députées 1-2 mandat(s)'
     }, {
+      className: 'pastille--light-blue--empty',
+      text: 'Députés 1-2 mandats'
+    },
+    {
       className: 'pastille--dark-blue',
-      text: 'Député-e-s 3-4 mandats'
+      text: 'Députées 3-4 mandat(s)'
+    }, {
+      className: 'pastille--dark-blue--empty',
+      text: 'Députés 3-4 mandats'
     }].map(({className, text}, index) => {
       return (<div
           className='assembly__content__legend__row'
