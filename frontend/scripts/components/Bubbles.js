@@ -36,6 +36,14 @@ function getGoodName (name) {
   return name
 }
 
+// SPECIAL EXCEPTION FOR FIREFOX SVG that
+// have always clientWidth equal to zero for svg
+function getClientWidth (element) {
+  return element.clientWidth === 0
+  ? element.parentElement.clientWidth
+  : element.clientWidth
+}
+
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
 class Bubbles extends Component {
   constructor () {
@@ -72,7 +80,7 @@ class Bubbles extends Component {
     : vizHeight
     // init svg element
     const vizElement = this.vizElement = document.querySelector('.bubbles__viz__svg')
-    const vizWidth = this.vizWidth = vizElement.clientWidth
+    const vizWidth = getClientWidth(vizElement)
     const labelsDivElement = document.querySelector('.g-labels')
     const vizSelection = this.vizSelection = select(vizElement)
     vizSelection.append('rect')
@@ -89,7 +97,6 @@ class Bubbles extends Component {
        // transform
        nodesSelection
         .attr('transform', d => {
-          if (isXBorder) {}
           // add border rebound (it is important to keep this.vizWidth because
           // this value may change with resize so we need to get its fresh values
           // stored in the this pointer)
@@ -147,12 +154,14 @@ class Bubbles extends Component {
     // add event listener
     this._throttledResize = throttle(() => {
       simulation.stop()
-      const vizWidth = this.vizWidth = vizElement.clientWidth
+      const vizWidth = this.vizWidth = getClientWidth(vizElement)
       const centerCoordinates = currentOption.centerCoordinates || [
         vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio
           || centerYCoordinateRatio)]
-      simulation.force('x', forceX(centerCoordinates[0]).strength(gravityStrength))
-      simulation.force('y', forceY(centerCoordinates[1]).strength(gravityStrength))
+      simulation.force('x', forceX(centerCoordinates[0])
+        .strength(gravityStrength))
+      simulation.force('y', forceY(centerCoordinates[1])
+        .strength(gravityStrength))
       simulation.alpha(1)
       simulation.restart()
     }, 100)
@@ -338,11 +347,15 @@ class Bubbles extends Component {
        .iterations(2)
      )
     // center
-    const vizWidth = document.querySelector('.bubbles__viz__svg').clientWidth
+    const vizElement = document.querySelector('.bubbles__viz__svg')
+    // SPECIAL FIREFOX EXCEPTION
+    const vizWidth = getClientWidth(vizElement)
     const centerCoordinates = currentOption.centerCoordinates || [
       vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
-    simulation.force('x', forceX(centerCoordinates[0]).strength(gravityStrength))
-    simulation.force('y', forceY(centerCoordinates[1]).strength(gravityStrength))
+    simulation.force('x', forceX(centerCoordinates[0])
+      .strength(gravityStrength))
+    simulation.force('y', forceY(centerCoordinates[1])
+      .strength(gravityStrength))
     // restart (by also reset the alpha to make the new nodes moving like a new start)
     simulation.alpha(1)
     // restart
