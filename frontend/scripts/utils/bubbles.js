@@ -3,8 +3,10 @@ const options = [
   {
     centerYCoordinateRatio: 3,
     collideRadius: 3,
-    maxSmRadius: 110,
+    maxSmRadius: 200,
     maxMdRadius: 150,
+    minSmFontSize: 10,
+    maxSmFontSize: 30,
     maxMdFontSize: 30,
     description: `Le groupe Républicain comporte beaucoup moins de femmes (14%)
     que le groupe Socialiste (35%).`,
@@ -12,7 +14,8 @@ const options = [
     value: 'parti_politique'
   },
   {
-    maxSmFontSize: 15,
+    minSmFontSize: 10,
+    maxSmFontSize: 20,
     maxMdFontSize: 20,
     description: `Il y a trois fois plus de députés femmes travaillant
     dans les “Affaires culturelles” que dans la “Finance”.`,
@@ -20,12 +23,17 @@ const options = [
     value: 'commission_permanente'
   },
   {
+    minSmFontSize: 10,
+    maxSmFontSize: 20,
+    maxSmRadius: 100,
     description: `La nouvelle Aquitaine atteint presque la parité pour
     ses députés alors que l'Ile de France en est loin (35%).`,
     text: 'Région',
     value: 'region'
   },
   {
+    minSmFontSize: 10,
+    maxSmFontSize: 20,
     maxMdRadius: 120,
     description: `Après 70 ans, la proportion de députés femmes passe en dessous
       de la barre des 15%.`,

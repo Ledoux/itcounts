@@ -53,16 +53,21 @@ class Bubbles extends Component {
       legendX,
       legendY,
       forceStrength,
+      isLessThanMd,
       isXBorder,
       isYBorder,
       optionsHeight,
       optionWidth,
+      ratioLessThanMdVizHeight,
       selectorHeight,
       vizHeight
     } = this.props
     const {
       currentOption
     } = this.state
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     // init svg element
     const vizElement = this.vizElement = document.querySelector('.bubbles__viz__svg')
     const vizWidth = this.vizWidth = vizElement.clientWidth
@@ -90,9 +95,8 @@ class Bubbles extends Component {
           ? Math.max(d.r, Math.min(this.vizWidth - d.r, d.x))
           : d.x
           const translateY = isYBorder
-          ? Math.max(d.r, Math.min(vizHeight - d.r, d.y))
+          ? Math.max(d.r, Math.min(adaptedVizHeight - d.r, d.y))
           : d.y
-
           // return
           return `translate(${translateX},${translateY})`
         })
@@ -143,7 +147,7 @@ class Bubbles extends Component {
       simulation.stop()
       const vizWidth = this.vizWidth = vizElement.clientWidth
       const centerCoordinates = currentOption.centerCoordinates || [
-        vizWidth / 2, vizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
+        vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
       simulation.force('center', forceCenter(...centerCoordinates))
       simulation.alpha(1)
       simulation.restart()
@@ -181,12 +185,16 @@ class Bubbles extends Component {
       minSmFontSize,
       minMdFontSize,
       minRadius,
+      ratioLessThanMdVizHeight,
       width
     } = this.props
     const {
       currentOption,
       nodes
     } = this.state
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     const maxRadius = isLessThanMd
     ? (currentOption.maxSmRadius || maxSmRadius)
     : (currentOption.maxMdRadius || maxMdRadius)
@@ -245,6 +253,18 @@ class Bubbles extends Component {
     nodesSelection
       .append('line')
       .attr('class', 'g-split')
+
+    // SET THE RADIUS GIVEN THE RESPONSIVE STATE
+    // all circles
+    nodesSelection.selectAll('circle')
+      .attr('r', d => {
+        d.r = this.getRadius(d.count)
+        if (isLessThanMd) {
+          d.r = d.r / 2
+        }
+        return d.r
+    })
+
     // all
     nodesSelection
       .selectAll('rect')
@@ -268,6 +288,7 @@ class Bubbles extends Component {
     nodesSelection
       .select('.g-homme circle')
       .attr('clip-path', d => d.k > 0 ? 'url(#g-clip-homme-' + d.id + ')' : null)
+
     // split
     nodesSelection
       .select('.g-split')
@@ -276,15 +297,6 @@ class Bubbles extends Component {
       .attr('x2', d => -d.r + 2 * d.r * d.k)
       .attr('y2', d => Math.sqrt(d.r * d.r - Math.pow(-d.r + 2 * d.r * d.k, 2)))
 
-    // all circles
-    nodesSelection.selectAll('circle')
-      .attr('r', d => {
-        d.r = this.getRadius(d.count)
-        if (isLessThanMd) {
-          d.r = d.r / 2
-        }
-        return d.r
-    })
     nodesSelection
       .append('foreignObject')
       .attr('width', d => 2 * d.r)
@@ -321,7 +333,7 @@ class Bubbles extends Component {
     // center
     const vizWidth = document.querySelector('.bubbles__viz__svg').clientWidth
     const centerCoordinates = currentOption.centerCoordinates || [
-      vizWidth / 2, vizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
+      vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
     simulation.force('center', forceCenter(...centerCoordinates))
     // restart (by also reset the alpha to make the new nodes moving like a new start)
     simulation.alpha(1)
@@ -393,9 +405,18 @@ class Bubbles extends Component {
   }
   render () {
     const { handleSelectOption, optionTransition } =  this
-    const { optionsHeight, vizHeight, width } = this.props
+    const {
+      optionsHeight,
+      isLessThanMd,
+      vizHeight,
+      ratioLessThanMdVizHeight,
+      width
+    } = this.props
     const { currentOption } = this.state
     const optionWidth = 100 / options.length
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     return (
       <div className='bubbles center'>
         <div className='bubbles__dropdown'>
@@ -453,7 +474,7 @@ class Bubbles extends Component {
         <div className='bubbles__viz'>
           <svg
             className='bubbles__viz__svg'
-            height={vizHeight}
+            height={adaptedVizHeight}
             width={width}
           />
         </div>
@@ -490,6 +511,7 @@ Bubbles.defaultProps = {
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,
+  ratioLessThanMdVizHeight: 0.75,
   vizHeight: 500,
   minSmFontSize: 7,
   minMdFontSize: 12,
