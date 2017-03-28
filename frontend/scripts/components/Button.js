@@ -28,7 +28,6 @@ const Button = ({children,
       >{children}</Link>
     )
   }
-  console.log('BEIN', onClick)
   return (
     <button
       disabled={disabled}
