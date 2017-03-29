@@ -21,7 +21,9 @@ import { connect } from 'react-redux'
 import Quote from './Quote'
 import Slider from './Slider'
 import SocialShares from './SocialShares'
-import { PROD_URL } from '../utils/foos'
+import {
+  SWEET_PROD_URL
+} from '../utils/foos'
 import { getAsyncData } from '../utils/apis'
 import options from '../utils/bubbles'
 import { bias, fraction } from '../utils/math'
@@ -524,8 +526,8 @@ class Bubbles extends Component {
           <SocialShares
             className='social-shares bubbles__social-shares'
             description={currentOption.description}
-            imageUrl={`${PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
-            shareUrl={`${PROD_URL}/static/cards/${currentOption.value}.html`}
+            imageUrl={`${SWEET_PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
+            shareUrl={`${SWEET_PROD_URL}/static/cards/${currentOption.value}.html`}
             title={`Découvrez la proportion de femmes à l'Assemblée Nationale selon leur ${currentOption.text}`}
           />
         </div>

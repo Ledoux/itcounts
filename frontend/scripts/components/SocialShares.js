@@ -7,8 +7,7 @@ import Button from './Button'
 import Icon from './Icon'
 import { HASHTAGS,
   FACEBOOK_APP_ID,
-  SWEET_PROD_URL,
-  PROD_URL
+  SWEET_PROD_URL
 } from '../utils/foos'
 
 const SocialShares = ({
@@ -45,7 +44,7 @@ SocialShares.defaultProps =  {
   appUrl: 'http://pariteaupouvoir.heroku.com',
   caption: 'Parité au Pouvoir',
   description: "Signez notre pétition pour plus de femmes à l'Assemblée Nationale !",
-  imageUrl: `${PROD_URL}/static/images/camembert.png`,
+  imageUrl: `${SWEET_PROD_URL}/static/images/camembert.png`,
   shareUrl: SWEET_PROD_URL,
   title: ' '
 }
