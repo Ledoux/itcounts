@@ -46,7 +46,7 @@ SocialShares.defaultProps =  {
   caption: 'Parité au Pouvoir',
   description: "Signez notre pétition pour plus de femmes à l'Assemblée Nationale !",
   imageUrl: `${PROD_URL}/static/images/camembert.png`,
-  shareUrl: PROD_URL,
+  shareUrl: SWEET_PROD_URL,
   title: ' '
 }
 
