@@ -550,8 +550,8 @@ Bubbles.defaultProps = {
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,
-  ratioLessThanMdVizHeight: 0.8,
-  vizHeight: 400,
+  ratioLessThanMdVizHeight: 0.75,
+  vizHeight: 425,
   minSmFontSize: 7,
   minMdFontSize: 12,
   minRadius: 40, // minimum collision radius

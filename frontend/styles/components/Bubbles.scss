@@ -1,6 +1,6 @@
 .bubbles {
   &__dropdown {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     @media (min-width: $md) {
       display: none;
     }
@@ -64,7 +64,11 @@
     }
   }
   &__legend {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
     margin-bottom: 10px;
+    padding: 0.25rem;
     @media (min-width: $sm) {
       margin-bottom: 10px;
     }
@@ -78,8 +82,8 @@
         height: 20px;
         width: 20px;
         @media (min-width: $sm) {
-          height: 30px;
-          width: 30px;
+          height: 20px;
+          width: 20px;
         }
         &--women {
           background-color: $green-girl;
