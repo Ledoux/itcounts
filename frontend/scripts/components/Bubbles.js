@@ -80,7 +80,7 @@ class Bubbles extends Component {
     : vizHeight
     // init svg element
     const vizElement = this.vizElement = document.querySelector('.bubbles__viz__svg')
-    const vizWidth = getClientWidth(vizElement)
+    const vizWidth = this.vizWidth = getClientWidth(vizElement)
     const labelsDivElement = document.querySelector('.g-labels')
     const vizSelection = this.vizSelection = select(vizElement)
     vizSelection.append('rect')
@@ -349,7 +349,7 @@ class Bubbles extends Component {
     // center
     const vizElement = document.querySelector('.bubbles__viz__svg')
     // SPECIAL FIREFOX EXCEPTION
-    const vizWidth = getClientWidth(vizElement)
+    const vizWidth = this.vizWidth = getClientWidth(vizElement)
     const centerCoordinates = currentOption.centerCoordinates || [
       vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
     simulation.force('x', forceX(centerCoordinates[0])
@@ -372,13 +372,20 @@ class Bubbles extends Component {
   }
   async _updateBubbles (request) {
     // unpack
-    const { vizWidth, simulation } = this
+    const {
+      vizWidth,
+      simulation
+    } = this
     const {
       isLessThanMd,
       maxSmRadius,
       maxMdRadius,
-      minRadius
+      minRadius,
+      vizHeight
     } = this.props
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     const currentOption = options.filter(option => option.value === request)[0]
     const maxRadius = isLessThanMd
     ? (currentOption.maxSmRadius || maxSmRadius)
@@ -410,12 +417,20 @@ class Bubbles extends Component {
       .domain([0, max(nodes, d => d.count)])
       .range([0, currentOption.maxRadius || maxRadius])
     nodes.forEach(node => {
+      node.k = fraction(node.F, node.H)
+    })
+    const ks = nodes.map(node => node.k).sort()
+    const kMedian = ks[ks.length / 2]
+    nodes.forEach(node => {
       node.r = this.getRadius(node.count)
       node.cr = Math.max(minRadius, node.r)
-      node.k = fraction(node.F, node.H)
       if (isNaN(node.k)) node.k = .5
-      node.cx = node.x = (1 - node.k) * vizWidth + Math.random()
-      node.cy = node.y = node.H
+      // node.cx = node.x = (1 - node.k) * vizWidth + Math.random()
+      node.cx = node.x = Math.random() + node.k < kMedian
+      ? 0
+      : vizWidth
+      // node.cy = node.y = node.H
+      node.cy = node.y = adaptedVizHeight / 2
       node.bias = .3 - Math.max(.1, Math.min(.9, node.k))
     })
     // update the component
