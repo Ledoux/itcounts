@@ -381,6 +381,7 @@ class Bubbles extends Component {
       maxSmRadius,
       maxMdRadius,
       minRadius,
+      ratioLessThanMdVizHeight,
       vizHeight
     } = this.props
     const adaptedVizHeight = isLessThanMd
