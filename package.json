@@ -28,6 +28,7 @@
     "smoothscroll-polyfill": "^0.3.4",
     "whatwg-fetch": "^1.0.0"
   },
+  "description": "The website of www.pariteaupouvoir.com",
   "devDependencies": {
     "amdefine": "1.0.0",
     "autoprefixer": "^6.3.1",
