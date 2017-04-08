@@ -13,7 +13,7 @@ export async function getAsyncData (value) {
       break
      case 'mandat':
       request = '/api/dataviz_bubble/groupBy/nb_mandats';
-      break 
+      break
     case 'parti_politique':
     default:
       request = '/api/dataviz_bubble/groupBy/groupe-organisme';
@@ -23,5 +23,8 @@ export async function getAsyncData (value) {
   .then(req => req.json())
   .then(json => {
     return json || {}
+  }).catch(e => {
+    console.warn('Error on getAsynData', e)
+    return []
   })
 }

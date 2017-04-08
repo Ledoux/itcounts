@@ -9,12 +9,15 @@ import PageSection from '../components/PageSection'
 import Quote from '../components/Quote'
 import SocialShares from '../components/SocialShares'
 
-import { HASHTAGS, PROD_URL } from '../utils/secret'
+import { HASHTAGS,
+  SWEET_PROD_URL
+} from '../utils/foos'
+import people from '../utils/people'
+import stats from '../utils/stats'
 
 const HomePage = () => {
   return (
     <main className='main home-page'>
-
       <PageSection
         extraClass='home-page__hero-section center'
       >
@@ -23,17 +26,17 @@ const HomePage = () => {
           icon='cloud'
         />
         <Icon
-          className='icon home-page__hero-section__assembly mb2'
+          className='icon home-page__hero-section__assembly'
           icon='big-assembly'
         />
-        <p className="home-page__hero-section__title p2">
+        <p className="home-page__hero-section__title">
           26,9% de femmes à l&#39;Assembl&eacute;e, <br/ >
           51,5% de femmes en France.
         </p>
-        <p className="home-page__hero-section__subtitle mb2 p2">
+        <p className="home-page__hero-section__subtitle">
           Visualiser pour mieux comprendre: Parit&eacute; au Pouvoir a pour mission
-          de soutenir <br /> l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
-          l&#39;Assembl&eacute;e Nationale
+          de soutenir l&#39;&#35;&Eacute;galiteFemmeHomme, en analysant la parit&eacute;
+          l&#39;Assembl&eacute;e Nationale.
         </p>
         <Button
           className="button button--large home-page__hero-section__cta"
@@ -60,9 +63,7 @@ const HomePage = () => {
           D&eacute;couvrez la proportion de femmes &agrave; l&#39;Assembl&eacute;e Nationale
           selon leur:
         </p>
-        <div className="mb2">
-          <Bubbles />
-        </div>
+        <Bubbles />
       </PageSection>
 
       <PageSection
@@ -71,12 +72,34 @@ const HomePage = () => {
         <p className="home-page__assembly-section__title">
           Cartographier la parit&eacute; dans l&#39;H&eacute;micycle :
         </p>
-        <p className="home-page__assembly-section__subtitle mb3 p2">
+        <p className="home-page__assembly-section__subtitle">
           Localisez nos d&eacute;put&eacute; et apprenez-en plus sur la
-          r&eacute;partition spatial des genres selon le nombre de mandats cumul&eacute;,
+          r&eacute;partition spatiale des genres selon le nombre de mandats cumul&eacute;,
           des commisions ou des groupes politiques
         </p>
         <Assembly />
+      </PageSection>
+
+      <PageSection
+        extraClass='home-page__stats-section center'
+        >
+        {
+          stats.map((statRows, rowIndex) => (<div
+            className='home-page__stats-section__row' key={rowIndex}>
+            {
+              statRows.map(({icon, text}, colIndex) => (<div
+                className='home-page__stats-section__row__col col sm-col-4'
+                key={colIndex}
+              >
+                <Icon className={`home-page__stats-section__row__col__icon home-page__stats-section__row__col__icon--${icon}`}
+                  icon={icon} />
+                <p className='home-page__stats-section__row__col__text'>
+                  {text}
+                </p>
+              </div>))
+            }
+          </div>))
+        }
       </PageSection>
 
       <PageSection extraClass='home-page__participate-section center'>
@@ -91,13 +114,13 @@ const HomePage = () => {
                 src='/static/images/camembert.png'
               />
               <p className='home-page__participate-section__quote__container__up__text col col-8'>
-                R&eacute;patition du genre dans l&#39;Assembl&eacute;e Nationale
+                R&eacute;partition du genre dans l&#39;Assembl&eacute;e Nationale
               </p>
             </div>
             <div className='home-page__participate-section__quote__container__down p2'>
               <p className='home-page__participate-section__quote__container__down__text'>
                 Signez votre p&eacute;tition pour plus de femmes &agrave; l&#39;Assembl&eacute;e Nationale.
-                 {` ${HASHTAGS.replace(/#/g, '#')} ${PROD_URL}`}
+                 {` ${HASHTAGS.replace(/#/g, '#')} ${SWEET_PROD_URL}`}
               </p>
             </div>
           </div>
@@ -129,68 +152,8 @@ const HomePage = () => {
           Equipe
         </p>
         <div className='home-page__team-section__container'>
-          {[
-            [{
-              image: "virginie_robidou.png",
-              name: "Virginie Robidou",
-              speciality: "Développeuse"
-            },
-            {
-              image: "agathe_brusset.png",
-              name: "Agathe Brusset",
-              speciality: "Coordinatrice du projet"
-            },
-            {
-              image: "aude_bernheim.png",
-              name: "Aude Bernheim",
-              speciality: "Conseil externe"
-            }],
-            [{
-              image: "erwan_ledoux.png",
-              name: "Erwan Ledoux",
-              speciality: "Développeur"
-            },
-            {
-              image: "sylvain_raibaud.png",
-              name: "Sylvain Raibaud",
-              speciality: "Spécialiste PNL"
-            },
-            {
-              image: "adrien_bernheim.png",
-              name: "Adrien Bernheim",
-              speciality: "Graphiste"
-            }],
-            [{
-              image: "cecile_baltazart.png",
-              name: "Cécile Baltazart",
-              speciality: "Designer UX"
-            },
-            {
-              image: "nina_varchavsky.png",
-              name: "Nina Varchavsky",
-              speciality: "Cultivatrice d'idées"
-            },
-            {
-              image: "mickael_bolnet.png",
-              name: "Mickaël Bolnet",
-              speciality: "Développeur Full Stack"
-            }],
-            [{
-              image: "baptiste_quentin.png",
-              name: "Baptiste Quentin",
-              speciality: "Coordinateur du projet"
-            },
-            {
-              image: "louis_jean_de_gastines.png",
-              name: "Louis-Jean de Gastines",
-              speciality: "Coordinateur du projet"
-            },
-            {
-              image: "steven_lasry.png",
-              name: "Steven Lasry",
-              speciality: "Développeur Full Stack"
-            }]
-          ].map((rows, rowIndex) => (<div
+          {
+            people.map((rows, rowIndex) => (<div
               className='home-page__team-section__container__rows mb2'
               key={rowIndex}
             >
@@ -216,11 +179,6 @@ const HomePage = () => {
             }
           </div>))
         }
-        </div>
-        <div className='home-page__team-section__container__thanks center mb1'>
-          <p>
-            Et des remerciements particuliers &agrave; <span style={{fontWeight: 'bold'}}>Matthieu Daladouire</span>, D&eacute;veloppeur Front-End
-          </p>
         </div>
       </PageSection>
 
@@ -267,12 +225,12 @@ const HomePage = () => {
           </div>
           <div className="home-page__partners-section__container__partner col md-col-6 p2">
             <img
-              className='home-page__partners-section__container__partner__img mb2'
+              className='home-page__partners-section__container__partner__img home-page__partners-section__container__partner__img__wax mb2'
               src='/static/images/wax.png'
               style={{width: '209px'}}
             />
             <p className="home-page__partners-section__container__partner__title mb2">
-              WAX
+              WAX Science
             </p>
             <p className="home-page__partners-section__container__partner__subtitle mb2">
               WAX Science est une association &acute; but non lucratif
@@ -302,7 +260,7 @@ const HomePage = () => {
 
       <PageSection extraClass='home-page__find-section center'>
         <p className="home-page__find-section__title mb2">
-          Retrouvez-nous
+          Rejoignez-nous
         </p>
         <div className="home-page__find-section__container">
           <a href="https://www.facebook.com/pariteaupouvoir"
@@ -325,13 +283,26 @@ const HomePage = () => {
       </PageSection>
 
       <PageSection extraClass='home-page__footer-section center p2'>
-        <p className='home-page__footer-section__links'>
-          <a href='mailto:waxscience@gmail.com' style={
+        <div className='home-page__footer-section__links flex justify-center'>
+          <a className='mr1' href='mailto:waxscience@gmail.com' style={
               {textDecoration: 'none', color: 'white'}
             } external>
             Contact
-          </a> - Copyright - Mentions l&eacute;gales
-        </p>
+          </a>
+          <p className='mr1'>
+            -
+          </p>
+          <p className='mr1' title='copyright pariteaupouvoir 2017'>
+            Copyright
+          </p>
+          <p className='mr1'>
+            -
+          </p>
+          <Link href='/legal-notices'
+          style={
+              {textDecoration: 'none', color: 'white'}}
+          >Mentions l&eacute;gales</Link>
+        </div>
       </PageSection>
 
     </main>

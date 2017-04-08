@@ -5,7 +5,8 @@ import { max } from 'd3-array'
 import { drag } from 'd3-drag'
 import { format } from 'd3-format'
 import {
-  forceCenter,
+  forceX,
+  forceY,
   forceCollide,
   forceManyBody,
   forceSimulation
@@ -20,49 +21,30 @@ import { connect } from 'react-redux'
 import Quote from './Quote'
 import Slider from './Slider'
 import SocialShares from './SocialShares'
-import { PROD_URL } from '../utils/secret'
+import {
+  SWEET_PROD_URL
+} from '../utils/foos'
 import { getAsyncData } from '../utils/apis'
+import options from '../utils/bubbles'
 import { bias, fraction } from '../utils/math'
 
-const options = [
-  {
-    collideRadius: 30,
-    maxSmRadius: 110,
-    maxMdRadius: 150,
-    description: `La Nouvelle Aquitaine atteint presque la parité pour ses députés
-      alors que l'Ile de France en est loin.`,
-    text: 'groupe politique',
-    value: 'parti_politique'
-  },
-  {
-    maxSmFontSize: 15,
-    maxMdFontSize: 20,
-    description: `Il y a trois fois plus de députés femmes travaillant dans les “Affaires
-      culturelles” que dans la “Finance”.`,
-    text: 'commission',
-    value: 'commission_permanente'
-  },
-  {
-    description: `Le groupe Républicain comporte beaucoup moins de femmmes (14%)
-      que le groupe Socialiste (35%).`,
-    text: 'région',
-    value: 'region'
-  },
-  {
-    maxMdRadius: 120,
-    description: `Après 70 ans, la proportion de députés femmes passe en dessous
-      de la barre des 15%.`,
-    text: 'classe d\'âge',
-    value: 'age'
-  },
-  {
-    description: `15% des députés cumulant 4 mandats sont des femmes contre moins
-      de 40% pour 1 mandat.`,
-    text: 'mandats cumulés',
-    value: 'mandat'
+// small tweaking function here because the name
+// in the db are sometimes not so well relevant
+// compared to what expect a naive client :) :).
+function getGoodName (name) {
+  if (name === 'Socialiste, écologiste et républicain') {
+    return 'Les socialistes'
   }
-]
-options.forEach((option, index) => {option.index = index})
+  return name
+}
+
+// SPECIAL EXCEPTION FOR FIREFOX SVG that
+// have always clientWidth equal to zero for svg
+function getClientWidth (element) {
+  return element.clientWidth === 0
+  ? (element.parentElement && element.parentElement.clientWidth) || 0
+  : element.clientWidth
+}
 
 // https://medium.com/walmartlabs/d3v4-forcesimulation-with-react-8b1d84364721#.omxozt9ho
 class Bubbles extends Component {
@@ -81,31 +63,36 @@ class Bubbles extends Component {
       isDrag,
       legendX,
       legendY,
-      forceStrength,
+      chargeStrength,
+      gravityStrength,
+      isLessThanMd,
+      isXBorder,
+      isYBorder,
       optionsHeight,
       optionWidth,
+      ratioLessThanMdVizHeight,
       selectorHeight,
       vizHeight
     } = this.props
     const {
       currentOption
     } = this.state
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     // init svg element
     const vizElement = this.vizElement = document.querySelector('.bubbles__viz__svg')
-    const vizWidth = this.vizWidth = vizElement.clientWidth
+    const vizWidth = this.vizWidth = getClientWidth(vizElement)
     const labelsDivElement = document.querySelector('.g-labels')
     const vizSelection = this.vizSelection = select(vizElement)
-    const labelsDivSelection = this.labelsSelection = select(labelsDivElement)
     vizSelection.append('rect')
       .attr('class', 'g-overlay')
-    // add nodes and labels
+    // add nodes
     const nodesSelection = this.nodesSelection = vizSelection
       .selectAll('.g-node')
-    const labelsSelection = this.labelsSelection = vizSelection
-      .selectAll('.g-label')
     // init simulation
     const simulation = this.simulation = forceSimulation()
-     .force('charge', forceManyBody().strength(forceStrength))
+     .force('charge', forceManyBody().strength(chargeStrength))
      .on('tick', () => {
        // unpack
        const { nodesSelection } = this
@@ -115,8 +102,12 @@ class Bubbles extends Component {
           // add border rebound (it is important to keep this.vizWidth because
           // this value may change with resize so we need to get its fresh values
           // stored in the this pointer)
-          const translateX = Math.max(d.r, Math.min(this.vizWidth - d.r, d.x))
-          const translateY = Math.max(d.r, Math.min(vizHeight - d.r, d.y))
+          const translateX = isXBorder
+          ? Math.max(d.r, Math.min(this.vizWidth - d.r, d.x))
+          : d.x
+          const translateY = isYBorder
+          ? Math.max(d.r, Math.min(adaptedVizHeight - d.r, d.y))
+          : d.y
           // return
           return `translate(${translateX},${translateY})`
         })
@@ -146,13 +137,16 @@ class Bubbles extends Component {
       )
     }
     // init mouseover and mouseout on nodes
-    const mouseover = (element) => {
-      this.nodesSelection.classed('g-hover', p => p === element)
-      this.labelsSelection.classed('g-hover', p => p === element)
+    const mouseover = (d) => {
+      const mouseoveredDiv = document.querySelector(`#info-${d.id}`)
+      const percentWomen = parseInt(100*d.F/d.count)
+      const percentMen = 100 - percentWomen
+      mouseoveredDiv.innerHTML = `${d.F} (${percentWomen}%) femmes,
+        \n ${d.H} (${percentMen}%) hommes`
     }
-    const mouseout = (element) => {
-      this.nodesSelection.classed('g-hover', false)
-      this.labelsSelection.classed('g-hover', false)
+    const mouseout = (d) => {
+      const mouseoveredDiv = document.querySelector(`#info-${d.id}`)
+      mouseoveredDiv.innerHTML = getGoodName(d.name)
     }
     this.linkTopic = (a) => {
       a.on('mouseover', mouseover)
@@ -162,10 +156,14 @@ class Bubbles extends Component {
     // add event listener
     this._throttledResize = throttle(() => {
       simulation.stop()
-      const vizWidth = this.vizWidth = vizElement.clientWidth
+      const vizWidth = this.vizWidth = getClientWidth(vizElement)
       const centerCoordinates = currentOption.centerCoordinates || [
-        vizWidth / 2, vizHeight / centerYCoordinateRatio]
-      simulation.force('center', forceCenter(...centerCoordinates))
+        vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio
+          || centerYCoordinateRatio)]
+      simulation.force('x', forceX(centerCoordinates[0])
+        .strength(gravityStrength))
+      simulation.force('y', forceY(centerCoordinates[1])
+        .strength(gravityStrength))
       simulation.alpha(1)
       simulation.restart()
     }, 100)
@@ -192,6 +190,7 @@ class Bubbles extends Component {
       collideRadius,
       collisionPadding,
       isLessThanMd,
+      gravityStrength,
       optionsHeight,
       optionWidth,
       vizHeight,
@@ -199,20 +198,28 @@ class Bubbles extends Component {
       maxMdFontSize,
       maxSmRadius,
       maxMdRadius,
-      minFontSize,
+      minSmFontSize,
+      minMdFontSize,
       minRadius,
+      ratioLessThanMdVizHeight,
       width
     } = this.props
     const {
       currentOption,
       nodes
     } = this.state
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     const maxRadius = isLessThanMd
     ? (currentOption.maxSmRadius || maxSmRadius)
     : (currentOption.maxMdRadius || maxMdRadius)
     const maxFontSize = isLessThanMd
     ? (currentOption.maxSmFontSize || maxSmFontSize)
     : (currentOption.maxMdFontSize || maxMdFontSize)
+    const minFontSize =  isLessThanMd
+    ? (currentOption.minSmFontSize || minSmFontSize)
+    : (currentOption.minMdFontSize || minMdFontSize)
     // if it is just a change of size just change size and return
     if (prevProps.isLessThanMd !== isLessThanMd) {
       nodesSelection
@@ -220,9 +227,11 @@ class Bubbles extends Component {
         .style('font-size', d => {
           return `${Math.max(minFontSize, (d.r / maxRadius) * maxFontSize)}px`
         })
-        .style('font-weight', d => {
-          return `${(d.r / maxRadius) * 800}`
-        })
+        // Do not make the font-weight proportionnal
+        // to radius it is too ugly for now
+        // .style('font-weight', d => {
+        //  return `${(d.r / maxRadius) * 800}`
+        // })
       return
     }
     // data
@@ -254,12 +263,26 @@ class Bubbles extends Component {
     hommeEnter
       .append('clipPath')
       .attr('id', d => 'g-clip-homme-' + d.id)
-      .append('rect');
+      .append('rect')
     hommeEnter
       .append('circle')
     nodesSelection
       .append('line')
       .attr('class', 'g-split')
+
+    // SET THE RADIUS GIVEN THE RESPONSIVE STATE
+    // all circles
+    nodesSelection.selectAll('circle')
+      .attr('r', d => {
+        d.r = this.getRadius(d.count)
+        if (isLessThanMd) {
+          d.r = d.r / 2
+        } else {
+          d.r = d.r / 1.25
+        }
+        return d.r
+    })
+
     // all
     nodesSelection
       .selectAll('rect')
@@ -283,6 +306,7 @@ class Bubbles extends Component {
     nodesSelection
       .select('.g-homme circle')
       .attr('clip-path', d => d.k > 0 ? 'url(#g-clip-homme-' + d.id + ')' : null)
+
     // split
     nodesSelection
       .select('.g-split')
@@ -291,12 +315,6 @@ class Bubbles extends Component {
       .attr('x2', d => -d.r + 2 * d.r * d.k)
       .attr('y2', d => Math.sqrt(d.r * d.r - Math.pow(-d.r + 2 * d.r * d.k, 2)))
 
-    // all circles
-    nodesSelection.selectAll('circle')
-      .attr('r', d => {
-        d.r = this.getRadius(d.count);
-        return d.r
-    })
     nodesSelection
       .append('foreignObject')
       .attr('width', d => 2 * d.r)
@@ -309,15 +327,18 @@ class Bubbles extends Component {
       .style('height', '100%')
       .attr('class', 'flex justify-center items-center')
       .append('div')
+      .attr('id', d => `info-${d.id}`)
       .attr('class', 'g-name')
-      .attr('title', d => d.name)
-      .text(d => d.name)
+      .attr('title', d => getGoodName(d.name))
+      .text(d => getGoodName(d.name))
       .style('font-size', d => {
         return `${Math.max(minFontSize, (d.r / maxRadius) * maxFontSize)}px`
       })
-      .style('font-weight', d => {
-        return `${(d.r / maxRadius) * 800}`
-      })
+      // Do not make the font-weight proportionnal
+      // to radius it is too ugly for now
+      // .style('font-weight', d => {
+      //  return `${(d.r / maxRadius) * 800}`
+      // })
     // label
     selectAll('.g-value').style('margin','auto')
     // update simulation
@@ -328,10 +349,15 @@ class Bubbles extends Component {
        .iterations(2)
      )
     // center
-    const vizWidth = document.querySelector('.bubbles__viz__svg').clientWidth
+    const vizElement = document.querySelector('.bubbles__viz__svg')
+    // SPECIAL FIREFOX EXCEPTION
+    const vizWidth = this.vizWidth = getClientWidth(vizElement)
     const centerCoordinates = currentOption.centerCoordinates || [
-      vizWidth / 2, vizHeight / centerYCoordinateRatio]
-    simulation.force('center', forceCenter(...centerCoordinates))
+      vizWidth / 2, adaptedVizHeight / (currentOption.centerYCoordinateRatio || centerYCoordinateRatio)]
+    simulation.force('x', forceX(centerCoordinates[0])
+      .strength(gravityStrength))
+    simulation.force('y', forceY(centerCoordinates[1])
+      .strength(gravityStrength))
     // restart (by also reset the alpha to make the new nodes moving like a new start)
     simulation.alpha(1)
     // restart
@@ -348,13 +374,21 @@ class Bubbles extends Component {
   }
   async _updateBubbles (request) {
     // unpack
-    const { vizWidth, simulation } = this
+    const {
+      vizWidth,
+      simulation
+    } = this
     const {
       isLessThanMd,
       maxSmRadius,
       maxMdRadius,
-      minRadius
+      minRadius,
+      ratioLessThanMdVizHeight,
+      vizHeight
     } = this.props
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     const currentOption = options.filter(option => option.value === request)[0]
     const maxRadius = isLessThanMd
     ? (currentOption.maxSmRadius || maxSmRadius)
@@ -386,12 +420,20 @@ class Bubbles extends Component {
       .domain([0, max(nodes, d => d.count)])
       .range([0, currentOption.maxRadius || maxRadius])
     nodes.forEach(node => {
+      node.k = fraction(node.F, node.H)
+    })
+    const ks = nodes.map(node => node.k).sort()
+    const kMedian = ks[ks.length / 2]
+    nodes.forEach(node => {
       node.r = this.getRadius(node.count)
       node.cr = Math.max(minRadius, node.r)
-      node.k = fraction(node.F, node.H)
       if (isNaN(node.k)) node.k = .5
-      node.cx = node.x = (1 - node.k) * vizWidth + Math.random()
-      node.cy = node.y = node.H
+      // node.cx = node.x = (1 - node.k) * vizWidth + Math.random()
+      node.cx = node.x = Math.random() + node.k < kMedian
+      ? 0
+      : vizWidth
+      // node.cy = node.y = node.H
+      node.cy = node.y = adaptedVizHeight / 2
       node.bias = .3 - Math.max(.1, Math.min(.9, node.k))
     })
     // update the component
@@ -402,9 +444,18 @@ class Bubbles extends Component {
   }
   render () {
     const { handleSelectOption, optionTransition } =  this
-    const { optionsHeight, vizHeight, width } = this.props
+    const {
+      optionsHeight,
+      isLessThanMd,
+      vizHeight,
+      ratioLessThanMdVizHeight,
+      width
+    } = this.props
     const { currentOption } = this.state
     const optionWidth = 100 / options.length
+    const adaptedVizHeight = isLessThanMd
+    ? ratioLessThanMdVizHeight * vizHeight
+    : vizHeight
     return (
       <div className='bubbles center'>
         <div className='bubbles__dropdown'>
@@ -448,20 +499,21 @@ class Bubbles extends Component {
             />
           </div>
         </div>
-        <div className='bubbles__legend'>
-          <div className='bubbles__legend__row col col-6'>
+        <div className='bubbles__legend flex'>
+          <div className='bubbles__legend__row'>
             <p className='bubbles__legend__row__circle bubbles__legend__row__circle--women col col-2'/>
-            <p className='bubbles__legend__row__text col col-10'> femmes </p>
+            <p className='bubbles__legend__row__text col col-8'> Femmes </p>
           </div>
-          <div className='bubbles__legend__row col col-6'>
+          <div className='flex-auto' />
+          <div className='bubbles__legend__row'>
             <p className='bubbles__legend__row__circle bubbles__legend__row__circle--men col col-2' />
-            <p className='bubbles__legend__row__text col col-10'> hommes </p>
+            <p className='bubbles__legend__row__text col col-8'> Hommes </p>
           </div>
         </div>
         <div className='bubbles__viz'>
           <svg
             className='bubbles__viz__svg'
-            height={vizHeight}
+            height={adaptedVizHeight}
             width={width}
           />
         </div>
@@ -474,7 +526,8 @@ class Bubbles extends Component {
           <SocialShares
             className='social-shares bubbles__social-shares'
             description={currentOption.description}
-            imageUrl={`${PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
+            imageUrl={`${SWEET_PROD_URL}/static/images/bubbles_${currentOption.value}.png`}
+            shareUrl={`${SWEET_PROD_URL}/static/cards/${currentOption.value}.html`}
             title={`Découvrez la proportion de femmes à l'Assemblée Nationale selon leur ${currentOption.text}`}
           />
         </div>
@@ -484,19 +537,25 @@ class Bubbles extends Component {
 }
 
 Bubbles.defaultProps = {
-  centerYCoordinateRatio: 2.2,
+  // centerYCoordinateRatio: 2.2,
+  centerYCoordinateRatio: 2.,
   collideRadius: 5,
   collisionPadding: 4,
   clipPadding: 4,
+  isXBorder: false,
+  isYBorder: false,
   isDrag: true,
   legendY: 30,
   legendX: 20,
-  forceStrength: 100,
+  chargeStrength: 200,
+  gravityStrength: 0.1,
   selectorHeight: 10,
   optionsHeight: 75,
   radiusRatio: 1,
-  vizHeight: 500,
-  minFontSize: 7,
+  ratioLessThanMdVizHeight: 0.75,
+  vizHeight: 425,
+  minSmFontSize: 7,
+  minMdFontSize: 12,
   minRadius: 40, // minimum collision radius
   maxSmRadius: 70, // also determines collision search radius
   maxMdRadius: 70, // also determines collision search radius

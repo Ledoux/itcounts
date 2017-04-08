@@ -1,10 +1,22 @@
 import age from 's-age'
 
+
 export function setApisWithAppAndModel (app, model) {
   // unpack
   const { Deputes } = model
+  if (!Deputes) {
+    return
+  }
+  // safe
+  function isDb (req, res, next) {
+    if (!Deputes) {
+      res.json({})
+    } else {
+      next()
+    }
+  }
   // routes
-  app.get('/api/dataviz_bubble/groupBy/:groupBy', (req, res) => {
+  app.get('/api/dataviz_bubble/groupBy/:groupBy', isDb, (req, res) => {
     const groupBy = req.params.groupBy.replace('-','.')
     Deputes.aggregate([
         {
@@ -18,7 +30,7 @@ export function setApisWithAppAndModel (app, model) {
       res.json(deputeDetails) // return all nerds in JSON format
     })
   })
-  app.get('/api/dataviz_bubble/age_range/:range', (req, res) => {
+  app.get('/api/dataviz_bubble/age_range/:range', isDb, (req, res) => {
     const range = parseInt(req.params.range)
     Deputes.aggregate([
         { $match : { "date_naissance" : { $exists : true} } },
@@ -33,7 +45,7 @@ export function setApisWithAppAndModel (app, model) {
       res.json(deputeDetails) // return all nerds in JSON format
     })
   })
-  app.get('/api/dataviz_bubble_V2', (req, res) => {
+  app.get('/api/dataviz_bubble_V2', isDb, (req, res) => {
     Deputes.aggregate([
         {   $unwind: "$groupes_parlementaires" },
         {
@@ -47,7 +59,7 @@ export function setApisWithAppAndModel (app, model) {
       res.json(deputeDetails) // return all nerds in JSON format
     })
   })
-  app.get('/api/hemicycle/form', (req, res) => {
+  app.get('/api/hemicycle/form', isDb, (req, res) => {
     Deputes.aggregate([
       {"$group": { "_id": { sigle: "$groupe_sigle",groupe: "$groupe.organisme"} } },
       { "$sort" : { "_id.groupe" : 1 }}],
@@ -84,7 +96,7 @@ export function setApisWithAppAndModel (app, model) {
             })
           })
         })
-  app.get('/api/hemicycle/view', (req, res) => {
+  app.get('/api/hemicycle/view', isDb, (req, res) => {
     Deputes.aggregate([
       {"$group": { "_id": { sigle: "$groupe_sigle",groupe: "$groupe.organisme"} } },
       { "$sort" : { "_id.groupe" : 1 }}],
@@ -122,7 +134,7 @@ export function setApisWithAppAndModel (app, model) {
             })
           })
         })
-  app.get('/api/hemicycle/search', (req, res) => {
+  app.get('/api/hemicycle/search', isDb, (req, res) => {
     const criteres = req.query;
     let query = ''
     if (Object.keys(criteres).length > 0){

@@ -1,6 +1,6 @@
 .bubbles {
   &__dropdown {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     @media (min-width: $md) {
       display: none;
     }
@@ -11,6 +11,7 @@
       font-family: $font-family;
       font-size: 18px;
       font-weight: bold;
+      text-align-last: center;
     }
   }
   &__slider {
@@ -19,32 +20,32 @@
     }
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 50px;
-    border-bottom: 2px solid #505050;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #505050;
     overflow-y: hidden;
     &__container {
       button:focus {
         outline: none;
       }
       &__option {
-        background: white;
+        background: transparent;
         border: 0;
         color: $grey;
         font-family: $font-family;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 300;
         cursor: pointer;
-        padding: 1rem;
+        min-height: 60px;
         width: 100%;
         transition: all 0.5s;
         &--selected {
           color: $option-grey;
-          font-size: 22px;
+          font-size: 18px;
           font-weight: bold;
         }
       }
       &__selector {
-        height: 20px;
+        height: 4px;
         position: relative;
         &__shift {
           background-color: $apple-green;
@@ -62,34 +63,21 @@
       border-bottom: 1px solid black;
     }
   }
-  &__quote {
-    margin-left: 10%;
-    margin-right: 10%;
-    @media (min-width: $md) {
-      margin-left: 30%;
-      margin-right: 30%;
-    }
-    margin-bottom: 50px;
-    &__text {
-      color: $light-grey;
-      font-weight: bold;
-      font-size: 18px;
-      line-height: 1.67;
-    }
-  }
-  &__social-shares {
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-bottom: 50px;
-  }
   &__legend {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
     margin-bottom: 10px;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     @media (min-width: $sm) {
-      margin-bottom: 30px;
-      width: 400px;
+      margin-bottom: 10px;
     }
     margin-left: 10%;
     margin-right: 10%;
+    width: 80%;
     height: 30px;
     &__row {
       &__circle {
@@ -97,8 +85,8 @@
         height: 20px;
         width: 20px;
         @media (min-width: $sm) {
-          height: 30px;
-          width: 30px;
+          height: 20px;
+          width: 20px;
         }
         &--women {
           background-color: $green-girl;
@@ -108,13 +96,11 @@
         }
       }
       &__text {
-        font-family: $font-family;
         font-size: 14px;
         @media (min-width: $sm) {
-          font-size: 20px;
+          font-size: 16px;
         }
-        font-weight: 500;
-        font-style: italic;
+        font-weight: 300;
         height: 100%;
         padding: 5px;
         text-align: left;
@@ -122,13 +108,35 @@
     }
   }
   &__viz {
+    // background-image: $grey-pastel-gradient;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     &__svg {
-      border: 1px solid black;
       width: 100%;
     }
+  }
+  &__quote {
+    margin-left: 10%;
+    margin-right: 10%;
+    @media (min-width: $md) {
+      margin-left: 30%;
+      margin-right: 30%;
+    }
+    &__text {
+      color: $light-grey;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.67;
+    }
+  }
+  &__social-shares {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 50px;
   }
 }
 
@@ -159,7 +167,7 @@
 }
 
 a.g-label {
-  font-family:Verdana;
+  font-family: $font-family;
   color: inherit;
   cursor: pointer;
   display: block;

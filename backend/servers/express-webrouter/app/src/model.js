@@ -2,17 +2,21 @@ import fs from 'fs'
 import mongoose from 'mongoose'
 import path from 'path'
 
-const secret = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config/secret.json')))
 mongoose.Promise = global.Promise
 
-export function getModelWithApp (app) {
+export function getModelWithApp (app, config) {
+  const { mongoUrl } = config
   return new global.Promise((resolve, reject) => {
-    mongoose.connect(secret.MONGO_URL)
+    mongoose.connect(mongoUrl)
     mongoose.connection.on('error', (err) => {
       console.log(err)
+      resolve({
+        mongooseConnection: null,
+        Deputes: null
+      })
     })
     mongoose.connection.on('connected', () => {
-      const mongooseConnection = mongoose.createConnection(secret.MONGO_URL)
+      const mongooseConnection = mongoose.createConnection(mongoUrl)
       console.log('Connection to mongo is okay')
       resolve({
         mongooseConnection,

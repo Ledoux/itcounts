@@ -6,7 +6,7 @@
 
 body {
   > * {
-    // prevent horisontal scrolling
+    // prevent horizontal scrolling
     // NOTE: setting this value directly on the body doesn't work in Chrome
     // overflow-x: hidden;
   }
@@ -21,4 +21,52 @@ img {
 
 .main {
   min-height: 100vh;
+  font-family: $font-family;
+}
+
+div .pastille {
+  &--light-blue {
+    background-color: $light-blue;
+    &--empty {
+      border: 1px solid $light-blue;
+      background-color: white;
+    }
+  }
+  &--middle-blue {
+    background-color: $middle-blue;
+  }
+  &--dark-blue {
+    background-color: $dark-blue;
+    &--empty {
+      border: 1px solid $dark-blue;
+      background-color: white;
+    }
+  }
+  &--light-pink {
+    background-color: $light-pink;
+  }
+  &--middle-pink {
+    background-color: $middle-pink;
+  }
+  &--dark-pink {
+    background-color: $dark-pink;
+  }
+  &--orange {
+    background-color: $orange;
+  }
+  &--light-green {
+    background-color: $light-green;
+  }
+  &--middle-green {
+    background-color: $middle-green;
+  }
+  &--dark-green {
+    background-color: $dark-green;
+  }
+  &--black-green {
+    background-color: $black-green;
+  }
+  &--middle-grey {
+    background-color: $middle-grey;
+  }
 }

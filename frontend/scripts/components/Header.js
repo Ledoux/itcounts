@@ -16,11 +16,6 @@ const Header = ({
       >
         <Logo />
       </Link>
-      <div className='header__top-nav__logo__text col'>
-        <p className='header__top-nav__logo__text__p'>
-          PARIT&Eacute; AU POUVOIR
-        </p>
-      </div>
     </div>
     <div className='flex-auto' />
     <div className='header__top-nav__links'>

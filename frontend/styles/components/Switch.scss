@@ -1,9 +1,10 @@
 .switch {
+  border: 0px;
   border-radius: 20px;
   border-color: #f3f7bf;
   color: #d3dc4e;
   height: 40px;
-  width: 60%;
+  width: 6rem;
   min-width: 100px;
   position: relative;
   cursor: pointer;
@@ -16,7 +17,7 @@
     position: absolute;
     top: 0;
     transition: all 0.5s;
-    width: 50%;
+    width: 75%;
   }
   &--off {
     background-color: #ECEFF1;
@@ -29,7 +30,67 @@
     background-color: #f3f7bf;
     div {
       background-color: #d3dc4e;
-      left: 50%;
+      left: 25%;
+    }
+  }
+  &--meilleurs_sieges {
+    &--on {
+      color: $light-grey;
+      background-color: #FFCCBC;
+      div {
+        background-color: #ff8000;
+      }
+    }
+    &--off {
+      background-color: #eefa7f;
+      div {
+        background-color: #caee71;
+      }
+    }
+  }
+  &--groupe_politique {
+    &--on {
+      color: $light-grey;
+      background-color: #FFCCBC;
+      div {
+        background-color: #ff8000;
+      }
+    }
+    &--off {
+      background-color: #eefa7f;
+      div {
+        background-color: #caee71;
+      }
+    }
+  }
+  &--commission {
+    &--on {
+      color: $light-grey;
+      background-color: #89dc67;
+      div {
+        background-color: #055400;
+      }
+    }
+    &--off {
+      background-color: #ee88d2;
+      div {
+        background-color: #ce3b81;
+      }
+    }
+  }
+  &--mandats_cumules {
+    &--on {
+      color: $light-grey;
+      background-color: #8ddcdd;
+      div {
+        background-color: #5777a6;
+      }
+    }
+    &--off {
+      background-color: #5777a6;
+      div {
+        background-color: #8ddcdd;
+      }
     }
   }
 }

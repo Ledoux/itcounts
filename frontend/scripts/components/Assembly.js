@@ -2,66 +2,8 @@ import classnames from 'classnames'
 import React, {Component, PropTypes} from 'react'
 import ToggleButton from 'react-toggle-button'
 
-import Icon from './Icon'
 import Switch from './Switch'
-
-const options = [
-  {
-    description: `Saviez-vous que les emplacements proches des micros et des caméras,
-    ou bien le long des allées et en bas de l'Assemblée, vers les
-    ministres ou les chefs de groupe, étaient particulièrement convoités ?
-    Ces places donnent plus de chances aux députés qui s'y trouvent d'être filmés
-    le jour des questins aux gouvernement. Les femmes ont-elles les mêmes chances
-    que les hommes de s'y trouver ?`,
-    infos: [{
-      icon: 'micro_blue',
-      text: 'Micros'
-    }, {
-      icon: 'dark_green',
-      text: 'Sièges de haute "valeur" politique'
-    }, {
-      icon: 'medium_green',
-      text: 'Sièges de moyenne "valeur" politique'
-    }, {
-      icon: 'light_green',
-      text: 'Sièges de faible "valeur" politique'
-    }, {
-      icon: 'medium_grey',
-      text: 'Gouvernement'
-    }].map(({icon, text}, index) => {
-      return (<div
-          className='assembly__content__legend__row'
-          key={index}
-        >
-          <Icon
-            className='assembly__content__legend__row__icon col mr2'
-            icon={icon}
-          />
-          <p className='assembly__content__legend__row__text col'>
-            {text}
-          </p>
-      </div>)
-    }),
-    text: 'meilleurs sieges',
-    value: 'meilleurs_sieges'
-  },
-  {
-    description: `Bla Bla Bla`,
-    text: 'groupe politique',
-    value: 'groupe_politique'
-  },
-  {
-    description: `Bla Bla Bla`,
-    text: 'commission',
-    value: 'commission'
-  },
-  {
-    description: `Bla Bla Bla`,
-    text: 'mandats cumulés',
-    value: 'mandats_cumules'
-  }
-]
-options.forEach((option, index) => {option.index = index})
+import options from '../utils/assembly'
 
 class Assembly extends Component {
   constructor () {
@@ -138,25 +80,36 @@ class Assembly extends Component {
           </div>
         </div>
         <div>
-          <div className='assembly__content mb2'>
-            <div className='assembly__content__legend col md-col-4'>
-              <p className='assembly__content__legend__title'>
+          <div className='assembly__content'>
+            <div className='assembly__content__legend col lg-col-3'>
+              <div className='assembly__content__legend__title'>
                 Filtres
-              </p>
+                <p className='assembly__content__legend__title__subtitle'>
+                  cliquer sur le bouton pour ne voir que
+                    les femmes
+                </p>
+              </div>
+
               <Switch
-                className='switch assembly__content__legend__switch'
-                OffElement={<p> Info </p>}
+                className={classnames('switch assembly__content__legend__switch',
+                  {
+                    [`switch--${currentOption.value}--on`]: !isAll,
+                    [`switch--${currentOption.value}--off`]: isAll
+                  }
+                )}
+                handleToggleClick={handleToggleClick}
+                OffElement={<p> Tous </p>}
                 OnElement={<p> D&eacute;put&eacute;es </p>}
               />
-              <p className='assembly__content__legend__title'>
+            <p className='assembly__content__legend__title assembly__content__legend__title--legend'>
                 L&eacute;gende
               </p>
               {currentOption.infos}
             </div>
-            <div className='assembly__content__viz col md-col-7'>
+            <div className='assembly__content__viz col lg-col-9'>
               <img
                 className='assembly__content__viz__img'
-                src={`static/images/assembly_${currentOption.value}_${isAll ? 'all':'women'}.png`}
+                src={`static/images/${currentOption.image}${isAll ? '' : '_f'}.png`}
               />
             </div>
           </div>

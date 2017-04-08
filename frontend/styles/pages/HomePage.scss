@@ -1,34 +1,48 @@
 .home-page {
-  pointer-events: none;
   &__hero-section {
-    background-image: $hero-blue-pastel-gradient;
-    overflow-x: hidden;
+    background-image: $total-blue-pastel-gradient;
+    height: 100vh;
+    // height: 60rem;
+    z-index: 0;
+    margin-top: - $header-height;
     position: relative;
     &__cloud {
       left: 20%;
       position: absolute;
-      top: 50px;
+      top: 15%;
       height: 40px;
-      width: 100px;
+      width: 50px;
+      @media (min-width: $md) {
+        height: 70px;
+        width: 150px;
+      }
       @media (min-width: $md) {
         height: 70px;
         width: 150px;
       }
     }
     &__assembly {
-      margin-top: 50px;
-      height: 300px;
-      width: 300px;
-      @media (min-width: $md) {
-        height: 300px;
-        width: 550px;
+      margin-top: 30%;
+      height: 150px;
+      width: 150px;
+      @media (min-width: $sm) {
+        margin-top: 5%;
+        height: 250px;
+        width: 250px;
       }
     }
     &__title {
       font-family: $font-family;
-      font-size: 30px;
+      font-size: 14px;
+      margin-left: 10%;
+      margin-right: 10%;
+      width: 80%;
       @media (min-width: $md) {
-        font-size: 36px;
+        font-size: 26px;
+        margin-left: 20%;
+        margin-right: 20%;
+        height: 10%;
+        width: 60%;
       }
       font-weight: bold;
       line-height: 1.58;
@@ -37,90 +51,173 @@
     &__subtitle {
       color: $grey;
       font-family: $font-family;
-      font-size: 20px;
+      font-size: 16px;
+      margin-left: 5%;
+      margin-right: 5%;
+      width: 90%;
       @media (min-width: $md) {
-        font-size: 24px;
+        font-size: 20px;
+        margin-left: 15%;
+        margin-right: 15%;
+        width: 70%;
       }
       font-weight: 300;
       line-height: 1.67;
+      margin-bottom: 0.5rem;
     }
     &__cta {
+      position: relative;
       background-color: $apple-green;
-      pointer-events: auto;
+      width: 30%;
+      @media (min-width: $sm) {
+        width: 20%;
+      }
+      margin-bottom: 5rem;
+      z-index: 2000;
     }
     &__buildings {
-      position: relative;
+      position: absolute;
       height: 100px;
+      left: 0;
+      right: 0;
+      bottom: -2rem;
+      @media (min-width: $sm) {
+        bottom: 0;
+      }
       &__icon {
-        position: absolute;
-        width: 900px;
+        width: 100vw;
         height: 100px;
-        left: 0;
-        right: 0;
       }
     }
   }
   &__bubbles-section {
+    background-image: $yellow-pastel-gradient;
+    background-color: white;
+    position: relative;
+    z-index: 3000;
+    // height: 100vh;
     &__title {
       color: $dark-grey;
       font-family: $font-family;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 16px;
       line-height: 1.53;
-      padding-top: 56px;
-      padding-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 10px;
+      margin-left: 2.5%;
+      margin-right: 2.5%;
+      width: 95%;
       @media (min-width: $sm) {
-        padding-bottom: 55px;
+        font-size: 20px;
+        margin-left: 10%;
+        margin-right: 10%;
+        width: 80%;
       }
-      margin-left: 10%;
-      margin-right: 10%;
     }
   }
   &__assembly-section {
+    // height: 100vh;
+    background-color: white;
+    border-bottom: 1px solid #EBEBEB;
     &__title {
       color: $dark-grey;
       font-family: $font-family;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 20px;
+      @media (min-width: $sm) {
+        font-size: 30px;
+      }
       line-height: 1.53;
-      padding-top: 56px;
-      padding-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 10px;
       margin-left: 10%;
       margin-right: 10%;
     }
     &__subtitle {
       margin-left: 10%;
       margin-right: 10%;
-      @media (min-width: $md) {
-        margin-left: 25%;
-        margin-right: 25%;
-      }
       color: $grey;
       font-weight: 300;
       font-family: $font-family;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 1.67;
+      @media (min-width: $md) {
+        font-size: 18px;
+        margin-left: 25%;
+        margin-right: 25%;
+      }
+    }
+  }
+  &__stats-section {
+    overflow-y: hidden;
+    // height: 100vh;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 1rem;
+    @media (min-width: $sm) {
+      padding: 5rem;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    &__row {
+      margin-bottom: 2rem;
+      overflow-y: hidden;
+      &__col {
+        margin-bottom: 3rem;
+        padding-left: 10%;
+        padding-right: 10%;
+        @media (min-width: $sm) {
+          margin-bottom: 0;
+          padding-left: 5%;
+          padding-right: 5%;
+        }
+        &__icon {
+          height: 8rem;
+          width: 8rem;
+          padding: 1rem;
+          margin-bottom: 0;
+          @media (min-width: $sm) {
+            padding: 2.5rem;
+            height: 11rem;
+            width: 11rem;
+          }
+          &--people {
+            padding: 0;
+            height: 9rem;
+            width: 9rem;
+            @media (min-width: $sm) {
+              height: 11rem;
+              width: 11rem;
+            }
+          }
+          min-height: 12rem;
+        }
+        &__text {
+          padding-left: 10%;
+          padding-right: 10%;
+          @media (min-width: $sm) {
+            padding-left: 5%;
+            padding-right: 5%;
+          }
+          color: #282828;
+          font-weight: 300;
+          font-family: $font-family;
+          font-size: 16px;
+          line-height: 1.67;
+        }
+      }
     }
   }
   &__participate-section {
     background-image: $yellow-pastel-gradient;
-    &__subtitle {
-      margin-left: 10%;
-      margin-right: 10%;
-      @media (min-width: $md) {
-        margin-left: 25%;
-        margin-right: 25%;
-      }
-      color: $grey;
-      font-weight: 300;
-      font-family: $font-family;
-      font-size: 18px;
-      line-height: 1.67;
-    }
+    // height: 100vh;
     &__title {
       color: $grey;
       font-weight: bold;
-      font-size: $title-font-size;
+      font-size: 20px;
+      @media (min-width: $sm) {
+        font-size: 30px;
+      }
       line-height: $title-line-height;
       padding-top: 56px;
       margin-bottom: 50px;
@@ -156,7 +253,7 @@
           &__text {
             height: 100%;
             font-family: $font-family;
-            font-size: 18px;
+            font-size: 16px;
             line-height: 1.5;
             font-weight: 300;
             padding: 10px;
@@ -187,12 +284,27 @@
             font-weight: bold;
             font-size: 14px;
             @media (min-width: $md) {
-              font-size: 18px;
+              font-size: 16px;
             }
             line-height: 1.67;
           }
         }
       }
+    }
+    &__subtitle {
+      margin-left: 10%;
+      margin-right: 10%;
+      @media (min-width: $md) {
+        margin-left: 30%;
+        margin-right: 30%;
+        width: 40%;
+      }
+      color: $grey;
+      font-family: $font-family;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.67;
+      margin-bottom: 3rem;
     }
     &__social-shares {
       margin-left: 5%;
@@ -201,26 +313,29 @@
         margin-left: 30%;
         margin-right: 30%;
       }
-      margin-bottom: 50px;
+      margin-bottom: 3rem;
     }
     &__cta {
       color: $grey;
       background-color: $apple-green;
-      margin-bottom: 100px;
+      margin-bottom: 3rem;
     }
   }
   &__team-section {
     background-image: $total-blue-pastel-gradient;
     overflow-y: hidden;
+    // height: 100vh;
     &__title {
       color: $grey;
       font-weight: bold;
       font-size: $title-font-size;
       line-height: $title-line-height;
-      padding-top: 56px;
-      margin-bottom: 30px;
+      padding-top: 1rem;
+      margin-bottom: 1rem;
     }
     &__container {
+      padding-top: 1%;
+      padding-bottom: 1%;
       margin-left: 10%;
       margin-right: 10%;
       @media (min-width: $sm) {
@@ -236,14 +351,6 @@
         margin-right: 15%;
       }
       overflow-y: hidden;
-      &__thanks {
-        color: $grey;
-        font-family: $font-family;
-        padding-top: 30px;
-        margin-bottom: 90px;
-        font-size: 18px;
-        font-weight: 300;
-      }
       &__rows {
         overflow-y: hidden;
         &__profile {
@@ -277,9 +384,9 @@
             &__name {
               color: $grey;
               font-family: $font-family;
-              font-size: 14px;
+              font-size: 12px;
               @media (min-width: $md) {
-                font-size: 18px;
+                font-size: 14px;
               }
               font-weight: 500;
               margin-bottom: 5px;
@@ -287,9 +394,9 @@
             &__speciality {
               color: $light-grey;
               font-family: $font-family;
-              font-size: 14px;
+              font-size: 12px;
               @media (min-width: $md) {
-                font-size: 18px;
+                font-size: 14px;
               }
               font-weight: 300;
             }
@@ -299,10 +406,11 @@
     }
   }
   &__partners-section {
-    margin-bottom: 58px;
+    margin-bottom: 2rem;
     overflow-y: hidden;
+    // height: 100vh;
     &__title {
-      color: $grey;
+      font-family: $font-family;
       font-weight: bold;
       font-size: $title-font-size;
       line-height: $title-line-height;
@@ -316,21 +424,22 @@
       }
       &__partner {
         &__img {
-          height: 180px;
-          width: 180px;
+          min-height: 180px;
+          &__wax {
+            padding: 1.5rem;
+          }
         }
         &__title {
-          color: $grey;
           font-family: $font-family;
           font-weight: 500;
-          font-size: 24px;
+          font-size: 20px;
         }
         &__subtitle {
-          color: $light-grey;
           font-family: $font-family;
-          font-size: 14px;
+          font-size: 16px;
+          font-weight: 300;
           line-height: 1.29;
-          opacity: 0.3;
+          min-height: 6rem;
           @media (max-width: $md) {
             margin-left: 30%;
             margin-right: 30%;

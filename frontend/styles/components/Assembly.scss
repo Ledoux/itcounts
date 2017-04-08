@@ -1,6 +1,7 @@
 .assembly {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   &__dropdown {
+    padding-top: 20px;
     margin-bottom: 10px;
     @media (min-width: $md) {
       display: none;
@@ -12,6 +13,7 @@
       font-family: $font-family;
       font-size: 18px;
       font-weight: bold;
+      text-align-last: center;
     }
   }
   &__slider {
@@ -20,8 +22,8 @@
     }
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 50px;
-    border-bottom: 2px solid #505050;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #505050;
     overflow-y: hidden;
     &__container {
       button:focus {
@@ -32,20 +34,20 @@
         border: 0;
         color: $grey;
         font-family: $font-family;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 300;
         cursor: pointer;
-        padding: 1rem;
+        min-height: 60px;
         width: 100%;
         transition: all 0.5s;
         &--selected {
           color: $option-grey;
-          font-size: 22px;
+          font-size: 18px;
           font-weight: bold;
         }
       }
       &__selector {
-        height: 20px;
+        height: 4px;
         position: relative;
         &__shift {
           background-color: $apple-green;
@@ -69,40 +71,37 @@
     overflow: hidden;
     &__legend {
       background-color: #FAFAFA;
-      box-shadow: 5px 5px 5px #888888;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
       border-radius: 20px;
       padding: 10px;
       margin-bottom: 30px;
+      min-height: 30rem;
       @media (max-width: $mini) {
-        margin-left: 2%;
-        margin-right: 2%;
-        min-width: 96%;
-      }
-      @media (min-width: $sm) {
-        padding: 20px;
-        margin-left: 25%;
-        margin-right: 25%;
-        min-width: 50%;
-      }
-      @media (min-width: $md) {
-        margin-left: 0;
-        margin-right: 0px;
-        width: initial;
-        min-width: 300px;
-      }
-      @media (min-width: $lg) {
-        margin-left: 1%;
-        margin-right: 50px;
+        width: 100%;
       }
       &__title {
         color: $option-grey;
         font-family: $font-family;
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 15px;
         padding: 10px;
         text-align: left;
+        position: relative;
+        margin-bottom: 3rem;
+        &--legend {
+          margin-bottom: 1rem;
+        }
+        &__subtitle {
+          color: $option-grey;
+          font-family: $font-family;
+          font-size: 16px;
+          font-weight: 300;
+          text-align: left;
+          position: absolute;;
+          width: 80%;
+        }
       }
+
       &__switch {
         font-family: $font-family;
         font-size: 14px;
@@ -111,7 +110,8 @@
       &__row {
         margin-bottom: 5px;
         overflow-y: hidden;
-        &__icon {
+        &__pastille {
+          border-radius: 50%;
           height: 15px;
           width: 15px;
         }
@@ -122,26 +122,24 @@
           font-weight: 300;
           margin-bottom: 15px;
           text-align: left;
+          max-width: 70%;
         }
       }
     }
     &__viz {
-      padding: 5px;
+      padding: 0.25rem;
       @media (min-width: $md) {
-        height: 100%;
-        // width: 65%;
-        padding: 5px;
-        margin-top: 5%;
-      }
-      @media (min-width: $lg) {
-        margin-top: 0;
+        padding: 3rem;
       }
     }
   }
   &__description {
     color: $grey;
     font-family: $font-family;
-    font-size: 18px;
+    font-size: 14px;
+    @media (min-width: $sm) {
+      font-size: 18px;
+    }
     font-weight: 300;
     line-height: 1.67;
     margin-left: 15%;

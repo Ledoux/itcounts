@@ -1,24 +1,11 @@
 .header {
   color: black;
-  background-image: $header-blue-pastel-gradient;;
   align-items: center;
   z-index: 3;
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
-
-  @media (min-width: $sm) {
-    height: $header-height;
-  }
-
-  .logo {
-    height: 40px;
-    width: 40px;
-    @media (min-width: $sm) {
-      height: 66px;
-      width: 66px;
-    }
-  }
+  height: $header-height;
 
   &__top-nav {
     height: 100%;
@@ -50,6 +37,8 @@
       @media (min-width: $sm) {
         margin-right: 5px;
       }
+      z-index: 3000;
+      pointer-events: all;
       &__link {
         color: $grey;
         font-family: $font-family;

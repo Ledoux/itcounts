@@ -1,9 +1,14 @@
+// test on https://cards-dev.twitter.com/validator
+
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
 
 import Button from './Button'
 import Icon from './Icon'
-import { HASHTAGS, FACEBOOK_APP_ID, PROD_URL } from '../utils/secret'
+import { HASHTAGS,
+  FACEBOOK_APP_ID,
+  SWEET_PROD_URL
+} from '../utils/foos'
 
 const SocialShares = ({
   appUrl,
@@ -14,7 +19,7 @@ const SocialShares = ({
   shareUrl,
   title
 }) => {
-  const tagDescription = `${description} ${HASHTAGS} ${PROD_URL}`
+  const tagDescription = `${description} ${HASHTAGS} ${SWEET_PROD_URL}`
   return (<div className={classnames(className,"social-shares center")}>
     <Button
         className='button social-shares__share col sm-col-6'
@@ -39,8 +44,8 @@ SocialShares.defaultProps =  {
   appUrl: 'http://pariteaupouvoir.heroku.com',
   caption: 'Parité au Pouvoir',
   description: "Signez notre pétition pour plus de femmes à l'Assemblée Nationale !",
-  imageUrl: 'http://pariteaupouvoir.heroku.com/static/images/camembert.png',
-  shareUrl: 'http://pariteaupouvoir.heroku.com',
+  imageUrl: `${SWEET_PROD_URL}/static/images/camembert.png`,
+  shareUrl: SWEET_PROD_URL,
   title: ' '
 }
 
