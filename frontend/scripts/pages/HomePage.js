@@ -2,6 +2,7 @@ import React from 'react'
 
 import Assembly from '../components/Assembly'
 import Bubbles from '../components/Bubbles'
+import Barchart from '../components/Barchart'
 import Button from '../components/Button'
 import Icon from '../components/Icon'
 import Link from '../components/Link'
@@ -63,7 +64,7 @@ const HomePage = () => {
           D&eacute;couvrez la proportion de femmes &agrave; l&#39;Assembl&eacute;e Nationale
           selon leur:
         </p>
-        <Bubbles />
+        <Barchart />
       </PageSection>
 
       <PageSection
@@ -131,7 +132,7 @@ const HomePage = () => {
         />
         <p className="home-page__participate-section__subtitle mb3">
           Encouragez la representativit&eacute; des femmes dans les instances de
-          pouvoir politiques et publiques : <a> signez notre p&eacute;titiion </a>
+          pouvoir politiques et publiques : <a> signez notre p&eacute;tition </a>
           pour avoir un impact &agrave; l&#39;Assembl&eacute;e Nationale !
         </p>
         <Button
@@ -255,30 +256,6 @@ const HomePage = () => {
               </a>
             </div>
           </div>
-        </div>
-      </PageSection>
-
-      <PageSection extraClass='home-page__find-section center'>
-        <p className="home-page__find-section__title mb2">
-          Rejoignez-nous
-        </p>
-        <div className="home-page__find-section__container">
-          <a href="https://www.facebook.com/pariteaupouvoir"
-            target="_blank"
-          >
-            <Icon
-              className='home-page__find-section__container__icon mr3'
-              icon='facebook'
-            />
-          </a>
-          <a href="https://twitter.com/PariteAuPouvoir"
-            target="_blank"
-          >
-            <Icon
-              className='home-page__find-section__container__icon'
-              icon='twitter'
-            />
-          </a>
         </div>
       </PageSection>
 

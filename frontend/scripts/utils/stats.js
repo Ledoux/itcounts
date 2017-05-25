@@ -17,7 +17,7 @@ const stats = [
     (13,7%) de la commission des finances.`
   }], [{
     icon: 'homme_femme_mode_demploi',
-    text: `Les femmes ont en moyenne 52,9 ans et les hommes 55,2 ans`
+    text: `Les femmes ont en moyenne 58 ans et les hommes 60 ans`
   }, {
     icon: 'people',
     text: `Les hommes sont 3 fois plus nombreux à avoir un 3ème
