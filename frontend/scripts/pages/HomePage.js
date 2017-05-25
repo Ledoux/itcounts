@@ -2,7 +2,6 @@ import React from 'react'
 
 import Assembly from '../components/Assembly'
 import Bubbles from '../components/Bubbles'
-import Barchart from '../components/Barchart'
 import Button from '../components/Button'
 import Icon from '../components/Icon'
 import Link from '../components/Link'
@@ -64,7 +63,7 @@ const HomePage = () => {
           D&eacute;couvrez la proportion de femmes &agrave; l&#39;Assembl&eacute;e Nationale
           selon leur:
         </p>
-        <Barchart />
+        <Bubbles />
       </PageSection>
 
       <PageSection
