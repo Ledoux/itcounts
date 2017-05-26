@@ -10,6 +10,10 @@ new WebpackDevServer(
   webpack(config),
   {
     contentBase: 'backend/express-webrouter/templates/',
+    headers: {
+      // helpful for style font cors pbm
+      "Access-Control-Allow-Origin": "*"
+    },
     hot: true,
     historyApiFallback: true,
     publicPath: config.output.publicPath,
