@@ -1,5 +1,4 @@
 node_modules
 npm-debug.log
-secret.js
+*_secret.sh
 yarn-error.log
-app/static/scripts/index_bundle.js
