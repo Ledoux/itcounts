@@ -11,7 +11,6 @@ import {
   forceManyBody,
   forceSimulation
 } from 'd3-force'
-import { quadtree } from 'd3-quadtree'
 import { scaleSqrt } from 'd3-scale'
 import { event, select, selectAll } from 'd3-selection'
 import throttle from 'lodash.throttle'

@@ -2,7 +2,6 @@ import classnames from 'classnames'
 import React, { Component } from 'react'
 
 const Option = ({}) => (<button onClick>
-
 </button>)
 
 class Slider extends Component {
@@ -15,8 +14,7 @@ class Slider extends Component {
     this.setState({ selectedIndex })
   }
   render () {
-    const {
-      handleOptionClick,
+    const { handleOptionClick,
       updateBubbles
     } = this
     const { className,
