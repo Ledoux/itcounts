@@ -1,33 +1,21 @@
-import React from 'react'
 import assign from 'lodash.assign'
+import React from 'react'
 
-import { Link as ReactRouterLink } from 'react-router'
+import { Link as ReactRouterLink } from 'react-router-dom'
 
 const Link = (props) => {
   const useAnchor = (props.target && props.target === '_blank') ||
     props.download ||
-    props.external ||
-    props.forceAnchorElement
-  const linkProps = Object.assign({}, props)
-  let isExternal = false
-  if (linkProps.external) {
-    isExternal = true
-    delete linkProps.external
-  }
+    props.external
+  const linkProps = assign({}, props)
   const LinkComponent = useAnchor ? 'a' : ReactRouterLink
-  if (!useAnchor) {
-    linkProps.to = linkProps.href
+  delete linkProps.external
+  delete linkProps.useAnchor
+  if (typeof props.href === 'undefined' && props.onClick) {
+    return <button {...props} />
+  } else {
+    return <LinkComponent {...linkProps} to={props.href} />
   }
-  if (linkProps.onClick) {
-    linkProps.onClick = (e) => {
-      e.preventDefault()
-      if (!isExternal) {
-        window.history.pushState(null, null, linkProps.href)
-      }
-      props.onClick()
-    }
-  }
-  return <LinkComponent {...linkProps} />
 }
 
 export default Link

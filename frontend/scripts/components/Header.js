@@ -28,7 +28,7 @@ const Header = ({
             document.querySelector(`section#${sectionId}`)
                     .scrollIntoView({behavior: 'smooth'})
           }}
-          {...{forceAnchorElement: true}}
+          {...{useAnchor: true}}
         >
             {label}
         </Link>) })}

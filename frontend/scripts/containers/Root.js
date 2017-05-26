@@ -1,12 +1,14 @@
+import createBrowserHistory from 'history/createBrowserHistory'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Router, useRouterHistory } from 'react-router'
-import { createHistory } from 'history'
+import { BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
 
 import { IS_NODE, BASE_NAME } from '../utils/config'
-import routes from '../utils/routes'
+import { routes } from '../utils/routing'
 
-export const browserHistory = IS_NODE ? undefined : useRouterHistory(createHistory)({
+export const browserHistory = IS_NODE ? undefined : createBrowserHistory({
   basename: BASE_NAME
 })
 
@@ -38,7 +40,15 @@ const Root = class Root extends Component {
   render () {
     return (
       <Provider store={this.props.store}>
-        <Router history={browserHistory} children={routes} />
+        <Router history={browserHistory} >
+          <div>
+            {
+              routes.map((route, index) =>
+                <Route key={index} {...route} />
+              )
+            }
+          </div>
+        </Router>
       </Provider>
     )
   }

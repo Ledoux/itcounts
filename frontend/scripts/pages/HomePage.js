@@ -262,7 +262,7 @@ const HomePage = () => {
         <div className='home-page__footer-section__links flex justify-center'>
           <a className='mr1' href='mailto:waxscience@gmail.com' style={
               {textDecoration: 'none', color: 'white'}
-            } external>
+            }>
             Contact
           </a>
           <p className='mr1'>

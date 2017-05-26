@@ -13,7 +13,6 @@ const Button = ({children,
   href,
   onClick,
   target,
-  forceAnchorElement,
   type }) => {
   const classes = className || 'button'
   if (href) {
@@ -22,7 +21,6 @@ const Button = ({children,
         external={external}
         href={href}
         target={target}
-        forceAnchorElement={forceAnchorElement}
         className={classes}
         download={download}
       >{children}</Link>
