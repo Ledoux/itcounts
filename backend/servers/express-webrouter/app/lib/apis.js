@@ -41,7 +41,8 @@ function setApisWithAppAndModel(app, model) {
       if (err) {
         res.send(err);
       }
-      res.json(deputeDetails); // return all nerds in JSON format
+      res.json(deputeDetails // return all nerds in JSON format
+      );
     });
   });
   app.get('/api/dataviz_bubble/age_range/:range', isDb, function (req, res) {
@@ -50,7 +51,8 @@ function setApisWithAppAndModel(app, model) {
       if (err) {
         res.send(err);
       }
-      res.json(deputeDetails); // return all nerds in JSON format
+      res.json(deputeDetails // return all nerds in JSON format
+      );
     });
   });
   app.get('/api/dataviz_bubble_V2', isDb, function (req, res) {
@@ -63,7 +65,8 @@ function setApisWithAppAndModel(app, model) {
       if (err) {
         res.send(err);
       }
-      res.json(deputeDetails); // return all nerds in JSON format
+      res.json(deputeDetails // return all nerds in JSON format
+      );
     });
   });
   app.get('/api/hemicycle/form', isDb, function (req, res) {

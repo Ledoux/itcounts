@@ -31,7 +31,18 @@ const Header = ({
           {...{useAnchor: true}}
         >
             {label}
-        </Link>) })}
+        </Link>
+      )}).concat([
+          <Link
+            className='link header__top-nav__links__link'
+            download='parite_au_pouvoir.pdf'
+            href='/static/en-savoir-plus.pdf'
+            key={links.length}
+          >
+            EN SAVOIR PLUS
+          </Link>
+        ])
+      }
     </div>
   </div>
 </header>)
