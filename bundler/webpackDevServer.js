@@ -1,22 +1,21 @@
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 
-const config = require('./dev.config')
+const devConfig = require('./dev.config')
+const serverConfig = require('./server.config.js')
 
-const HOST = config.hotAssetsServer.host
-const PORT = config.hotAssetsServer.port
+const HOST = serverConfig.host
+const PORT = serverConfig.port
 
-new WebpackDevServer(
-  webpack(config),
+new WebpackDevServer(webpack(devConfig),
   {
-    contentBase: 'backend/express-webrouter/templates/',
+    contentBase: 'backend/servers/express-webrouter/app/templates/',
     headers: {
-      // helpful for style font cors pbm
       "Access-Control-Allow-Origin": "*"
     },
     hot: true,
     historyApiFallback: true,
-    publicPath: config.output.publicPath,
+    publicPath: devConfig.output.publicPath,
 
     // provide less noisy output from webpack
     quiet: false,
@@ -35,4 +34,5 @@ new WebpackDevServer(
   if (err) {
     return console.log(err)
   }
+  console.log(`You hot server is available here http://${HOST}:${PORT}`)
 })

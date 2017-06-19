@@ -1,55 +1,43 @@
 const webpack = require('webpack')
 
 const config = require('./config')
+const serverConfig = require('./server.config.js')
 
-const HOST = '0.0.0.0'
-const PORT = 3000
-
-const hotAssetsServer = {
-  host: HOST,
-  port: PORT,
-  url: `http://${HOST}:${PORT}`
-}
-
-module.exports = Object.assign(
+module.exports = Object.assign({},
   config,
-  { hotAssetsServer: hotAssetsServer },
   {
     devtool: 'source-map',
     entry: Object.assign({
       index: [
         'react-hot-loader/patch',
-        `webpack-dev-server/client?${hotAssetsServer.url}`,
+        `webpack-dev-server/client?${serverConfig.url}`,
         'webpack/hot/only-dev-server'
       ].concat(config.entry.index)
     }),
     module: {
-      loaders: config.module.loaders.concat([{
-          test: /\.(eot|woff|woff2|ttf|otf|svg|png|jpg)$/,
-          loader: 'url-loader?limit=30000'
-        },
-        {
+      rules: config.module.rules.concat([{
           test: /\.s?css$/,
-          loader: 'style!css!postcss!sass',
-          exclude: /node_modules/
+          // exclude: /node_modules/,
+          use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+          ]
         },
         {
-          test: /plugin\.css$/,
-          loaders: [
-            'style', 'css',
-          ],
+          test: /\.(eot|woff|woff2|ttf|otf|svg|png|jpg)$/,
+          use: 'url-loader?limit=30000'
         }
       ])
     },
-    output: Object.assign(config.output, {
-      publicPath: `${hotAssetsServer.url}${config.output.publicPath}/`
-    }),
+    output: Object.assign({},
+      config.output,
+      {
+        // note that the output.publicPath has already a slash at the beginning
+        publicPath: `${serverConfig.url}${config.output.publicPath}/`
+      }
+    ),
     plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.ProvidePlugin({
-        'Promise': 'exports?global.Promise!es6-promise',
-        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      })
+      new webpack.HotModuleReplacementPlugin()
     ]
-  }
-)
+  })
